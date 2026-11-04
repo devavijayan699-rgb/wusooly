@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -9,10 +9,18 @@ import CafeRestaurantFeaturesSection from "./components/CafeRestaurantFeaturesSe
 import FAQSection from "./components/FAQSection";
 import DownloadSection from "./components/DownloadSection";
 import PricingSection from "./components/PricingSection";
+import { gsap, ScrollTrigger } from "../lib/gsap";
 import styles from "./page.module.css";
 
 export default function Home() {
   const [selectedAudience, setSelectedAudience] = useState("retail"); // "retail" | "cafe"
+  const containerRef = useRef(null);
+  const heroRef = useRef(null);
+  const bgImageRef = useRef(null);
+  const navbarRef = useRef(null);
+  const audienceRef = useRef(null);
+  const headlineRef = useRef(null);
+  const descRef = useRef(null);
 
   useEffect(() => {
     const handleHash = () => {
@@ -28,19 +36,165 @@ export default function Home() {
     return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
+  // ── Master Hero GSAP Timeline ──
+  useEffect(() => {
+    if (typeof window === "undefined" || !containerRef.current) return;
+
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isReduced) {
+      if (bgImageRef.current) gsap.set(bgImageRef.current, { opacity: 1, scale: 1 });
+      if (navbarRef.current) gsap.set(navbarRef.current, { opacity: 1, y: 0 });
+      if (audienceRef.current) gsap.set(audienceRef.current, { opacity: 1, y: 0 });
+      if (headlineRef.current) gsap.set(headlineRef.current.querySelectorAll(`.${styles.headlineLine}`), { opacity: 1, yPercent: 0 });
+      if (descRef.current) gsap.set(descRef.current, { opacity: 1, y: 0 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const heroTl = gsap.timeline({ paused: true });
+
+      // Initial states
+      if (bgImageRef.current) {
+        gsap.set(bgImageRef.current, {
+          clipPath: "inset(8% 0% 8% 0%)",
+          scale: 1.08,
+          opacity: 0.6,
+        });
+      }
+      if (navbarRef.current) {
+        gsap.set(navbarRef.current, { opacity: 0, y: -16 });
+      }
+      if (audienceRef.current) {
+        gsap.set(audienceRef.current, { opacity: 0, y: 20 });
+      }
+      if (headlineRef.current) {
+        gsap.set(headlineRef.current.querySelectorAll(`.${styles.headlineLine}`), {
+          opacity: 0,
+          yPercent: 115,
+        });
+      }
+      if (descRef.current) {
+        gsap.set(descRef.current, { opacity: 0, y: 20 });
+      }
+
+      // 1. Background artwork clip reveal & scale decay
+      if (bgImageRef.current) {
+        heroTl.to(bgImageRef.current, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          scale: 1.0,
+          opacity: 1,
+          duration: 1.5,
+          ease: "expo.out",
+        });
+      }
+
+      // 2. Audience Selector rises
+      if (audienceRef.current) {
+        heroTl.to(
+          audienceRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: "expo.out",
+          },
+          0.18
+        );
+      }
+
+      // 3. Headline lines rise out of their overflow masks
+      if (headlineRef.current) {
+        heroTl.to(
+          headlineRef.current.querySelectorAll(`.${styles.headlineLine}`),
+          {
+            opacity: 1,
+            yPercent: 0,
+            duration: 1.15,
+            stagger: 0.08,
+            ease: "expo.out",
+          },
+          0.32
+        );
+      }
+
+      // 4. Description copy softly rises
+      if (descRef.current) {
+        heroTl.to(
+          descRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.95,
+            ease: "expo.out",
+          },
+          0.55
+        );
+      }
+
+      // 5. Navbar glides smoothly in
+      if (navbarRef.current) {
+        heroTl.to(
+          navbarRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+            ease: "expo.out",
+          },
+          0.4
+        );
+      }
+
+      // Start timeline when preloader completes, or immediately if already visited
+      const hasSeenIntro = sessionStorage.getItem("wusooly_intro_seen");
+      if (hasSeenIntro) {
+        heroTl.play();
+      } else {
+        const handlePreloaderDone = () => heroTl.play();
+        window.addEventListener("wusooly_preloader_complete", handlePreloaderDone, { once: true });
+
+        // Safety fallback timer so content is never hidden
+        const fallbackTimer = setTimeout(() => {
+          heroTl.play();
+        }, 2200);
+
+        return () => {
+          window.removeEventListener("wusooly_preloader_complete", handlePreloaderDone);
+          clearTimeout(fallbackTimer);
+        };
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Soft cross-fade when switching between Retail & Café audience
+  useEffect(() => {
+    if (!headlineRef.current || !descRef.current) return;
+    const isReduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isReduced) return;
+
+    gsap.fromTo(
+      [headlineRef.current.querySelectorAll(`.${styles.headlineLine}`), descRef.current],
+      { opacity: 0.3, y: 6 },
+      { opacity: 1, y: 0, duration: 0.45, stagger: 0.04, ease: "power2.out" }
+    );
+  }, [selectedAudience]);
+
   const handleGetDemo = () => {
     window.location.href = "/contact";
   };
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={styles.pageContainer} ref={containerRef}>
       {/* ====================================================================
           Hero Section
           ==================================================================== */}
-      <section className={styles.heroSection} aria-label="Wusooly POS Hero">
+      <section className={styles.heroSection} ref={heroRef} aria-label="Wusooly POS Hero">
 
         {/* Layer 1: Dedicated Background Artwork Layer */}
-        <div className={styles.bgArtworkLayer} style={{ position: "absolute" }} aria-hidden="true">
+        <div className={styles.bgArtworkLayer} ref={bgImageRef} style={{ position: "absolute" }} aria-hidden="true">
           <Image
             src="/assets/hero-pos.webp"
             alt="Wusooly POS display in clean forest-green studio with monitor, billing dashboard, marble pedestals, plants and ribbed glass panel"
@@ -55,7 +209,7 @@ export default function Home() {
         </div>
 
         {/* Layer 2: Floating Rounded Glass Navbar */}
-        <div className={styles.navbarContainer}>
+        <div className={styles.navbarContainer} ref={navbarRef}>
           <Navbar onGetDemo={handleGetDemo} />
         </div>
 
@@ -63,6 +217,7 @@ export default function Home() {
         <div className={styles.heroContent}>
           {/* Audience Selector Segmented Control */}
           <div
+            ref={audienceRef}
             className={styles.audienceSelector}
             role="tablist"
             aria-label="Select your store category"
@@ -102,22 +257,30 @@ export default function Home() {
           </div>
 
           {/* Headline - Deliberate Two-Line Layout on Desktop */}
-          <h1 className={styles.headline} id="hero-copy-panel">
+          <h1 className={styles.headline} id="hero-copy-panel" ref={headlineRef}>
             {selectedAudience === "retail" ? (
               <>
-                <span className={styles.headlineLine}>Run your store with</span>
-                <span className={styles.headlineLine}>more control.</span>
+                <span className={styles.headlineMask}>
+                  <span className={styles.headlineLine}>Run your store with</span>
+                </span>
+                <span className={styles.headlineMask}>
+                  <span className={styles.headlineLine}>more control.</span>
+                </span>
               </>
             ) : (
               <>
-                <span className={styles.headlineLine}>Every order. One</span>
-                <span className={styles.headlineLine}>simple system.</span>
+                <span className={styles.headlineMask}>
+                  <span className={styles.headlineLine}>Every order. One</span>
+                </span>
+                <span className={styles.headlineMask}>
+                  <span className={styles.headlineLine}>simple system.</span>
+                </span>
               </>
             )}
           </h1>
 
           {/* Description */}
-          <p className={styles.description}>
+          <p className={styles.description} ref={descRef}>
             {selectedAudience === "retail"
               ? "Handle billing, stock, purchases, expenses, and performance reports with Wusooly POS, built for everyday retail operations."
               : "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS."}

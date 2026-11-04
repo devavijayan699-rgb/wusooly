@@ -2,37 +2,149 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import TransitionLink from "../components/TransitionLink";
+import Magnetic from "../components/Magnetic";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import styles from "./about.module.css";
 
 export default function AboutPage() {
   const containerRef = useRef(null);
 
-  // Scroll Reveal via IntersectionObserver
+  // ── GSAP ScrollTrigger Orchestration for About Page ──
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
+    if (typeof window === "undefined" || !containerRef.current) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isReduced) {
+      gsap.set(containerRef.current.querySelectorAll(`.${styles.reveal}`), {
+        opacity: 1,
+        y: 0,
+      });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      // 1. Hero Headline & Subtext
+      gsap.fromTo(
+        `.${styles.heroMain}`,
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.15,
+          ease: "expo.out",
+        }
+      );
+
+      // 2. Hero Purpose Card
+      gsap.fromTo(
+        `.${styles.purposeCard}`,
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.15,
+          delay: 0.18,
+          ease: "expo.out",
+        }
+      );
+
+      // 3. Photo Strip: Clip-Path Reveal + Scale Decay
+      const photoFrames = gsap.utils.toArray(`.${styles.photoFrame}`);
+      photoFrames.forEach((frame, i) => {
+        gsap.fromTo(
+          frame,
+          { clipPath: "inset(12% 0% 12% 0%)", opacity: 0.7 },
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            opacity: 1,
+            duration: 1.25,
+            delay: i * 0.12,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: frame,
+              start: "top 88%",
+              once: true,
+            },
           }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
-      }
-    );
+        );
+      });
 
-    const revealElements = document.querySelectorAll(`.${styles.reveal}`);
-    revealElements.forEach((el) => observer.observe(el));
+      // 4. Story Card & Mission Card
+      gsap.fromTo(
+        [`.${styles.storyCard}`, `.${styles.missionCard}`],
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.15,
+          stagger: 0.15,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: `.${styles.storySection}`,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
 
-    return () => {
-      revealElements.forEach((el) => observer.unobserve(el));
-      observer.disconnect();
-    };
+      // 5. Core Values Bento Grid
+      gsap.fromTo(
+        `.${styles.valueCard}`,
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.1,
+          stagger: 0.08,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: `.${styles.valuesGrid}`,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+
+      // 6. Dual Split Cards
+      gsap.fromTo(
+        [`.${styles.splitCardLight}`, `.${styles.splitCardDark}`],
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.15,
+          stagger: 0.12,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: `.${styles.splitGrid}`,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+
+      // 7. Outro Card
+      gsap.fromTo(
+        `.${styles.outroCard}`,
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.15,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: `.${styles.outroCard}`,
+            start: "top 88%",
+            once: true,
+          },
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -117,10 +229,12 @@ export default function AboutPage() {
             <p className={styles.storyBody}>
               We believe powerful technology should be simple and reliable. At Wusooly, we build tools that help businesses streamline daily operations, save hours of manual work, and focus entirely on their customers.
             </p>
-            <Link href="/contact" className={styles.cardBtn}>
-              <span>Get to Know Us</span>
-              <span className={styles.btnArrow} aria-hidden="true">&rarr;</span>
-            </Link>
+            <Magnetic>
+              <TransitionLink href="/contact" className={styles.cardBtn}>
+                <span>Get to Know Us</span>
+                <span className={styles.btnArrow} aria-hidden="true">&rarr;</span>
+              </TransitionLink>
+            </Magnetic>
           </div>
 
           <div className={styles.storyMedia}>
@@ -343,10 +457,12 @@ export default function AboutPage() {
           <p className={styles.outroSubtext}>
             Talk to our team about Wusooly for your business.
           </p>
-          <Link href="/contact" className={styles.outroBtn}>
-            <span>Get in Touch</span>
-            <span className={styles.btnArrow} aria-hidden="true">&rarr;</span>
-          </Link>
+          <Magnetic>
+            <TransitionLink href="/contact" className={styles.outroBtn}>
+              <span>Get in Touch</span>
+              <span className={styles.btnArrow} aria-hidden="true">&rarr;</span>
+            </TransitionLink>
+          </Magnetic>
         </div>
       </section>
 
@@ -355,4 +471,3 @@ export default function AboutPage() {
     </main>
   );
 }
-

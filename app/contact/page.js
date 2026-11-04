@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Input, Select, Button } from "@ziqx/react-comps";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Magnetic from "../components/Magnetic";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import styles from "./contact.module.css";
 
 const BUSINESS_OPTIONS = [
@@ -27,6 +29,60 @@ export default function ContactPage() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const containerRef = useRef(null);
+  const infoCardRef = useRef(null);
+  const formCardRef = useRef(null);
+  const bannerRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !containerRef.current) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isReduced) {
+      if (infoCardRef.current) gsap.set(infoCardRef.current, { opacity: 1, y: 0 });
+      if (formCardRef.current) gsap.set(formCardRef.current, { opacity: 1, y: 0 });
+      if (bannerRef.current) gsap.set(bannerRef.current, { opacity: 1, y: 0 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      // 1. Two main cards entrance
+      if (infoCardRef.current && formCardRef.current) {
+        gsap.fromTo(
+          [infoCardRef.current, formCardRef.current],
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.15,
+            stagger: 0.12,
+            ease: "expo.out",
+          }
+        );
+      }
+
+      // 2. Outro Banner entrance
+      if (bannerRef.current) {
+        gsap.fromTo(
+          bannerRef.current,
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.15,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: bannerRef.current,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,7 +129,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} ref={containerRef}>
       {/* ── Top Header Navigation Bar (Contact Liquid Glass Navbar) ── */}
       <div className={styles.navbarContainer}>
         <Navbar onGetDemo={handleGetDemoNavbar} variant="contact" />
@@ -82,7 +138,7 @@ export default function ContactPage() {
       {/* ── Main Two-Column Container ── */}
       <div className={styles.mainContainer}>
         {/* Left Column: Forest Green Showcase Card */}
-        <div className={styles.infoCard}>
+        <div className={styles.infoCard} ref={infoCardRef}>
           <div className={styles.infoTop}>
             <h1 className={styles.headline}>
               Talk to<br />our team.
@@ -138,7 +194,7 @@ export default function ContactPage() {
         </div>
 
         {/* Right Column: Clean White Form Card */}
-        <div className={styles.formCard}>
+        <div className={styles.formCard} ref={formCardRef}>
           {!submitted ? (
             <form onSubmit={handleSubmit} className={styles.form}>
               {/* Name */}
@@ -229,25 +285,27 @@ export default function ContactPage() {
               </div>
 
               {/* Action Button */}
-              <Button
-                type="submit"
-                variant="primary"
-                loading={submitting}
-                loadingLabel="Sending..."
-                bgColor="#a3e635"
-                fgColor="#071a0e"
-                full
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontWeight: "700",
-                  fontSize: "0.95rem",
-                  padding: "13px 24px",
-                  borderRadius: "9999px",
-                  boxShadow: "0 4px 16px rgba(163, 230, 53, 0.35)",
-                }}
-              >
-                Get in Touch
-              </Button>
+              <Magnetic style={{ width: "100%" }}>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  loading={submitting}
+                  loadingLabel="Sending..."
+                  bgColor="#a3e635"
+                  fgColor="#071a0e"
+                  full
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontWeight: "700",
+                    fontSize: "0.95rem",
+                    padding: "13px 24px",
+                    borderRadius: "9999px",
+                    boxShadow: "0 4px 16px rgba(163, 230, 53, 0.35)",
+                  }}
+                >
+                  Get in Touch
+                </Button>
+              </Magnetic>
 
               {/* Privacy Note */}
               <p className={styles.privacyNote}>
@@ -276,22 +334,24 @@ export default function ContactPage() {
                 We&apos;ve received your demo request,{" "}
                 <strong>{formData.name || "friend"}</strong>. A Wusooly POS specialist will be in touch shortly.
               </p>
-              <Button
-                type="button"
-                variant="primary"
-                bgColor="#a3e635"
-                fgColor="#071a0e"
-                onClick={handleReset}
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontWeight: "700",
-                  fontSize: "0.9rem",
-                  borderRadius: "9999px",
-                  padding: "10px 22px",
-                }}
-              >
-                Submit another request
-              </Button>
+              <Magnetic>
+                <Button
+                  type="button"
+                  variant="primary"
+                  bgColor="#a3e635"
+                  fgColor="#071a0e"
+                  onClick={handleReset}
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontWeight: "700",
+                    fontSize: "0.9rem",
+                    borderRadius: "9999px",
+                    padding: "10px 22px",
+                  }}
+                >
+                  Submit another request
+                </Button>
+              </Magnetic>
             </div>
           )}
         </div>
@@ -299,30 +359,32 @@ export default function ContactPage() {
 
       {/* ── Store Operations Outro Banner ── */}
       <section className={styles.bannerSection} aria-label="Store operations banner">
-        <div className={styles.bannerCard}>
+        <div className={styles.bannerCard} ref={bannerRef}>
           <h2 className={styles.bannerTitle}>
             Ready to bring your store<br className={styles.bannerBr} />operations together?
           </h2>
           <p className={styles.bannerSubtext}>
             Talk to our team about Wusooly for your business.
           </p>
-          <Button
-            type="button"
-            variant="primary"
-            bgColor="#a3e635"
-            fgColor="#071a0e"
-            onClick={handleScrollToForm}
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontWeight: "700",
-              fontSize: "0.92rem",
-              borderRadius: "9999px",
-              padding: "13px 28px",
-              boxShadow: "0 2px 10px rgba(163, 230, 53, 0.3)",
-            }}
-          >
-            Get in Touch →
-          </Button>
+          <Magnetic>
+            <Button
+              type="button"
+              variant="primary"
+              bgColor="#a3e635"
+              fgColor="#071a0e"
+              onClick={handleScrollToForm}
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontWeight: "700",
+                fontSize: "0.92rem",
+                borderRadius: "9999px",
+                padding: "13px 28px",
+                boxShadow: "0 2px 10px rgba(163, 230, 53, 0.3)",
+              }}
+            >
+              Get in Touch →
+            </Button>
+          </Magnetic>
         </div>
       </section>
 

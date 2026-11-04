@@ -1,39 +1,96 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Magnetic from "./Magnetic";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import styles from "./DownloadSection.module.css";
 
 export default function DownloadSection() {
   const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsRef = useRef(null);
+  const ltsRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (typeof window === "undefined" || !sectionRef.current) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const els = sectionRef.current?.querySelectorAll(`.${styles.reveal}`);
-    if (!els?.length) return;
+    if (isReduced) {
+      if (headerRef.current) gsap.set(headerRef.current, { opacity: 1, y: 0 });
+      if (cardsRef.current) gsap.set(cardsRef.current.children, { opacity: 1, y: 0 });
+      if (ltsRef.current) gsap.set(ltsRef.current, { opacity: 1, y: 0 });
+      return;
+    }
 
-    const io = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add(styles.visible);
-            io.unobserve(e.target);
+    const ctx = gsap.context(() => {
+      // 1. Header reveal
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.15,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 88%",
+              once: true,
+            },
           }
-        }),
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
+        );
+      }
 
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+      // 2. Dual Platform cards staggered upward rise
+      if (cardsRef.current) {
+        gsap.fromTo(
+          cardsRef.current.children,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.15,
+            stagger: 0.14,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+      }
+
+      // 3. LTS link reveal
+      if (ltsRef.current) {
+        gsap.fromTo(
+          ltsRef.current,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: ltsRef.current,
+              start: "top 90%",
+              once: true,
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   const handleDownload = (platform) => {
     console.log(`Initiating download for ${platform}`);
-    // Simulate interactive download trigger
-    const alertMsg = platform === "windows"
-      ? "Downloading Wusooly for Windows (64-bit installer)..."
-      : "Downloading Wusooly for macOS (.dmg)...";
+    const alertMsg =
+      platform === "windows"
+        ? "Downloading Wusooly for Windows (64-bit installer)..."
+        : "Downloading Wusooly for macOS (.dmg)...";
     alert(alertMsg);
   };
 
@@ -46,7 +103,7 @@ export default function DownloadSection() {
     >
       <div className={styles.container}>
         {/* Header - STRICTLY ZERO EYEBROW TEXT */}
-        <header className={`${styles.header} ${styles.reveal}`}>
+        <header className={styles.header} ref={headerRef}>
           <h2 className={styles.headline}>Download Wusooly</h2>
           <p className={styles.subtext}>
             Get the desktop app for Windows or macOS to manage billing, inventory, and sales.
@@ -54,9 +111,9 @@ export default function DownloadSection() {
         </header>
 
         {/* Dual Platform Cards Grid */}
-        <div className={styles.cardsGrid}>
+        <div className={styles.cardsGrid} ref={cardsRef}>
           {/* Windows Platform Card */}
-          <div className={`${styles.card} ${styles.reveal}`}>
+          <div className={styles.card}>
             <div className={styles.cardTop}>
               <div className={styles.iconSquircle} aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -74,7 +131,9 @@ export default function DownloadSection() {
                 <div className={styles.metaItem}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
                   </svg>
                   <span>Released 19-10-2026</span>
                 </div>
@@ -82,31 +141,35 @@ export default function DownloadSection() {
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                     <rect x="4" y="4" width="16" height="16" rx="2" />
                     <rect x="9" y="9" width="6" height="6" />
-                    <line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" />
-                    <line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" />
+                    <line x1="9" y1="1" x2="9" y2="4" />
+                    <line x1="15" y1="1" x2="15" y2="4" />
+                    <line x1="9" y1="20" x2="9" y2="23" />
+                    <line x1="15" y1="20" x2="15" y2="23" />
                   </svg>
                   <span>64-bit · 4 GB RAM · 500 MB storage</span>
                 </div>
               </div>
             </div>
 
-            <button
-              type="button"
-              className={styles.downloadBtn}
-              onClick={() => handleDownload("windows")}
-              aria-label="Download Wusooly for Windows"
-            >
-              <span>Download for Windows</span>
-              <div className={styles.arrowBubble} aria-hidden="true">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M12 5v14M19 12l-7 7-7-7" />
-                </svg>
-              </div>
-            </button>
+            <Magnetic style={{ width: "100%" }}>
+              <button
+                type="button"
+                className={styles.downloadBtn}
+                onClick={() => handleDownload("windows")}
+                aria-label="Download Wusooly for Windows"
+              >
+                <span>Download for Windows</span>
+                <div className={styles.arrowBubble} aria-hidden="true">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M12 5v14M19 12l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+            </Magnetic>
           </div>
 
           {/* macOS Platform Card */}
-          <div className={`${styles.card} ${styles.reveal}`}>
+          <div className={styles.card}>
             <div className={styles.cardTop}>
               <div className={styles.iconSquircle} aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -124,7 +187,9 @@ export default function DownloadSection() {
                 <div className={styles.metaItem}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
                   </svg>
                   <span>Released 19-10-2026</span>
                 </div>
@@ -132,32 +197,36 @@ export default function DownloadSection() {
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                     <rect x="4" y="4" width="16" height="16" rx="2" />
                     <rect x="9" y="9" width="6" height="6" />
-                    <line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" />
-                    <line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" />
+                    <line x1="9" y1="1" x2="9" y2="4" />
+                    <line x1="15" y1="1" x2="15" y2="4" />
+                    <line x1="9" y1="20" x2="9" y2="23" />
+                    <line x1="15" y1="20" x2="15" y2="23" />
                   </svg>
                   <span>macOS 12+ · 4 GB RAM · 500 MB storage</span>
                 </div>
               </div>
             </div>
 
-            <button
-              type="button"
-              className={styles.downloadBtn}
-              onClick={() => handleDownload("macos")}
-              aria-label="Download Wusooly for macOS"
-            >
-              <span>Download for macOS</span>
-              <div className={styles.arrowBubble} aria-hidden="true">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M12 5v14M19 12l-7 7-7-7" />
-                </svg>
-              </div>
-            </button>
+            <Magnetic style={{ width: "100%" }}>
+              <button
+                type="button"
+                className={styles.downloadBtn}
+                onClick={() => handleDownload("macos")}
+                aria-label="Download Wusooly for macOS"
+              >
+                <span>Download for macOS</span>
+                <div className={styles.arrowBubble} aria-hidden="true">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M12 5v14M19 12l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+            </Magnetic>
           </div>
         </div>
 
         {/* Secondary Legacy / LTS Link */}
-        <div className={`${styles.ltsRow} ${styles.reveal}`}>
+        <div className={styles.ltsRow} ref={ltsRef}>
           <a
             href="#lts"
             className={styles.ltsLink}
@@ -178,4 +247,3 @@ export default function DownloadSection() {
     </section>
   );
 }
-

@@ -1,6 +1,8 @@
 :root {
   /* ── Core Font Families ── */
   --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: 'Funnel Display', var(--font-sans);
+  --font-body: 'Manrope', var(--font-sans);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   /* ── Fluid Typographic Scale ── */
@@ -45,6 +47,12 @@
 
   --emerald-glow: rgba(14, 113, 75, 0.4);
   --sunbeam-glow: rgba(120, 150, 110, 0.22);
+
+  /* ── Motion System Tokens (GSAP & CSS Sync) ── */
+  --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
+  --motion-micro: 0.35s;
+  --motion-base: 1.15s;
 }
 
 *,
@@ -113,5 +121,37 @@ textarea {
   100% {
     transform: scale(1.04);
     opacity: 1;
+  }
+}
+
+/* ── SplitText Line Masks ── */
+.w-split-parent {
+  overflow: hidden !important;
+  display: block;
+}
+
+.w-split-child {
+  display: block;
+  will-change: transform, opacity;
+}
+
+/* ── Accessibility: Prefers Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .w-split-parent {
+    overflow: visible !important;
+  }
+
+  .w-split-child {
+    transform: none !important;
+    opacity: 1 !important;
   }
 }

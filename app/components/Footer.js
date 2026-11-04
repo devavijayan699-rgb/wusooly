@@ -1,13 +1,45 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import TransitionLink from "./TransitionLink";
+import Magnetic from "./Magnetic";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import styles from "./Footer.module.css";
 
 export default function Footer({ onGetDemo, theme = "dark" }) {
   const currentYear = 2026;
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !footerRef.current) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isReduced) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        footerRef.current,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 95%",
+            once: true,
+          },
+        }
+      );
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <footer
+      ref={footerRef}
       className={`${styles.footerWrapper} ${
         theme === "light" ? styles.wrapperLight : ""
       }`}
@@ -21,7 +53,7 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
         <div className={styles.grid}>
           {/* Column 1: Brand & Mission */}
           <div className={styles.brandCol}>
-            <a href="/" className={styles.brandLogo} aria-label="Wusooly POS Home">
+            <TransitionLink href="/" className={styles.brandLogo} aria-label="Wusooly POS Home">
               <Image
                 src={
                   theme === "light"
@@ -33,7 +65,7 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
                 height={28}
                 className={styles.logoImg}
               />
-            </a>
+            </TransitionLink>
             <p className={styles.brandDesc}>
               POS and business-management software for shops, supermarkets, cafés
               and restaurants.
@@ -45,14 +77,14 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
             <h3 className={styles.colTitle}>Solutions</h3>
             <ul className={styles.linkList}>
               <li>
-                <a href="/#solutions-retail" className={styles.link}>
+                <TransitionLink href="/solutions#retail" className={styles.link}>
                   Shops &amp; Supermarkets
-                </a>
+                </TransitionLink>
               </li>
               <li>
-                <a href="/#solutions-cafe" className={styles.link}>
+                <TransitionLink href="/solutions#cafe" className={styles.link}>
                   Cafés &amp; Restaurants
-                </a>
+                </TransitionLink>
               </li>
               <li>
                 <a href="/#download" className={styles.link}>
@@ -67,14 +99,14 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
             <h3 className={styles.colTitle}>Company</h3>
             <ul className={styles.linkList}>
               <li>
-                <a href="/pricing" className={styles.link}>
+                <TransitionLink href="/pricing" className={styles.link}>
                   Pricing
-                </a>
+                </TransitionLink>
               </li>
               <li>
-                <a href="/about" className={styles.link}>
+                <TransitionLink href="/about" className={styles.link}>
                   About
-                </a>
+                </TransitionLink>
               </li>
               <li>
                 <a href="/#faq" className={styles.link}>
@@ -82,23 +114,27 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
                 </a>
               </li>
               <li>
-                <a href="/contact" className={styles.link}>
+                <TransitionLink href="/contact" className={styles.link}>
                   Contact
-                </a>
+                </TransitionLink>
               </li>
               <li>
                 {onGetDemo ? (
-                  <button
-                    type="button"
-                    onClick={onGetDemo}
-                    className={`${styles.link} ${styles.demoLinkBtn}`}
-                  >
-                    Get a Demo
-                  </button>
+                  <Magnetic strength={0.25} maxDisplacement={8}>
+                    <button
+                      type="button"
+                      onClick={onGetDemo}
+                      className={`${styles.link} ${styles.demoLinkBtn}`}
+                    >
+                      Get a Demo
+                    </button>
+                  </Magnetic>
                 ) : (
-                  <a href="/contact" className={styles.link}>
-                    Get a Demo
-                  </a>
+                  <Magnetic strength={0.25} maxDisplacement={8}>
+                    <TransitionLink href="/contact" className={styles.link}>
+                      Get a Demo
+                    </TransitionLink>
+                  </Magnetic>
                 )}
               </li>
             </ul>

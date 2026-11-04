@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 
 /**
  * EditorialFeaturesStandalone.jsx
@@ -118,6 +119,36 @@ export default function EditorialFeaturesStandalone({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [modalOpen]);
+
+  // GSAP ScrollTrigger for Editorial Cards
+  useEffect(() => {
+    if (typeof window === "undefined" || !sectionRef.current) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isReduced) return;
+
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray(".w-card", sectionRef.current);
+      cards.forEach((card) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.15,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [audience]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();

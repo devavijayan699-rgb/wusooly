@@ -75,19 +75,6 @@ npm/* ==========================================================================
   padding: 0 24px;
   margin-top: clamp(20px, 3.8vh, 42px);
   max-width: 860px;
-  animation: heroTextReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes heroTextReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Audience Selector Segmented Control */
@@ -151,9 +138,15 @@ npm/* ==========================================================================
   align-items: center;
 }
 
+.headlineMask {
+  overflow: hidden;
+  display: block;
+}
+
 .headlineLine {
   display: block;
   white-space: nowrap;
+  will-change: transform, opacity;
 }
 
 /* Description Typography */

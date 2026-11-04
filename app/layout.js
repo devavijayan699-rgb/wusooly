@@ -1,6 +1,9 @@
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import "@ziqx/react-comps/styles.css";
+import SmoothScroll from "./components/SmoothScroll";
+import TransitionProvider from "./components/TransitionProvider";
+import Preloader from "./components/Preloader";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -10,16 +13,35 @@ const manrope = Manrope({
 });
 
 export const metadata = {
-  title: "Wusooly POS | 16:9 Hero",
+  title: "Wusooly POS | Point of Sale & Business Management",
   description: "Wusooly POS display in full-width 16:9 high definition.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={manrope.variable} suppressHydrationWarning>
+      <head>
+        {/* Inline script to append .js class instantly before paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js');`,
+          }}
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Manrope:wght@300..800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <div className="ambient-glow" aria-hidden="true" />
-        {children}
+        <SmoothScroll>
+          <TransitionProvider>
+            <Preloader />
+            {children}
+          </TransitionProvider>
+        </SmoothScroll>
       </body>
     </html>
   );

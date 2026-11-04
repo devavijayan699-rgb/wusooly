@@ -1,8 +1,69 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import Magnetic from "./Magnetic";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import styles from "./PricingSection.module.css";
 
 export default function PricingSection({ onGetDemo, id = "pricing" }) {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !sectionRef.current) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isReduced) {
+      if (headerRef.current) gsap.set(headerRef.current, { opacity: 1, y: 0 });
+      if (gridRef.current) gsap.set(gridRef.current.children, { opacity: 1, y: 0 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      // 1. Header reveal
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.15,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      }
+
+      // 2. Cards stagger upward
+      if (gridRef.current) {
+        gsap.fromTo(
+          gridRef.current.children,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            stagger: 0.14,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const handleAction = (planName) => {
     if (typeof onGetDemo === "function") {
       onGetDemo(planName);
@@ -12,10 +73,10 @@ export default function PricingSection({ onGetDemo, id = "pricing" }) {
   };
 
   return (
-    <section className={styles.pricingWrap} id={id} aria-label="Wusooly POS Pricing Plans">
+    <section className={styles.pricingWrap} id={id} ref={sectionRef} aria-label="Wusooly POS Pricing Plans">
       <div className={styles.contentContainer}>
         {/* ── Section Header ── */}
-        <header className={styles.headerBlock}>
+        <header className={styles.headerBlock} ref={headerRef}>
           <h2 className={styles.headline}>
             Plans that grow your business.
           </h2>
@@ -25,7 +86,7 @@ export default function PricingSection({ onGetDemo, id = "pricing" }) {
         </header>
 
         {/* ── Two Pricing Cards ── */}
-        <div className={styles.pricingGrid}>
+        <div className={styles.pricingGrid} ref={gridRef}>
           {/* ══════════════════════════════════════════════════════════
               CARD 1: POS Core (Crisp White Card)
               ══════════════════════════════════════════════════════════ */}
@@ -141,14 +202,16 @@ export default function PricingSection({ onGetDemo, id = "pricing" }) {
             </div>
 
             {/* Bottom CTA Button */}
-            <button
-              type="button"
-              className={styles.cardBtnCore}
-              onClick={() => handleAction("POS Core")}
-            >
-              <span>Get Quote</span>
-              <span aria-hidden="true">&rarr;</span>
-            </button>
+            <Magnetic style={{ width: "100%" }}>
+              <button
+                type="button"
+                className={styles.cardBtnCore}
+                onClick={() => handleAction("POS Core")}
+              >
+                <span>Get Quote</span>
+                <span aria-hidden="true">&rarr;</span>
+              </button>
+            </Magnetic>
           </div>
 
           {/* ══════════════════════════════════════════════════════════
@@ -230,14 +293,16 @@ export default function PricingSection({ onGetDemo, id = "pricing" }) {
             </div>
 
             {/* Bottom CTA Button */}
-            <button
-              type="button"
-              className={styles.cardBtnGrowth}
-              onClick={() => handleAction("Cloud & Growth")}
-            >
-              <span>Get Quote</span>
-              <span aria-hidden="true">&rarr;</span>
-            </button>
+            <Magnetic style={{ width: "100%" }}>
+              <button
+                type="button"
+                className={styles.cardBtnGrowth}
+                onClick={() => handleAction("Cloud & Growth")}
+              >
+                <span>Get Quote</span>
+                <span aria-hidden="true">&rarr;</span>
+              </button>
+            </Magnetic>
           </div>
         </div>
       </div>

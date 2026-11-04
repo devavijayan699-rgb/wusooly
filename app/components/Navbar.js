@@ -3,6 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import TransitionLink from "./TransitionLink";
+import Magnetic from "./Magnetic";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import styles from "./Navbar.module.css";
 
 export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen = false }) {
@@ -65,6 +68,40 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
     };
   }, []);
 
+  // Smart Nav Show/Hide on Scroll Direction (Desktop only)
+  useEffect(() => {
+    if (typeof window === "undefined" || !navRef.current) return;
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!isFinePointer || isReduced) return;
+
+    const showAnim = gsap
+      .from(navRef.current, {
+        yPercent: -120,
+        paused: true,
+        duration: 0.35,
+        ease: "power2.out",
+      })
+      .progress(1);
+
+    const st = ScrollTrigger.create({
+      start: "top top",
+      end: 99999,
+      onUpdate: (self) => {
+        if (self.direction === -1) {
+          showAnim.play();
+        } else if (self.scroll() > 140) {
+          showAnim.reverse();
+        }
+      },
+    });
+
+    return () => {
+      st.kill();
+      showAnim.kill();
+    };
+  }, []);
+
   const handleLinkClick = () => {
     setSolutionsOpen(false);
     setMobileMenuOpen(false);
@@ -77,7 +114,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
         aria-label="Main Navigation"
       >
         {/* Left: Brand Logo */}
-        <a href="/" className={styles.brandLogo} aria-label="Wusooly POS Home" onClick={handleLinkClick}>
+        <TransitionLink href="/" className={styles.brandLogo} aria-label="Wusooly POS Home" onClick={handleLinkClick}>
           <Image
             src={theme === "light" ? "/assets/wusooly-brand-logo-dark.png" : "/assets/wusooly-brand-logo.png"}
             alt="Wusooly POS"
@@ -86,7 +123,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
             priority
             className={styles.brandLogoImg}
           />
-        </a>
+        </TransitionLink>
 
         {/* Center: Desktop Navigation Links */}
         <div className={styles.navLinks}>
@@ -97,7 +134,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <a
+            <TransitionLink
               href="/solutions"
               className={`${styles.navItem} ${styles.dropdownTrigger} ${
                 pathname === "/solutions" || solutionsOpen
@@ -123,14 +160,14 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
               >
                 <polyline points="6 9 12 15 18 9" />
               </svg>
-            </a>
+            </TransitionLink>
 
             {solutionsOpen && (
               <div
                 className={`${styles.dropdownMenu} ${isSageLiquid ? styles.dropdownContact : ""}`}
                 role="menu"
               >
-                <a
+                <TransitionLink
                   href="/solutions#retail"
                   className={styles.dropdownItem}
                   role="menuitem"
@@ -159,9 +196,9 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
                       <span className={styles.dropdownItemDesc}>High-speed barcode checkout &amp; inventory</span>
                     </div>
                   </div>
-                </a>
+                </TransitionLink>
 
-                <a
+                <TransitionLink
                   href="/solutions#cafe"
                   className={styles.dropdownItem}
                   role="menuitem"
@@ -192,52 +229,54 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
                       <span className={styles.dropdownItemDesc}>Kitchen printing, table &amp; shift billing</span>
                     </div>
                   </div>
-                </a>
+                </TransitionLink>
               </div>
             )}
           </div>
 
-          <a
+          <TransitionLink
             href="/pricing"
             className={`${styles.navItem} ${pathname === "/pricing" ? styles.dropdownTriggerActive : ""}`}
             onClick={handleLinkClick}
           >
             Pricing
-          </a>
+          </TransitionLink>
           <a href="/#download" className={styles.navItem} onClick={handleLinkClick}>
             Download
           </a>
-          <a
+          <TransitionLink
             href="/about"
             className={`${styles.navItem} ${pathname === "/about" ? styles.dropdownTriggerActive : ""}`}
             onClick={handleLinkClick}
           >
             About
-          </a>
-          <a
+          </TransitionLink>
+          <TransitionLink
             href="/contact"
             className={`${styles.navItem} ${pathname === "/contact" ? styles.dropdownTriggerActive : ""}`}
             onClick={handleLinkClick}
           >
             Contact
-          </a>
+          </TransitionLink>
         </div>
 
         {/* Right: Get a Demo Button & Mobile Menu Toggle */}
         <div className={styles.rightActions}>
-          <a
-            href="/contact"
-            className={styles.getDemoBtn}
-            onClick={(e) => {
-              if (onGetDemo) {
-                e.preventDefault();
-                onGetDemo();
-              }
-              handleLinkClick();
-            }}
-          >
-            Get a Demo
-          </a>
+          <Magnetic strength={0.35} maxDisplacement={10}>
+            <TransitionLink
+              href="/contact"
+              className={styles.getDemoBtn}
+              onClick={(e) => {
+                if (onGetDemo) {
+                  e.preventDefault();
+                  onGetDemo();
+                }
+                handleLinkClick();
+              }}
+            >
+              Get a Demo
+            </TransitionLink>
+          </Magnetic>
 
           {/* Mobile Hamburger Toggle */}
           <button

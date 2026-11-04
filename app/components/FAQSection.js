@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import Magnetic from "./Magnetic";
+import TransitionLink from "./TransitionLink";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import styles from "./FAQSection.module.css";
 
 const FAQ_ITEMS = [
@@ -51,13 +54,92 @@ const FAQ_ITEMS = [
 export default function FAQSection() {
   // First item open by default for immediate engagement, others collapsed
   const [openIndex, setOpenIndex] = useState(0);
+  const sectionRef = useRef(null);
+  const headlineRef = useRef(null);
+  const subtextRef = useRef(null);
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !sectionRef.current) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isReduced) {
+      if (headlineRef.current) gsap.set(headlineRef.current.children, { opacity: 1, y: 0 });
+      if (subtextRef.current) gsap.set(subtextRef.current, { opacity: 1, y: 0 });
+      if (listRef.current) gsap.set(listRef.current.children, { opacity: 1, y: 0 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      // 1. Headline words masked rise
+      if (headlineRef.current) {
+        gsap.fromTo(
+          headlineRef.current.children,
+          { opacity: 0, yPercent: 100 },
+          {
+            opacity: 1,
+            yPercent: 0,
+            stagger: 0.08,
+            duration: 1.15,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: headlineRef.current,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      }
+
+      // 2. Subtext fade
+      if (subtextRef.current) {
+        gsap.fromTo(
+          subtextRef.current,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.95,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: headlineRef.current,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      }
+
+      // 3. Accordion items stagger rise
+      if (listRef.current) {
+        gsap.fromTo(
+          listRef.current.children,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.07,
+            duration: 0.95,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: listRef.current,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const toggleItem = (index) => {
     setOpenIndex((prev) => (prev === index ? -1 : index));
   };
 
   return (
-    <section className={styles.faqSection} id="faq" aria-label="Frequently Asked Questions">
+    <section className={styles.faqSection} id="faq" ref={sectionRef} aria-label="Frequently Asked Questions">
       {/* Background Halftone / Dot Grid Canvas Texture */}
       <div className={styles.gridPattern} aria-hidden="true" />
 
@@ -65,12 +147,12 @@ export default function FAQSection() {
         {/* Left Column: Zero Eyebrow, Pure Display Headline & Context */}
         <div className={styles.headerCol}>
           <div className={styles.stickyHeader}>
-            <h2 className={styles.headline}>
-              <span className={styles.headlineDark}>Frequently</span>
-              <span className={styles.headlineDark}>Asked</span>
-              <span className={styles.headlineLime}>Questions</span>
+            <h2 className={styles.headline} ref={headlineRef} style={{ overflow: "hidden" }}>
+              <span className={styles.headlineDark} style={{ display: "inline-block" }}>Frequently</span>{" "}
+              <span className={styles.headlineDark} style={{ display: "inline-block" }}>Asked</span>{" "}
+              <span className={styles.headlineLime} style={{ display: "inline-block" }}>Questions</span>
             </h2>
-            <p className={styles.subtext}>
+            <p className={styles.subtext} ref={subtextRef}>
               Everything you need to know about Wusooly. From billing and inventory to reports
               and integrations, we have got you covered.
             </p>
@@ -79,7 +161,7 @@ export default function FAQSection() {
 
         {/* Right Column: Accordion List & Bottom CTA */}
         <div className={styles.faqCol}>
-          <div className={styles.accordionList} role="region" aria-label="FAQ Accordion">
+          <div className={styles.accordionList} ref={listRef} role="region" aria-label="FAQ Accordion">
             {FAQ_ITEMS.map((item, index) => {
               const isOpen = openIndex === index;
               const headingId = `faq-title-${item.id}`;
@@ -139,29 +221,31 @@ export default function FAQSection() {
 
           {/* Bottom CTA Row: Arrow Circle + Still have a question? */}
           <div className={styles.ctaRow}>
-            <a href="/contact" className={styles.ctaCard} aria-label="Still have a question? Contact our team">
-              <div className={styles.ctaCircle}>
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className={styles.ctaArrow}
-                  aria-hidden="true"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </div>
-              <div className={styles.ctaContent}>
-                <span className={styles.ctaTitle}>Still have a question?</span>
-                <span className={styles.ctaSub}>CONTACT OUR TEAM</span>
-              </div>
-            </a>
+            <Magnetic strength={0.3} maxDisplacement={10}>
+              <TransitionLink href="/contact" className={styles.ctaCard} aria-label="Still have a question? Contact our team">
+                <div className={styles.ctaCircle}>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={styles.ctaArrow}
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </div>
+                <div className={styles.ctaContent}>
+                  <span className={styles.ctaTitle}>Still have a question?</span>
+                  <span className={styles.ctaSub}>CONTACT OUR TEAM</span>
+                </div>
+              </TransitionLink>
+            </Magnetic>
           </div>
         </div>
       </div>
