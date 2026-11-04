@@ -121,13 +121,14 @@ export default function EditorialFeaturesStandalone({
     };
   }, [modalOpen]);
 
-  // Ambient ScrollTrigger for Editorial Cards (content-first, zero blank space)
+  // Ambient ScrollTrigger for Editorial Cards & "Window to the World" Photo Scrub
   useEffect(() => {
     if (typeof window === "undefined" || !sectionRef.current) return;
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (isReduced) return;
 
     const ctx = gsap.context(() => {
+      // 1. Content-first ambient entrance on scroll
       const cards = gsap.utils.toArray(".w-card", sectionRef.current);
       cards.forEach((card) => {
         gsap.fromTo(
@@ -146,9 +147,38 @@ export default function EditorialFeaturesStandalone({
           }
         );
       });
+
+      // 2. "Window to the World" inner photo scrub inside existing .w-visual-card containers
+      const visualCards = gsap.utils.toArray(".w-visual-card", sectionRef.current);
+      visualCards.forEach((card) => {
+        const img = card.querySelector(".w-visual-img");
+        if (img) {
+          gsap.fromTo(
+            img,
+            { yPercent: -6 },
+            {
+              yPercent: 6,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            }
+          );
+        }
+      });
     }, sectionRef);
 
-    return () => ctx.revert();
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 250);
+
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
   }, [audience]);
 
   const handleFormSubmit = (e) => {
@@ -322,6 +352,17 @@ export default function EditorialFeaturesStandalone({
           border-radius: var(--w-radius);
           overflow: hidden;
           position: relative;
+          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .w-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.12);
+        }
+
+        .w-hero-card:hover,
+        .w-visual-card:hover {
+          box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(180, 240, 70, 0.22);
         }
 
         /* ── Row 1 Hero Card (Forest Green) ── */
@@ -516,12 +557,14 @@ export default function EditorialFeaturesStandalone({
 
         .w-visual-img {
           position: absolute;
-          inset: 0;
+          top: -8%;
+          left: 0;
           width: 100%;
-          height: 100%;
+          height: 116%;
           object-fit: cover;
           display: block;
           z-index: 0;
+          will-change: transform;
         }
 
         .w-scrim {
@@ -998,6 +1041,14 @@ export default function EditorialFeaturesStandalone({
           </div>
         )}
 
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={audience}
+            initial={{ opacity: 0.65, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0.65, y: -8 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+          >
         {/* ══════════════════════════════════════════════════════════════════
             SHOPS & SUPERMARKETS — MINIMAL PREMIUM BENTO GRID
             ══════════════════════════════════════════════════════════════════ */}
@@ -1480,6 +1531,8 @@ export default function EditorialFeaturesStandalone({
             </div>
           </div>
         )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* ── Demo Modal ── */}

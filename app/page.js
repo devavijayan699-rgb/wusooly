@@ -22,6 +22,7 @@ export default function Home() {
   const audienceRef = useRef(null);
   const headlineRef = useRef(null);
   const descRef = useRef(null);
+  const heroContentRef = useRef(null);
 
   useEffect(() => {
     const handleHash = () => {
@@ -82,6 +83,7 @@ export default function Home() {
         gsap.set(headlineRef.current.querySelectorAll(`.${styles.headlineLine}`), {
           opacity: 0,
           yPercent: 75,
+          letterSpacing: "-0.038em",
         });
       }
       if (descRef.current) {
@@ -126,13 +128,14 @@ export default function Home() {
         );
       }
 
-      // 4. Headline lines rise cleanly
+      // 4. Headline lines rise cleanly with kinetic tracking compression
       if (headlineRef.current) {
         heroTl.to(
           headlineRef.current.querySelectorAll(`.${styles.headlineLine}`),
           {
             opacity: 1,
             yPercent: 0,
+            letterSpacing: "-0.022em",
             duration: 0.65,
             stagger: 0.05,
             ease: "expo.out",
@@ -154,6 +157,36 @@ export default function Home() {
           0.28
         );
       }
+
+      // 6. Hero 4-Layer Optical Parallax Scrubbing
+      if (heroRef.current) {
+        if (bgImageRef.current) {
+          gsap.to(bgImageRef.current, {
+            yPercent: 12,
+            ease: "none",
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }
+
+        if (heroContentRef.current) {
+          gsap.to(heroContentRef.current, {
+            yPercent: -12,
+            opacity: 0.15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -166,9 +199,14 @@ export default function Home() {
     if (isReduced) return;
 
     gsap.fromTo(
-      [headlineRef.current.querySelectorAll(`.${styles.headlineLine}`), descRef.current],
-      { opacity: 0.3, y: 6 },
-      { opacity: 1, y: 0, duration: 0.45, stagger: 0.04, ease: "power2.out" }
+      headlineRef.current.querySelectorAll(`.${styles.headlineLine}`),
+      { opacity: 0.4, y: 6, letterSpacing: "-0.034em" },
+      { opacity: 1, y: 0, letterSpacing: "-0.022em", duration: 0.45, stagger: 0.04, ease: "expo.out" }
+    );
+    gsap.fromTo(
+      descRef.current,
+      { opacity: 0.4, y: 6 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }
     );
   }, [selectedAudience]);
 
@@ -204,7 +242,7 @@ export default function Home() {
         </div>
 
         {/* Layer 3: Centred Hero Marketing Content */}
-        <div className={styles.heroContent}>
+        <div className={styles.heroContent} ref={heroContentRef}>
           {/* Audience Selector Segmented Control */}
           <div
             ref={audienceRef}
