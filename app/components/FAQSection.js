@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import Magnetic from "./Magnetic";
 import TransitionLink from "./TransitionLink";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
@@ -75,16 +76,16 @@ export default function FAQSection() {
       if (headlineRef.current) {
         gsap.fromTo(
           headlineRef.current.children,
-          { opacity: 0, yPercent: 100 },
+          { opacity: 0.65, y: 8 },
           {
             opacity: 1,
-            yPercent: 0,
-            stagger: 0.08,
-            duration: 1.15,
+            y: 0,
+            stagger: 0.04,
+            duration: 0.5,
             ease: "expo.out",
             scrollTrigger: {
               trigger: headlineRef.current,
-              start: "top 88%",
+              start: "top 95%",
               once: true,
             },
           }
@@ -95,35 +96,35 @@ export default function FAQSection() {
       if (subtextRef.current) {
         gsap.fromTo(
           subtextRef.current,
-          { opacity: 0, y: 20 },
+          { opacity: 0.65, y: 8 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.95,
+            duration: 0.5,
             ease: "expo.out",
             scrollTrigger: {
               trigger: headlineRef.current,
-              start: "top 88%",
+              start: "top 95%",
               once: true,
             },
           }
         );
       }
 
-      // 3. Accordion items stagger rise
+      // 3. Accordion items ambient rise
       if (listRef.current) {
         gsap.fromTo(
           listRef.current.children,
-          { opacity: 0, y: 28 },
+          { opacity: 0.65, y: 10 },
           {
             opacity: 1,
             y: 0,
-            stagger: 0.07,
-            duration: 0.95,
+            stagger: 0.04,
+            duration: 0.5,
             ease: "expo.out",
             scrollTrigger: {
               trigger: listRef.current,
-              start: "top 85%",
+              start: "top 95%",
               once: true,
             },
           }
@@ -204,16 +205,24 @@ export default function FAQSection() {
                     </span>
                   </button>
 
-                  <div
-                    id={contentId}
-                    role="region"
-                    aria-labelledby={headingId}
-                    className={`${styles.answerWrapper} ${isOpen ? styles.wrapperExpanded : ""}`}
-                  >
-                    <div className={styles.answerInner}>
-                      <p className={styles.answerText}>{item.answer}</p>
-                    </div>
-                  </div>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={contentId}
+                        role="region"
+                        aria-labelledby={headingId}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <div className={styles.answerInner}>
+                          <p className={styles.answerText}>{item.answer}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}
@@ -252,4 +261,3 @@ export default function FAQSection() {
     </section>
   );
 }
-

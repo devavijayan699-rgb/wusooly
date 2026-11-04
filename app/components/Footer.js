@@ -19,15 +19,15 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         footerRef.current,
-        { opacity: 0, y: 24 },
+        { opacity: 0.7, y: 8 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.0,
+          duration: 0.45,
           ease: "expo.out",
           scrollTrigger: {
             trigger: footerRef.current,
-            start: "top 95%",
+            start: "top 96%",
             once: true,
           },
         }

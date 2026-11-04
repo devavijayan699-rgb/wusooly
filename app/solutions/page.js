@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion } from "motion/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import EditorialFeaturesSection from "../components/EditorialFeaturesSection";
@@ -43,12 +44,12 @@ export default function SolutionsPage() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         [audienceRef.current, cardRef.current],
-        { opacity: 0, y: 35 },
+        { opacity: 0.7, y: 10 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.15,
-          stagger: 0.12,
+          duration: 0.5,
+          stagger: 0.08,
           ease: "expo.out",
         }
       );
@@ -105,6 +106,13 @@ export default function SolutionsPage() {
                 }
               }}
             >
+              {selectedAudience === "retail" && (
+                <motion.span
+                  layoutId="activeSolutionsAudienceTab"
+                  className={styles.segmentPill}
+                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                />
+              )}
               Shops &amp; Supermarkets
             </button>
             <button
@@ -121,6 +129,13 @@ export default function SolutionsPage() {
                 }
               }}
             >
+              {selectedAudience === "cafe" && (
+                <motion.span
+                  layoutId="activeSolutionsAudienceTab"
+                  className={styles.segmentPill}
+                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                />
+              )}
               Cafés &amp; Restaurants
             </button>
           </div>

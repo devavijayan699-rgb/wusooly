@@ -23,19 +23,19 @@ export default function DownloadSection() {
     }
 
     const ctx = gsap.context(() => {
-      // 1. Header reveal
+      // 1. Header ambient reveal
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
-          { opacity: 0, y: 30 },
+          { opacity: 0.65, y: 10 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.15,
+            duration: 0.5,
             ease: "expo.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 88%",
+              start: "top 95%",
               once: true,
             },
           }
@@ -46,16 +46,16 @@ export default function DownloadSection() {
       if (cardsRef.current) {
         gsap.fromTo(
           cardsRef.current.children,
-          { opacity: 0, y: 40 },
+          { opacity: 0.65, y: 12 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.15,
-            stagger: 0.14,
+            duration: 0.55,
+            stagger: 0.08,
             ease: "expo.out",
             scrollTrigger: {
               trigger: cardsRef.current,
-              start: "top 85%",
+              start: "top 95%",
               once: true,
             },
           }
@@ -66,15 +66,15 @@ export default function DownloadSection() {
       if (ltsRef.current) {
         gsap.fromTo(
           ltsRef.current,
-          { opacity: 0, y: 20 },
+          { opacity: 0.65, y: 8 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.9,
+            duration: 0.45,
             ease: "expo.out",
             scrollTrigger: {
               trigger: ltsRef.current,
-              start: "top 90%",
+              start: "top 95%",
               once: true,
             },
           }

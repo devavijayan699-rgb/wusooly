@@ -29,11 +29,11 @@ export default function AboutPage() {
       // 1. Hero Headline & Subtext
       gsap.fromTo(
         `.${styles.heroMain}`,
-        { opacity: 0, y: 35 },
+        { opacity: 0.7, y: 10 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.15,
+          duration: 0.5,
           ease: "expo.out",
         }
       );
@@ -41,31 +41,31 @@ export default function AboutPage() {
       // 2. Hero Purpose Card
       gsap.fromTo(
         `.${styles.purposeCard}`,
-        { opacity: 0, y: 35 },
+        { opacity: 0.7, y: 10 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.15,
-          delay: 0.18,
+          duration: 0.5,
+          delay: 0.08,
           ease: "expo.out",
         }
       );
 
-      // 3. Photo Strip: Clip-Path Reveal + Scale Decay
+      // 3. Photo Strip: Ambient scale settling
       const photoFrames = gsap.utils.toArray(`.${styles.photoFrame}`);
       photoFrames.forEach((frame, i) => {
         gsap.fromTo(
           frame,
-          { clipPath: "inset(12% 0% 12% 0%)", opacity: 0.7 },
+          { scale: 1.02, opacity: 0.85 },
           {
-            clipPath: "inset(0% 0% 0% 0%)",
+            scale: 1.0,
             opacity: 1,
-            duration: 1.25,
-            delay: i * 0.12,
+            duration: 0.6,
+            delay: i * 0.06,
             ease: "expo.out",
             scrollTrigger: {
               trigger: frame,
-              start: "top 88%",
+              start: "top 95%",
               once: true,
             },
           }
@@ -75,16 +75,16 @@ export default function AboutPage() {
       // 4. Story Card & Mission Card
       gsap.fromTo(
         [`.${styles.storyCard}`, `.${styles.missionCard}`],
-        { opacity: 0, y: 40 },
+        { opacity: 0.65, y: 12 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.15,
-          stagger: 0.15,
+          duration: 0.55,
+          stagger: 0.08,
           ease: "expo.out",
           scrollTrigger: {
             trigger: `.${styles.storySection}`,
-            start: "top 85%",
+            start: "top 95%",
             once: true,
           },
         }
@@ -93,16 +93,16 @@ export default function AboutPage() {
       // 5. Core Values Bento Grid
       gsap.fromTo(
         `.${styles.valueCard}`,
-        { opacity: 0, y: 35 },
+        { opacity: 0.65, y: 10 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.1,
-          stagger: 0.08,
+          duration: 0.5,
+          stagger: 0.05,
           ease: "expo.out",
           scrollTrigger: {
             trigger: `.${styles.valuesGrid}`,
-            start: "top 85%",
+            start: "top 95%",
             once: true,
           },
         }
@@ -111,16 +111,16 @@ export default function AboutPage() {
       // 6. Dual Split Cards
       gsap.fromTo(
         [`.${styles.splitCardLight}`, `.${styles.splitCardDark}`],
-        { opacity: 0, y: 35 },
+        { opacity: 0.65, y: 12 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.15,
-          stagger: 0.12,
+          duration: 0.55,
+          stagger: 0.08,
           ease: "expo.out",
           scrollTrigger: {
             trigger: `.${styles.splitGrid}`,
-            start: "top 85%",
+            start: "top 95%",
             once: true,
           },
         }
@@ -129,15 +129,15 @@ export default function AboutPage() {
       // 7. Outro Card
       gsap.fromTo(
         `.${styles.outroCard}`,
-        { opacity: 0, y: 35 },
+        { opacity: 0.65, y: 10 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.15,
+          duration: 0.5,
           ease: "expo.out",
           scrollTrigger: {
             trigger: `.${styles.outroCard}`,
-            start: "top 88%",
+            start: "top 95%",
             once: true,
           },
         }

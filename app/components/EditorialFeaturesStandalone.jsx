@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 
 /**
@@ -120,7 +121,7 @@ export default function EditorialFeaturesStandalone({
     };
   }, [modalOpen]);
 
-  // GSAP ScrollTrigger for Editorial Cards
+  // Ambient ScrollTrigger for Editorial Cards (content-first, zero blank space)
   useEffect(() => {
     if (typeof window === "undefined" || !sectionRef.current) return;
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -131,15 +132,15 @@ export default function EditorialFeaturesStandalone({
       cards.forEach((card) => {
         gsap.fromTo(
           card,
-          { opacity: 0, y: 35 },
+          { opacity: 0.65, y: 12 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.15,
+            duration: 0.55,
             ease: "expo.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 88%",
+              start: "top 96%",
               once: true,
             },
           }
@@ -237,33 +238,43 @@ export default function EditorialFeaturesStandalone({
         }
 
         .w-segmented-control {
+          position: relative;
           display: inline-flex;
           background: #ecece8;
           border: 1px solid #dfdfd9;
-          padding: 5px;
+          padding: 4px;
           border-radius: 9999px;
           gap: 4px;
           align-self: flex-start;
         }
 
         .w-segment-btn {
+          position: relative;
           background: transparent;
           border: none;
           padding: 10px 22px;
           border-radius: 9999px;
           font-size: 0.9rem;
-          font-weight: 400;
+          font-weight: 500;
           color: #2c3e32;
           cursor: pointer;
           white-space: nowrap;
-          transition: all 0.2s ease;
+          transition: color 0.2s ease;
+          z-index: 1;
         }
 
         .w-segment-btn.active {
-          background: var(--w-lime);
           color: var(--w-forest-dark);
           font-weight: 700;
-          box-shadow: 0 2px 8px rgba(156, 230, 42, 0.3);
+        }
+
+        .w-segment-pill {
+          position: absolute;
+          inset: 0;
+          background: var(--w-lime);
+          border-radius: 9999px;
+          box-shadow: 0 2px 8px rgba(156, 230, 42, 0.35);
+          z-index: -1;
         }
 
         .w-intro-headline {
@@ -934,6 +945,13 @@ export default function EditorialFeaturesStandalone({
                   }`}
                   onClick={() => setAudience("retail")}
                 >
+                  {audience === "retail" && (
+                    <motion.span
+                      layoutId="activeEditorialAudienceTab"
+                      className="w-segment-pill"
+                      transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                    />
+                  )}
                   Shops &amp; Supermarkets
                 </button>
                 <button
@@ -945,6 +963,13 @@ export default function EditorialFeaturesStandalone({
                   }`}
                   onClick={() => setAudience("cafe")}
                 >
+                  {audience === "cafe" && (
+                    <motion.span
+                      layoutId="activeEditorialAudienceTab"
+                      className="w-segment-pill"
+                      transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                    />
+                  )}
                   Cafés &amp; Restaurants
                 </button>
               </div>

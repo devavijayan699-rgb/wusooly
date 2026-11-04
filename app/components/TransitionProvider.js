@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import { ScrollTrigger } from "../../lib/gsap";
 import { useSmoothScroll } from "./SmoothScroll";
 
 export const TransitionContext = createContext({
@@ -15,66 +15,31 @@ export const usePageTransition = () => useContext(TransitionContext);
 export default function TransitionProvider({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const curtainRef = useRef(null);
-  const isTransitioningRef = useRef(false);
-  const pendingHrefRef = useRef(null);
   const { scrollTo } = useSmoothScroll();
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Play "Enter" animation whenever pathname changes after a transition
+  // Handle immediate scroll restoration & anchor resolution on route change
   useEffect(() => {
-    if (!curtainRef.current) return;
-    const curtain = curtainRef.current;
+    const targetHash = typeof window !== "undefined" && window.location.hash
+      ? window.location.hash.slice(1)
+      : "";
 
-    const targetHash = pendingHrefRef.current?.includes("#")
-      ? pendingHrefRef.current.split("#")[1]
-      : (typeof window !== "undefined" && window.location.hash ? window.location.hash.slice(1) : "");
-
-    // If there is NO hash target, reset scroll to top immediately
     if (!targetHash && typeof window !== "undefined") {
       window.scrollTo(0, 0);
       scrollTo?.(0, { immediate: true });
     }
 
     // Refresh ScrollTriggers for new page DOM
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 100);
-
-    // If curtain was covering screen during a transition, wipe it away
-    if (isTransitioningRef.current) {
-      gsap.to(curtain, {
-        clipPath: "inset(0 0 100% 0)",
-        duration: 0.55,
-        ease: "power3.inOut",
-        onComplete: () => {
-          gsap.set(curtain, {
-            pointerEvents: "none",
-            clipPath: "inset(100% 0 0 0)",
-          });
-          isTransitioningRef.current = false;
-          setIsTransitioning(false);
-          pendingHrefRef.current = null;
-          ScrollTrigger.refresh();
-
-          if (targetHash) {
-            setTimeout(() => {
-              const el = document.getElementById(targetHash);
-              if (el) {
-                el.scrollIntoView({ behavior: "smooth" });
-              }
-            }, 100);
-          }
-        },
-      });
-    } else if (targetHash) {
-      setTimeout(() => {
+      if (targetHash) {
         const el = document.getElementById(targetHash);
         if (el) {
           el.scrollIntoView({ behavior: "smooth" });
         }
-      }, 350);
-    }
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [pathname, scrollTo]);
 
   // Handle browser back/forward buttons (popstate)
@@ -93,64 +58,13 @@ export default function TransitionProvider({ children }) {
   }, [scrollTo]);
 
   const navigate = (href) => {
-    if (!href || href === pathname || isTransitioningRef.current) return;
-
-    // Skip transitions for hash anchors on same page
-    if (href.startsWith("#") || href.startsWith("/#") && pathname === "/") {
-      return;
-    }
-
-    const isReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (isReduced) {
-      router.push(href);
-      return;
-    }
-
-    isTransitioningRef.current = true;
-    setIsTransitioning(true);
-    pendingHrefRef.current = href;
-
-    const curtain = curtainRef.current;
-
-    // Wipe down curtain
-    gsap.set(curtain, {
-      pointerEvents: "auto",
-      clipPath: "inset(100% 0 0 0)",
-    });
-
-    gsap.to(curtain, {
-      clipPath: "inset(0% 0 0 0)",
-      duration: 0.5,
-      ease: "power3.inOut",
-      onComplete: () => {
-        // Kill existing triggers before unmount
-        ScrollTrigger.getAll().forEach((t) => t.kill());
-        router.push(href);
-      },
-    });
+    if (!href) return;
+    router.push(href);
   };
 
   return (
-    <TransitionContext.Provider value={{ navigate, isTransitioning }}>
+    <TransitionContext.Provider value={{ navigate, isTransitioning: false }}>
       {children}
-      {/* Full-bleed Deep Forest Route Curtain */}
-      <div
-        ref={curtainRef}
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 99999,
-          pointerEvents: "none",
-          backgroundColor: "#082012",
-          clipPath: "inset(100% 0 0 0)",
-          willChange: "clip-path",
-        }}
-      />
     </TransitionContext.Provider>
   );
 }
-

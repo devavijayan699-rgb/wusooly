@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import { ScrollTrigger } from "../../lib/gsap";
 
 export const ScrollContext = createContext({
   stop: () => {},
@@ -15,7 +15,7 @@ export const useSmoothScroll = () => useContext(ScrollContext);
 
 /**
  * Child component that directly uses useLenis() hook from within ReactLenis tree.
- * Synchronizes with GSAP ticker and provides seamless anchor hash navigation.
+ * Synchronizes with ScrollTrigger and provides seamless anchor hash navigation.
  */
 function LenisGsapSync({ onLenisReady }) {
   const lenis = useLenis();
@@ -24,16 +24,12 @@ function LenisGsapSync({ onLenisReady }) {
     if (!lenis) return;
     onLenisReady?.(lenis);
 
-    // Sync Lenis scroll with ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
-
-    // Drive Lenis from GSAP's unified ticker
-    const update = (time) => {
-      lenis.raf(time * 1000);
+    // Sync Lenis scroll with ScrollTrigger cleanly
+    const handleScroll = () => {
+      ScrollTrigger.update();
     };
 
-    gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0);
+    lenis.on("scroll", handleScroll);
 
     // Global click listener for anchor links containing hashes
     const handleAnchorClick = (e) => {
@@ -54,7 +50,7 @@ function LenisGsapSync({ onLenisReady }) {
           e.preventDefault();
           lenis.scrollTo(targetEl, {
             offset: -60,
-            duration: 1.2,
+            duration: 1.1,
           });
           window.history.pushState(null, "", `#${hash}`);
         }
@@ -71,22 +67,20 @@ function LenisGsapSync({ onLenisReady }) {
         if (targetEl) {
           lenis.scrollTo(targetEl, {
             offset: -60,
-            duration: 1.2,
+            duration: 1.1,
           });
         }
       }
     };
 
-    // Run slightly delayed to allow DOM hydration and dynamic components to mount
-    const timer = setTimeout(scrollToInitialHash, 350);
+    const timer = setTimeout(scrollToInitialHash, 250);
     window.addEventListener("hashchange", scrollToInitialHash);
 
     return () => {
       clearTimeout(timer);
       window.removeEventListener("hashchange", scrollToInitialHash);
       document.removeEventListener("click", handleAnchorClick);
-      lenis.off("scroll", ScrollTrigger.update);
-      gsap.ticker.remove(update);
+      lenis.off("scroll", handleScroll);
     };
   }, [lenis, onLenisReady]);
 
@@ -117,11 +111,12 @@ export default function SmoothScroll({ children }) {
   return (
     <ReactLenis
       root
-      autoRaf={false}
       options={{
-        lerp: 0.1,
-        duration: 1.2,
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
+        wheelMultiplier: 0.85,
+        touchMultiplier: 1.4,
       }}
     >
       <LenisGsapSync onLenisReady={setLenisInstance} />

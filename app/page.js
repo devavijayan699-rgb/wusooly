@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { motion } from "motion/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import EditorialFeaturesSection from "./components/EditorialFeaturesSection";
@@ -62,117 +63,96 @@ export default function Home() {
     }
 
     const ctx = gsap.context(() => {
-      const heroTl = gsap.timeline({ paused: true });
+      const heroTl = gsap.timeline();
 
-      // Initial states
+      // Initial states - subtle and immediately visible
       if (bgImageRef.current) {
         gsap.set(bgImageRef.current, {
-          clipPath: "inset(8% 0% 8% 0%)",
-          scale: 1.08,
-          opacity: 0.6,
+          scale: 1.025,
+          opacity: 0.85,
         });
       }
       if (navbarRef.current) {
-        gsap.set(navbarRef.current, { opacity: 0, y: -16 });
+        gsap.set(navbarRef.current, { opacity: 0, y: -8 });
       }
       if (audienceRef.current) {
-        gsap.set(audienceRef.current, { opacity: 0, y: 20 });
+        gsap.set(audienceRef.current, { opacity: 0, y: 8 });
       }
       if (headlineRef.current) {
         gsap.set(headlineRef.current.querySelectorAll(`.${styles.headlineLine}`), {
           opacity: 0,
-          yPercent: 115,
+          yPercent: 75,
         });
       }
       if (descRef.current) {
-        gsap.set(descRef.current, { opacity: 0, y: 20 });
+        gsap.set(descRef.current, { opacity: 0, y: 8 });
       }
 
-      // 1. Background artwork clip reveal & scale decay
+      // 1. Background artwork soft settling
       if (bgImageRef.current) {
         heroTl.to(bgImageRef.current, {
-          clipPath: "inset(0% 0% 0% 0%)",
           scale: 1.0,
           opacity: 1,
-          duration: 1.5,
+          duration: 0.75,
           ease: "expo.out",
         });
       }
 
-      // 2. Audience Selector rises
-      if (audienceRef.current) {
-        heroTl.to(
-          audienceRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            ease: "expo.out",
-          },
-          0.18
-        );
-      }
-
-      // 3. Headline lines rise out of their overflow masks
-      if (headlineRef.current) {
-        heroTl.to(
-          headlineRef.current.querySelectorAll(`.${styles.headlineLine}`),
-          {
-            opacity: 1,
-            yPercent: 0,
-            duration: 1.15,
-            stagger: 0.08,
-            ease: "expo.out",
-          },
-          0.32
-        );
-      }
-
-      // 4. Description copy softly rises
-      if (descRef.current) {
-        heroTl.to(
-          descRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.95,
-            ease: "expo.out",
-          },
-          0.55
-        );
-      }
-
-      // 5. Navbar glides smoothly in
+      // 2. Navbar glides softly down
       if (navbarRef.current) {
         heroTl.to(
           navbarRef.current,
           {
             opacity: 1,
             y: 0,
-            duration: 1.0,
+            duration: 0.5,
             ease: "expo.out",
           },
-          0.4
+          0.05
         );
       }
 
-      // Start timeline when preloader completes, or immediately if already visited
-      const hasSeenIntro = sessionStorage.getItem("wusooly_intro_seen");
-      if (hasSeenIntro) {
-        heroTl.play();
-      } else {
-        const handlePreloaderDone = () => heroTl.play();
-        window.addEventListener("wusooly_preloader_complete", handlePreloaderDone, { once: true });
+      // 3. Audience Selector rises
+      if (audienceRef.current) {
+        heroTl.to(
+          audienceRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "expo.out",
+          },
+          0.1
+        );
+      }
 
-        // Safety fallback timer so content is never hidden
-        const fallbackTimer = setTimeout(() => {
-          heroTl.play();
-        }, 2200);
+      // 4. Headline lines rise cleanly
+      if (headlineRef.current) {
+        heroTl.to(
+          headlineRef.current.querySelectorAll(`.${styles.headlineLine}`),
+          {
+            opacity: 1,
+            yPercent: 0,
+            duration: 0.65,
+            stagger: 0.05,
+            ease: "expo.out",
+          },
+          0.16
+        );
+      }
 
-        return () => {
-          window.removeEventListener("wusooly_preloader_complete", handlePreloaderDone);
-          clearTimeout(fallbackTimer);
-        };
+      // 5. Description copy rises
+      if (descRef.current) {
+        heroTl.to(
+          descRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.55,
+            ease: "expo.out",
+          },
+          0.28
+        );
       }
     }, containerRef);
 
@@ -246,6 +226,13 @@ export default function Home() {
                 }
               }}
             >
+              {selectedAudience === "retail" && (
+                <motion.span
+                  layoutId="activeHeroAudienceTab"
+                  className={styles.segmentPill}
+                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                />
+              )}
               Shops & Supermarkets
             </button>
             <button
@@ -262,6 +249,13 @@ export default function Home() {
                 }
               }}
             >
+              {selectedAudience === "cafe" && (
+                <motion.span
+                  layoutId="activeHeroAudienceTab"
+                  className={styles.segmentPill}
+                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                />
+              )}
               Cafés & Restaurants
             </button>
           </div>

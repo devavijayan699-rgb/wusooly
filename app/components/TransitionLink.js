@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { usePageTransition } from "./TransitionProvider";
+import { useSmoothScroll } from "./SmoothScroll";
 
 export default function TransitionLink({
   href,
@@ -12,22 +12,14 @@ export default function TransitionLink({
   rel,
   ...props
 }) {
-  const { navigate, isTransitioning } = usePageTransition();
   const pathname = usePathname();
+  const { lenis } = useSmoothScroll();
 
   const handleClick = (e) => {
-    // Call custom onClick if provided
     if (typeof onClick === "function") {
       onClick(e);
     }
 
-    // Ignore if already transitioning
-    if (isTransitioning) {
-      e.preventDefault();
-      return;
-    }
-
-    // Ignore modified clicks (Ctrl+click, Cmd+click, middle click) or external targets
     if (
       e.defaultPrevented ||
       e.button !== 0 ||
@@ -40,41 +32,28 @@ export default function TransitionLink({
       return;
     }
 
-    // Handle pure anchor links or hash jumps on current page
+    // Intercept same-page hash jumps to scroll smoothly via Lenis
     if (typeof href === "string") {
-      const isSamePage =
+      const isSamePageHash =
         href.startsWith("#") ||
         (href.startsWith("/#") && pathname === "/") ||
         (href.includes("#") && href.split("#")[0] === pathname);
 
-      if (isSamePage) {
+      if (isSamePageHash) {
         e.preventDefault();
         const hash = href.split("#")[1];
         if (hash) {
           const targetEl = document.getElementById(hash);
           if (targetEl) {
-            targetEl.scrollIntoView({ behavior: "smooth" });
+            if (lenis) {
+              lenis.scrollTo(targetEl, { offset: -60, duration: 1.1 });
+            } else {
+              targetEl.scrollIntoView({ behavior: "smooth" });
+            }
             window.history.pushState(null, "", `#${hash}`);
           }
         }
-        return;
       }
-
-      if (href === pathname) {
-        e.preventDefault();
-        return;
-      }
-      if (
-        href.startsWith("http://") ||
-        href.startsWith("https://") ||
-        href.startsWith("mailto:") ||
-        href.startsWith("tel:")
-      ) {
-        return;
-      }
-
-      e.preventDefault();
-      navigate(href);
     }
   };
 
@@ -84,4 +63,3 @@ export default function TransitionLink({
     </Link>
   );
 }
-

@@ -21,19 +21,19 @@ export default function PricingSection({ onGetDemo, id = "pricing" }) {
     }
 
     const ctx = gsap.context(() => {
-      // 1. Header reveal
+      // 1. Header ambient reveal
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
-          { opacity: 0, y: 30 },
+          { opacity: 0.65, y: 10 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.15,
+            duration: 0.5,
             ease: "expo.out",
             scrollTrigger: {
               trigger: headerRef.current,
-              start: "top 88%",
+              start: "top 95%",
               once: true,
             },
           }
@@ -44,16 +44,16 @@ export default function PricingSection({ onGetDemo, id = "pricing" }) {
       if (gridRef.current) {
         gsap.fromTo(
           gridRef.current.children,
-          { opacity: 0, y: 40 },
+          { opacity: 0.65, y: 12 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.2,
-            stagger: 0.14,
+            duration: 0.55,
+            stagger: 0.08,
             ease: "expo.out",
             scrollTrigger: {
               trigger: gridRef.current,
-              start: "top 85%",
+              start: "top 95%",
               once: true,
             },
           }

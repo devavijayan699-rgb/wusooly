@@ -50,12 +50,12 @@ export default function ContactPage() {
       if (infoCardRef.current && formCardRef.current) {
         gsap.fromTo(
           [infoCardRef.current, formCardRef.current],
-          { opacity: 0, y: 35 },
+          { opacity: 0.7, y: 10 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.15,
-            stagger: 0.12,
+            duration: 0.5,
+            stagger: 0.08,
             ease: "expo.out",
           }
         );
@@ -65,15 +65,15 @@ export default function ContactPage() {
       if (bannerRef.current) {
         gsap.fromTo(
           bannerRef.current,
-          { opacity: 0, y: 35 },
+          { opacity: 0.65, y: 10 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.15,
+            duration: 0.45,
             ease: "expo.out",
             scrollTrigger: {
               trigger: bannerRef.current,
-              start: "top 88%",
+              start: "top 95%",
               once: true,
             },
           }

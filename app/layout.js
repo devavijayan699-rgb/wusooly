@@ -3,7 +3,6 @@ import "./globals.css";
 import "@ziqx/react-comps/styles.css";
 import SmoothScroll from "./components/SmoothScroll";
 import TransitionProvider from "./components/TransitionProvider";
-import Preloader from "./components/Preloader";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -38,7 +37,6 @@ export default function RootLayout({ children }) {
         <div className="ambient-glow" aria-hidden="true" />
         <SmoothScroll>
           <TransitionProvider>
-            <Preloader />
             {children}
           </TransitionProvider>
         </SmoothScroll>
