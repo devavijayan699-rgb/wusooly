@@ -1,0 +1,1267 @@
+import React, { useState, useEffect, useRef } from "react";
+
+/**
+ * EditorialFeaturesStandalone.jsx
+ * -------------------------------------------------------------
+ * 100% Standalone, Self-Contained Editorial Features Section
+ * Designed for Google AI Studio, React playgrounds, and Next.js.
+ * 
+ * Features:
+ * • Zero external CSS files: All styles embedded in a scoped <style> block.
+ * • Zero Next.js-only imports: Pure standard React with <img> tags.
+ * • Interactive Audience Switcher: "Shops & Supermarkets" vs. "Cafés & Restaurants".
+ * • Intro Card Toggle: Supports both the rounded card and clean header style.
+ * • Complete Card Compositions: Hero, Integrations, Tap Checkout, Brand Story,
+ *   Real-time Synced Inventory, Barcode Scanner Replenishment, 38.5% Margin Stat,
+ *   Wide Performance Reports Hero, and Outro CTA.
+ * • Interactive Demo Walkthrough Modal.
+ * • Robust image fallback handling so it never shows broken images.
+ */
+
+export default function EditorialFeaturesStandalone({
+  defaultAudience = "retail", // "retail" | "cafe"
+  showAudienceToggle = true,
+  showIntroCard = true,
+  onGetDemo: externalGetDemo,
+}) {
+  const [audience, setAudience] = useState(defaultAudience);
+  const [introVisible, setIntroVisible] = useState(showIntroCard);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("Schedule a 1-on-1 Walkthrough");
+  const sectionRef = useRef(null);
+
+  const handleOpenDemo = (title = "Get a Demo") => {
+    if (externalGetDemo) {
+      externalGetDemo();
+      return;
+    }
+    setModalTitle(title);
+    setModalOpen(true);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setModalOpen(false);
+    };
+    if (modalOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [modalOpen]);
+
+  return (
+    <div className="wusooly-editorial-root" ref={sectionRef}>
+      {/* ── Embedded Scoped CSS Stylesheet ── */}
+      <style>{`
+        .wusooly-editorial-root {
+          --w-canvas: #f5f5f3;
+          --w-card-bg: #ffffff;
+          --w-forest: #0b1f12;
+          --w-forest-dark: #071a0e;
+          --w-lime: #b4f046;
+          --w-lime-hover: #c3f563;
+          --w-text-dark: #111827;
+          --w-text-muted: #555555;
+          --w-border: #e6e6e2;
+          --w-radius: 18px;
+          --w-gap: 8px;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          background: var(--w-canvas);
+          color: var(--w-text-dark);
+          padding: 40px 16px 80px;
+          box-sizing: border-box;
+          width: 100%;
+          min-height: 100vh;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        .wusooly-editorial-root * {
+          box-sizing: border-box;
+        }
+
+        .w-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          gap: 28px;
+        }
+
+        /* ── Top Bar Controls (Audience Switcher + Intro Toggle) ── */
+        .w-controls-bar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 14px;
+          margin-bottom: 8px;
+        }
+
+        .w-segmented-control {
+          display: inline-flex;
+          background: rgba(11, 31, 18, 0.08);
+          padding: 4px;
+          border-radius: 9999px;
+          gap: 4px;
+        }
+
+        .w-segment-btn {
+          background: transparent;
+          border: none;
+          padding: 8px 18px;
+          border-radius: 9999px;
+          font-size: 0.88rem;
+          font-weight: 600;
+          color: #3b5043;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .w-segment-btn.active {
+          background: var(--w-lime);
+          color: var(--w-forest-dark);
+          font-weight: 700;
+          box-shadow: 0 2px 8px rgba(180, 240, 70, 0.35);
+        }
+
+        .w-toggle-card-btn {
+          background: #ffffff;
+          border: 1px solid var(--w-border);
+          padding: 7px 14px;
+          border-radius: 9999px;
+          font-size: 0.8rem;
+          color: #444;
+          cursor: pointer;
+          font-weight: 500;
+          transition: background 0.2s ease;
+        }
+        .w-toggle-card-btn:hover {
+          background: #f0f0ed;
+        }
+
+        /* ── Intro Section / Card ── */
+        .w-intro-card {
+          background: #eaf1ea;
+          border-radius: 24px;
+          padding: clamp(32px, 5vw, 48px) clamp(20px, 4vw, 40px);
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 14px;
+          border: 1px solid rgba(11, 31, 18, 0.06);
+        }
+
+        .w-intro-clean {
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding: 8px 4px 16px;
+        }
+
+        .w-intro-headline {
+          font-size: clamp(2rem, 3.8vw, 3rem);
+          font-weight: 800;
+          line-height: 1.12;
+          letter-spacing: -0.03em;
+          color: var(--w-forest-dark);
+          margin: 0;
+        }
+
+        .w-intro-subtext {
+          font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+          line-height: 1.5;
+          color: #4b5e52;
+          max-width: 620px;
+          margin: 0;
+        }
+
+        .w-intro-cta-btn {
+          margin-top: 8px;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: var(--w-lime);
+          color: var(--w-forest-dark);
+          font-weight: 700;
+          font-size: 0.95rem;
+          padding: 12px 26px;
+          border-radius: 9999px;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 3px 12px rgba(180, 240, 70, 0.35);
+          transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .w-intro-cta-btn:hover {
+          background: var(--w-lime-hover);
+          transform: translateY(-1px);
+        }
+
+        /* ── Grids & Rows (8px gaps, 18px radius) ── */
+        .w-grid {
+          display: flex;
+          flex-direction: column;
+          gap: var(--w-gap);
+        }
+
+        .w-row {
+          display: flex;
+          gap: var(--w-gap);
+          width: 100%;
+        }
+
+        @media (max-width: 860px) {
+          .w-row {
+            flex-direction: column;
+          }
+        }
+
+        .w-card {
+          border-radius: var(--w-radius);
+          overflow: hidden;
+          position: relative;
+        }
+
+        /* ── Card 01 Hero (Forest Green) ── */
+        .w-hero-card {
+          background: var(--w-forest);
+          display: flex;
+          align-items: center;
+          padding: clamp(24px, 4vw, 48px);
+          gap: clamp(24px, 4vw, 48px);
+        }
+
+        @media (max-width: 860px) {
+          .w-hero-card {
+            flex-direction: column;
+            text-align: center;
+          }
+        }
+
+        .w-hero-media {
+          flex: 1.15;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+
+        .w-hero-frame {
+          background: #e2ece4;
+          border-radius: 14px;
+          padding: clamp(12px, 2.5vw, 24px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          box-shadow: inset 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .w-hero-img {
+          width: 100%;
+          height: auto;
+          max-height: 380px;
+          object-fit: contain;
+          display: block;
+        }
+
+        .w-hero-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .w-hero-title {
+          font-size: clamp(1.8rem, 3.2vw, 2.85rem);
+          font-weight: 800;
+          line-height: 1.08;
+          letter-spacing: -0.03em;
+          color: #ffffff;
+          margin: 0;
+          text-transform: uppercase;
+        }
+
+        .w-hero-body {
+          font-size: 0.95rem;
+          line-height: 1.55;
+          color: rgba(255, 255, 255, 0.82);
+          margin: 0;
+        }
+
+        .w-lime-pill-btn {
+          align-self: flex-start;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: var(--w-lime);
+          color: var(--w-forest-dark);
+          border: none;
+          font-size: 0.86rem;
+          font-weight: 700;
+          padding: 11px 24px;
+          border-radius: 9999px;
+          cursor: pointer;
+          box-shadow: 0 2px 10px rgba(180, 240, 70, 0.28);
+          transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .w-lime-pill-btn:hover {
+          background: var(--w-lime-hover);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 18px rgba(180, 240, 70, 0.45);
+        }
+
+        @media (max-width: 860px) {
+          .w-lime-pill-btn {
+            align-self: center;
+          }
+        }
+
+        /* ── Card 02 (Integrations Text Card) ── */
+        .w-text-card {
+          flex: 0 0 35%;
+          background: var(--w-card-bg);
+          border: 1px solid var(--w-border);
+          padding: clamp(24px, 3vw, 36px);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 20px;
+        }
+
+        .w-text-title {
+          font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+          font-weight: 800;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
+          margin: 0;
+          text-transform: uppercase;
+          color: var(--w-forest-dark);
+        }
+
+        .w-text-body {
+          font-size: 0.88rem;
+          line-height: 1.55;
+          color: #666;
+          margin: 0;
+        }
+
+        .w-chips {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+
+        .w-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: #f4f4f2;
+          border: 1px solid #e2e2de;
+          border-radius: 9999px;
+          padding: 6px 12px;
+          font-size: 0.78rem;
+          font-weight: 700;
+          color: #333;
+        }
+
+        /* ── Full-Bleed Photo Card ── */
+        .w-photo-card {
+          position: relative;
+          background: #000;
+          min-height: 280px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: clamp(24px, 3vw, 36px);
+        }
+
+        .w-photo-card.flex-65 {
+          flex: 0 0 calc(65% - var(--w-gap));
+        }
+
+        .w-photo-card.flex-60 {
+          flex: 0 0 calc(60% - var(--w-gap));
+        }
+
+        .w-photo-card.flex-50 {
+          flex: 1;
+        }
+
+        @media (max-width: 860px) {
+          .w-photo-card.flex-65,
+          .w-photo-card.flex-60,
+          .w-photo-card.flex-50 {
+            flex: 1 1 auto;
+            min-height: 260px;
+          }
+        }
+
+        .w-photo-bg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .w-scrim {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(7, 26, 14, 0.05) 0%, rgba(7, 26, 14, 0.85) 90%);
+          pointer-events: none;
+        }
+
+        .w-photo-title {
+          position: relative;
+          z-index: 2;
+          font-size: clamp(1.3rem, 2.2vw, 2.1rem);
+          font-weight: 800;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
+          color: #ffffff;
+          margin: 0;
+          text-transform: uppercase;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .w-photo-sub {
+          position: relative;
+          z-index: 2;
+          font-size: 0.9rem;
+          line-height: 1.5;
+          color: rgba(255, 255, 255, 0.88);
+          margin-top: 8px;
+          margin-bottom: 0;
+          max-width: 580px;
+          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ── Brand Card (Row 3 Left) ── */
+        .w-brand-card {
+          flex: 0 0 40%;
+          background: var(--w-card-bg);
+          border: 1px solid var(--w-border);
+          padding: clamp(24px, 3vw, 36px);
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        @media (max-width: 860px) {
+          .w-brand-card {
+            flex: 1 1 auto;
+          }
+        }
+
+        .w-brand-logo-text {
+          font-size: 1.3rem;
+          font-weight: 800;
+          letter-spacing: -0.04em;
+          color: var(--w-forest-dark);
+        }
+
+        .w-brand-title {
+          font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+          font-weight: 800;
+          line-height: 1.18;
+          letter-spacing: -0.02em;
+          color: var(--w-forest-dark);
+          margin: 0;
+          text-transform: uppercase;
+        }
+
+        .w-discover-btn {
+          align-self: flex-start;
+          background: var(--w-lime);
+          color: var(--w-forest-dark);
+          border: none;
+          font-size: 0.82rem;
+          font-weight: 700;
+          padding: 8px 18px;
+          border-radius: 9999px;
+          cursor: pointer;
+          transition: background 0.15s ease;
+        }
+        .w-discover-btn:hover {
+          background: var(--w-lime-hover);
+        }
+
+        .w-brand-photo-wrap {
+          margin-top: auto;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #f0f0ed;
+        }
+
+        .w-brand-photo {
+          width: 100%;
+          height: auto;
+          max-height: 220px;
+          object-fit: cover;
+          display: block;
+        }
+
+        /* ── Full-Bleed Wide Photo Banner (Row 4 & Row 6) ── */
+        .w-wide-banner {
+          position: relative;
+          background: var(--w-forest);
+          border-radius: var(--w-radius);
+          overflow: hidden;
+          min-height: 380px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: clamp(28px, 4vw, 52px);
+        }
+
+        .w-wide-banner.short {
+          min-height: 320px;
+        }
+
+        .w-wide-content {
+          position: relative;
+          z-index: 2;
+          max-width: 760px;
+        }
+
+        .w-wide-title {
+          font-size: clamp(1.8rem, 3.2vw, 2.9rem);
+          font-weight: 800;
+          line-height: 1.1;
+          letter-spacing: -0.03em;
+          color: #ffffff;
+          margin: 0;
+          text-transform: uppercase;
+          text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+        }
+
+        .w-wide-sub {
+          font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+          line-height: 1.55;
+          color: rgba(255, 255, 255, 0.9);
+          margin-top: 10px;
+          margin-bottom: 0;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ── Stat Card (Row 5 Right) ── */
+        .w-stat-card {
+          flex: 0 0 38%;
+          background: var(--w-forest);
+          padding: clamp(28px, 4vw, 44px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 16px;
+        }
+
+        @media (max-width: 860px) {
+          .w-stat-card {
+            flex: 1 1 auto;
+          }
+        }
+
+        .w-stat-number {
+          font-size: clamp(3rem, 6vw, 4.8rem);
+          font-weight: 900;
+          letter-spacing: -0.05em;
+          line-height: 1;
+          color: var(--w-lime);
+        }
+
+        .w-stat-body {
+          font-size: 0.92rem;
+          line-height: 1.55;
+          color: rgba(255, 255, 255, 0.85);
+          margin: 0;
+        }
+
+        /* ── Feature Strip (Cafe Row 6) ── */
+        .w-strip-card {
+          background: var(--w-card-bg);
+          border: 1px solid var(--w-border);
+          padding: clamp(24px, 3.5vw, 36px);
+        }
+
+        .w-strip-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+        }
+
+        @media (max-width: 800px) {
+          .w-strip-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+        }
+
+        .w-strip-item {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .w-strip-title {
+          font-size: 1.05rem;
+          font-weight: 800;
+          color: var(--w-forest-dark);
+          margin: 0;
+        }
+
+        .w-strip-body {
+          font-size: 0.88rem;
+          line-height: 1.5;
+          color: #666;
+          margin: 0;
+        }
+
+        /* ── Outro CTA Strip ── */
+        .w-outro {
+          background: #ffffff;
+          border: 1px solid var(--w-border);
+          border-radius: var(--w-radius);
+          padding: clamp(20px, 3vw, 32px) clamp(24px, 4vw, 44px);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+
+        .w-outro-title {
+          font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+          font-weight: 800;
+          color: var(--w-forest-dark);
+          margin: 0;
+        }
+
+        /* ── Interactive Modal ── */
+        .w-modal-backdrop {
+          position: fixed;
+          inset: 0;
+          background: rgba(7, 26, 14, 0.72);
+          backdrop-filter: blur(8px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 16px;
+          z-index: 9999;
+        }
+
+        .w-modal-box {
+          background: #ffffff;
+          border-radius: 20px;
+          padding: 32px;
+          max-width: 480px;
+          width: 100%;
+          position: relative;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+          animation: wModalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes wModalIn {
+          from { opacity: 0; transform: scale(0.95) translateY(8px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .w-modal-close {
+          position: absolute;
+          top: 18px;
+          right: 18px;
+          background: #f0f0ed;
+          border: none;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          font-size: 1.1rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #555;
+        }
+        .w-modal-close:hover {
+          background: #e2e2de;
+          color: #111;
+        }
+
+        .w-modal-input {
+          width: 100%;
+          padding: 12px 14px;
+          border-radius: 10px;
+          border: 1px solid #d5d5d0;
+          font-size: 0.95rem;
+          margin-top: 10px;
+          font-family: inherit;
+        }
+        .w-modal-input:focus {
+          outline: none;
+          border-color: var(--w-forest);
+        }
+      `}</style>
+
+      <div className="w-container">
+        {/* ── Audience Selector & Top Controls ── */}
+        <div className="w-controls-bar">
+          {showAudienceToggle && (
+            <div className="w-segmented-control" role="tablist">
+              <button
+                type="button"
+                className={`w-segment-btn ${audience === "retail" ? "active" : ""}`}
+                onClick={() => setAudience("retail")}
+              >
+                Shops &amp; Supermarkets
+              </button>
+              <button
+                type="button"
+                className={`w-segment-btn ${audience === "cafe" ? "active" : ""}`}
+                onClick={() => setAudience("cafe")}
+              >
+                Cafés &amp; Restaurants
+              </button>
+            </div>
+          )}
+
+          <button
+            type="button"
+            className="w-toggle-card-btn"
+            onClick={() => setIntroVisible(!introVisible)}
+            title="Toggle between rounded intro card and clean header"
+          >
+            {introVisible ? "Switch to Clean Intro" : "Switch to Rounded Card Intro"}
+          </button>
+        </div>
+
+        {/* ── Intro Section (Rounded Card or Clean Text) ── */}
+        {introVisible ? (
+          <header className="w-intro-card">
+            <h1 className="w-intro-headline">
+              {audience === "retail"
+                ? "The essentials to run your store, connected."
+                : "Every order. One simple system."}
+            </h1>
+            <p className="w-intro-subtext">
+              {audience === "retail"
+                ? "From checkout to stock control and business reporting, manage key retail operations through one POS system."
+                : "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS."}
+            </p>
+            <button
+              type="button"
+              className="w-intro-cta-btn"
+              onClick={() => handleOpenDemo("Get in Touch")}
+            >
+              Get in Touch &rarr;
+            </button>
+          </header>
+        ) : (
+          <header className="w-intro-clean">
+            <h1 className="w-intro-headline">
+              {audience === "retail"
+                ? "The essentials to run your store, connected."
+                : "Every order. One simple system."}
+            </h1>
+            <p className="w-intro-subtext">
+              {audience === "retail"
+                ? "From checkout to stock control and business reporting, manage key retail operations through one POS system."
+                : "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS."}
+            </p>
+          </header>
+        )}
+
+        {/* ══════════════════════════════════════════════════════════════════
+            RETAIL EDITORIAL CARDS (Shops & Supermarkets)
+            ══════════════════════════════════════════════════════════════════ */}
+        {audience === "retail" ? (
+          <div className="w-grid">
+            {/* ── ROW 1 · Full-width Dark Hero Card ── */}
+            <div className="w-card w-hero-card">
+              <div className="w-hero-media">
+                <div className="w-hero-frame">
+                  <img
+                    src="/assets/editorial-pos-hero.webp"
+                    alt="Wusooly POS billing register terminal on counter"
+                    className="w-hero-img"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=1000&q=80";
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="w-hero-content">
+                <h2 className="w-hero-title">
+                  MANAGE BILLING THAT GROWS SMARTER EVERY SINGLE DAY.
+                </h2>
+                <button
+                  type="button"
+                  className="w-lime-pill-btn"
+                  onClick={() => handleOpenDemo("Retail POS Demo")}
+                >
+                  Get a Demo
+                </button>
+              </div>
+            </div>
+
+            {/* ── ROW 2 · Asymmetric Pair: Integrations (35%) + Tap Checkout (65%) ── */}
+            <div className="w-row">
+              <div className="w-card w-text-card">
+                <div>
+                  <h3 className="w-text-title">
+                    BARCODE &amp; WALLET INTEGRATIONS
+                  </h3>
+                  <p className="w-text-body" style={{ marginTop: 12 }}>
+                    Easily connect your favourite barcode scanners, wallets, and payment providers in one platform.
+                  </p>
+                </div>
+                <div className="w-chips">
+                  <span className="w-chip">G Pay</span>
+                  <span className="w-chip">Apple Pay</span>
+                  <span className="w-chip">Mastercard</span>
+                </div>
+              </div>
+
+              <div className="w-card w-photo-card flex-65">
+                <img
+                  src="/assets/checkout-hardware.webp"
+                  alt="Contactless card payment at POS checkout"
+                  className="w-photo-bg"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=1200&q=80";
+                  }}
+                />
+                <div className="w-scrim" />
+                <h3 className="w-photo-title">
+                  TURN SIMPLE CHECKOUT INTO LONG-TERM STORE GROWTH.
+                </h3>
+              </div>
+            </div>
+
+            {/* ── ROW 3 · Asymmetric Pair: Brand Story (40%) + Store Panoramic (60%) ── */}
+            <div className="w-row">
+              <div className="w-card w-brand-card">
+                <div className="w-brand-logo-text">wusooly</div>
+                <h3 className="w-brand-title">
+                  MEET THE PEOPLE WHO POWER WUSOOLY
+                </h3>
+                <button
+                  type="button"
+                  className="w-discover-btn"
+                  onClick={() => handleOpenDemo("Merchant Stories")}
+                >
+                  Discover More
+                </button>
+                <div className="w-brand-photo-wrap">
+                  <img
+                    src="/assets/retailer-story.webp"
+                    alt="Store merchant at supermarket counter"
+                    className="w-brand-photo"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80";
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="w-card w-photo-card flex-60">
+                <img
+                  src="/assets/store-panoramic.webp"
+                  alt="Contemporary supermarket interior"
+                  className="w-photo-bg"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80";
+                  }}
+                />
+                <div className="w-scrim" />
+                <div>
+                  <h3 className="w-photo-title">
+                    BUILDING MEANINGFUL CONNECTIONS BEYOND BOUNDARIES
+                  </h3>
+                  <p className="w-photo-sub">
+                    From local stores to regional reach, Wusooly connects inventory, sales, and operations, bringing every daily process closer.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* ── ROW 4 · Full-Width Photo Panel: Real-Time Synced Inventory ── */}
+            <div className="w-card w-wide-banner">
+              <img
+                src="/assets/retail-inventory-synced.webp"
+                alt="POS terminal showing Inventory Synced with scanner on counter"
+                className="w-photo-bg"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=80";
+                }}
+              />
+              <div className="w-scrim" />
+              <div className="w-wide-content">
+                <h3 className="w-wide-title">
+                  STOCK THAT UPDATES ITSELF. ALERTS BEFORE YOU RUN OUT.
+                </h3>
+                <p className="w-wide-sub">
+                  Real-time inventory reconciliation across every register. Automated low-stock alerts keep your shelves full without manual checks.
+                </p>
+              </div>
+            </div>
+
+            {/* ── ROW 5 · Asymmetric Pair: Scan Replenish (62%) + 38.5% Stat Card (38%) ── */}
+            <div className="w-row">
+              <div className="w-card w-photo-card flex-60">
+                <img
+                  src="/assets/retail-store-inventory-scan.webp"
+                  alt="Store staff member scanning barcode on product pouch"
+                  className="w-photo-bg"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1000&q=80";
+                  }}
+                />
+                <div className="w-scrim" />
+                <h3 className="w-photo-title">
+                  RECORD EVERY PURCHASE. REPLENISH WITHOUT GUESSWORK.
+                </h3>
+              </div>
+
+              <div className="w-card w-stat-card">
+                <div className="w-stat-number">38.5%</div>
+                <p className="w-stat-body">
+                  Review product and sales margin information calculated automatically from your purchase and billing records.
+                </p>
+              </div>
+            </div>
+
+            {/* ── ROW 6 · Full-Width Wide Photo Banner: Performance Reports ── */}
+            <div className="w-card w-wide-banner short">
+              <img
+                src="/assets/retail-supermarket-checkout-hero.webp"
+                alt="Supermarket cashier checkout with friendly customer and dual-screen POS"
+                className="w-photo-bg"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=1400&q=80";
+                }}
+              />
+              <div className="w-scrim" />
+              <div className="w-wide-content">
+                <h3 className="w-wide-title">
+                  PERFORMANCE REPORTS THAT REVEAL WHAT MATTERS MOST.
+                </h3>
+                <p className="w-wide-sub">
+                  Daily revenue, top sellers, checkout speed, and margin trends in one clear operations dashboard built for store owners.
+                </p>
+              </div>
+            </div>
+
+            {/* ── Outro CTA Strip ── */}
+            <div className="w-outro">
+              <h4 className="w-outro-title">
+                Ready to see Wusooly in your store?
+              </h4>
+              <button
+                type="button"
+                className="w-lime-pill-btn"
+                onClick={() => handleOpenDemo("Store Walkthrough")}
+              >
+                Schedule a 1-on-1 Walkthrough
+              </button>
+            </div>
+          </div>
+        ) : (
+          /* ══════════════════════════════════════════════════════════════════
+             CAFÉ & RESTAURANT EDITORIAL CARDS
+             ══════════════════════════════════════════════════════════════════ */
+          <div className="w-grid">
+            {/* ── CAFE ROW 1 · Full-width Hero ── */}
+            <div className="w-card w-hero-card">
+              <div className="w-hero-media">
+                <div className="w-hero-frame">
+                  <img
+                    src="/assets/cafe-pos-hero.webp"
+                    alt="Modern café POS terminal and customer-facing payment display"
+                    className="w-hero-img"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1000&q=80";
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="w-hero-content">
+                <h2 className="w-hero-title">
+                  FAST BILLING. MULTIPLE PAYMENT METHODS. ZERO&nbsp;FRICTION.
+                </h2>
+                <p className="w-hero-body">
+                  Accept cash, cards, UPI, wallets, and split payments from one screen. Checkout stays fast and accurate during peak rush.
+                </p>
+                <button
+                  type="button"
+                  className="w-lime-pill-btn"
+                  onClick={() => handleOpenDemo("Café POS Demo")}
+                >
+                  Get a Demo
+                </button>
+              </div>
+            </div>
+
+            {/* ── CAFE ROW 2 · Dine-In / Takeaway (35%) + Table Service (65%) ── */}
+            <div className="w-row">
+              <div className="w-card w-text-card">
+                <div>
+                  <h3 className="w-text-title">
+                    DINE-IN, TAKEAWAY &amp; ONLINE ORDERING
+                  </h3>
+                  <p className="w-text-body" style={{ marginTop: 12 }}>
+                    One POS handles sit-down service, counter pickup, and online delivery orders without juggling multiple systems.
+                  </p>
+                </div>
+                <div className="w-chips">
+                  <span className="w-chip">Dine-In</span>
+                  <span className="w-chip">Takeaway</span>
+                  <span className="w-chip">Delivery</span>
+                </div>
+              </div>
+
+              <div className="w-card w-photo-card flex-65">
+                <img
+                  src="/assets/cafe-table-management-v2.webp"
+                  alt="Café floor plan and table management visual"
+                  className="w-photo-bg"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80";
+                  }}
+                />
+                <div className="w-scrim" />
+                <h3 className="w-photo-title">
+                  TABLE SERVICE OR COUNTER PICKUP. ONE CLEAR ORDER FLOW.
+                </h3>
+              </div>
+            </div>
+
+            {/* ── CAFE ROW 3 · Kitchen KOT (50%) + Online Orders (50%) ── */}
+            <div className="w-row">
+              <div className="w-card w-photo-card flex-50">
+                <img
+                  src="/assets/cafe-kitchen-display.webp"
+                  alt="Kitchen display system and ticket printer"
+                  className="w-photo-bg"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1000&q=80";
+                  }}
+                />
+                <div className="w-scrim" />
+                <h3 className="w-photo-title">
+                  KITCHEN TICKETS DIRECT TO CHEFS. FASTER SERVICE.
+                </h3>
+              </div>
+
+              <div className="w-card w-photo-card flex-50">
+                <img
+                  src="/assets/cafe-online-ordering-v4.jpg"
+                  alt="Customer placing online delivery order on smartphone"
+                  className="w-photo-bg"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=1000&q=80";
+                  }}
+                />
+                <div className="w-scrim" />
+                <h3 className="w-photo-title">
+                  ONLINE ORDERS AUTO-ROUTED TO POS AND KITCHEN.
+                </h3>
+              </div>
+            </div>
+
+            {/* ── CAFE ROW 4 · Full-Width Customer Wallets ── */}
+            <div className="w-card w-wide-banner">
+              <img
+                src="/assets/cafe-customer-wallets-v2.webp"
+                alt="Wusooly customer wallets and digital ledger balances"
+                className="w-photo-bg"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=1400&q=80";
+                }}
+              />
+              <div className="w-scrim" />
+              <div className="w-wide-content">
+                <h3 className="w-wide-title">
+                  CUSTOMER RECORDS, WALLETS &amp; CREDIT BALANCES.
+                </h3>
+                <p className="w-wide-sub">
+                  Track every customer&apos;s order history, maintain digital wallets, and build loyalty that keeps tables full every night.
+                </p>
+              </div>
+            </div>
+
+            {/* ── CAFE ROW 5 · Analytics (62%) + 6+ Roles Stat (38%) ── */}
+            <div className="w-row">
+              <div className="w-card w-photo-card flex-60">
+                <img
+                  src="/assets/cafe-owner-analytics-v4.jpg"
+                  alt="Business manager reviewing restaurant performance reports"
+                  className="w-photo-bg"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80";
+                  }}
+                />
+                <div className="w-scrim" />
+                <h3 className="w-photo-title">
+                  SALES REPORTS &amp; PERFORMANCE TRACKING IN REAL TIME.
+                </h3>
+              </div>
+
+              <div className="w-card w-stat-card">
+                <div className="w-stat-number">6+</div>
+                <p className="w-stat-body">
+                  Cashier, waiter, kitchen, manager, admin, delivery: assign roles with granular access control so every team member sees only what they need.
+                </p>
+              </div>
+            </div>
+
+            {/* ── CAFE ROW 6 · Feature Strip ── */}
+            <div className="w-card w-strip-card">
+              <div className="w-strip-grid">
+                <div className="w-strip-item">
+                  <h4 className="w-strip-title">Expense Tracking</h4>
+                  <p className="w-strip-body">
+                    Categorise every café expense (ingredients, utilities, rent, wages) and see exactly where money goes each month.
+                  </p>
+                </div>
+                <div className="w-strip-item">
+                  <h4 className="w-strip-title">Coupons &amp; Promos</h4>
+                  <p className="w-strip-body">
+                    Create promo codes, happy-hour discounts, and seasonal offers. Auto-apply at checkout for a seamless guest experience.
+                  </p>
+                </div>
+                <div className="w-strip-item">
+                  <h4 className="w-strip-title">Best-Seller &amp; Margin Analysis</h4>
+                  <p className="w-strip-body">
+                    Identify top-performing menu items and their profit margins. Double down on what sells and rework what doesn&apos;t.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* ── CAFE ROW 7 · Full-Width Operations Hero Banner ── */}
+            <div className="w-card w-wide-banner short">
+              <img
+                src="/assets/cafe-restaurant-operations-hero.webp"
+                alt="Wusooly café restaurant operations with POS counter, kitchen displays, and manager analytics"
+                className="w-photo-bg"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1400&q=80";
+                }}
+              />
+              <div className="w-scrim" />
+              <div className="w-wide-content">
+                <h3 className="w-wide-title">
+                  KNOW YOUR NUMBERS. GROW YOUR RESTAURANT.
+                </h3>
+                <p className="w-wide-sub">
+                  Daily revenue, peak hours, per-table averages, and food-cost ratios: every metric a café or restaurant owner needs, in one clear dashboard.
+                </p>
+              </div>
+            </div>
+
+            {/* ── Outro CTA Strip ── */}
+            <div className="w-outro">
+              <h4 className="w-outro-title">
+                Ready to see Wusooly in your café?
+              </h4>
+              <button
+                type="button"
+                className="w-lime-pill-btn"
+                onClick={() => handleOpenDemo("Café Walkthrough")}
+              >
+                Schedule a 1-on-1 Walkthrough
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── Demo Modal ── */}
+      {modalOpen && (
+        <div
+          className="w-modal-backdrop"
+          onClick={() => setModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="w-modal-box"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="w-modal-close"
+              onClick={() => setModalOpen(false)}
+              aria-label="Close dialog"
+            >
+              &times;
+            </button>
+            <h3 style={{ margin: "0 0 8px 0", fontSize: "1.4rem", color: "var(--w-forest-dark)", fontWeight: 800 }}>
+              {modalTitle}
+            </h3>
+            <p style={{ margin: "0 0 20px 0", fontSize: "0.9rem", color: "#666" }}>
+              Experience the power of Wusooly POS customized for your business.
+            </p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Thank you! Our product specialist will connect with you shortly.");
+                setModalOpen(false);
+              }}
+            >
+              <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "#333" }}>
+                Full Name
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Alex Morgan"
+                  className="w-modal-input"
+                />
+              </label>
+              <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "#333", display: "block", marginTop: 14 }}>
+                Business Phone / WhatsApp
+                <input
+                  type="tel"
+                  required
+                  placeholder="+971 50 123 4567"
+                  className="w-modal-input"
+                />
+              </label>
+              <button
+                type="submit"
+                className="w-lime-pill-btn"
+                style={{ width: "100%", justifyContent: "center", marginTop: 22, padding: "14px" }}
+              >
+                Confirm Walkthrough &rarr;
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+

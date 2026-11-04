@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Wusooly POS - Pricing Page Styles
+   Awwwards-level Botanical Studio Aesthetic (Warm Stone Canvas & Liquid Dark Sage)
+   ========================================================================== */
+
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f3;
+  color: #0c291e;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Floating Navigation Bar Container */
+.navbarContainer {
+  position: relative;
+  width: 100%;
+  z-index: 50;
+  padding-top: clamp(16px, 2.5vh, 28px);
+}
+
+/* Main Content Wrapper */
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* FAQ Wrapper inside Pricing */
+.faqSection {
+  width: 100%;
+  padding: 0 0 clamp(48px, 6vw, 80px);
+}
+

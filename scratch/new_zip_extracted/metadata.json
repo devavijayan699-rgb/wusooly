@@ -1,0 +1,6 @@
+{
+  "name": "Wusooly Editorial Features",
+  "description": "Standalone interactive editorial features showcase for Wusooly POS across Shops & Supermarkets and Cafés & Restaurants.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,593 @@
+/* ==========================================================================
+   Wusooly POS - Floating Rounded Glass Navbar Styles
+   ========================================================================== */
+
+.navbarWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  z-index: 100;
+  padding: 0 16px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 62px;
+  padding: 0 14px 0 28px;
+  background: rgba(9, 29, 18, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(134, 239, 172, 0.16);
+  border-radius: 9999px;
+  box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+}
+
+/* Contact, Solutions & About Dedicated Navbar Variant */
+.navbarContact,
+.navbarSolutions,
+.navbarAbout {
+  background: #55665d !important;
+  backdrop-filter: blur(22px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Brand Logo */
+.brandLogo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.brandLogo:focus-visible {
+  outline: 2px solid #b4f046;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.brandLogoImg {
+  height: 25px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.brandLogo:hover .brandLogoImg {
+  opacity: 0.88;
+  transform: translateY(-0.5px);
+}
+
+.brandName {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+  text-transform: lowercase;
+}
+
+/* Center Desktop Links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.navItem {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 4px;
+  transition: color 0.18s ease;
+  outline: none;
+}
+
+.navItem:hover {
+  color: #b4f046;
+}
+
+.navItem:focus-visible {
+  outline: 2px solid #b4f046;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Dropdown Container */
+.dropdownContainer {
+  position: relative;
+}
+
+.dropdownTrigger {
+  appearance: none;
+  transition: all 0.2s ease;
+}
+
+.dropdownTriggerActive {
+  color: #b4f046;
+  background: rgba(180, 240, 70, 0.12);
+  border-radius: 9999px;
+  padding: 8px 12px;
+}
+
+.chevronIcon {
+  transition: transform 0.2s ease;
+  stroke: currentColor;
+  opacity: 0.85;
+}
+
+.chevronRotated {
+  transform: rotate(180deg);
+}
+
+/* Solutions Dropdown Notch (Liquid-Connected to Navbar) */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 11px);
+  left: -20px;
+  width: 380px;
+  padding: 6px 8px;
+  background: rgba(9, 29, 18, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(134, 239, 172, 0.16);
+  border-top: none;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 
+    0 18px 38px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  z-index: 120;
+  animation: liquidDropExpand 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top center;
+  overflow: visible;
+}
+
+/* Organic Left Concave Fillet (Smooth liquid extension from navbar) */
+.dropdownMenu::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -20px;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 0% 100%, transparent 20px, rgba(9, 29, 18, 0.96) 20.5px);
+  pointer-events: none;
+}
+
+/* Organic Right Concave Fillet (Smooth liquid extension from navbar toward Contact) */
+.dropdownMenu::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -20px;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 100% 100%, transparent 20px, rgba(9, 29, 18, 0.96) 20.5px);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Contact, Solutions & About Dedicated Dropdown Notch (Sage-Green Frosted Glass)
+   ========================================================================== */
+.dropdownContact,
+.dropdownSolutions,
+.dropdownAbout {
+  top: calc(100% + 7px) !important;
+  left: -20px !important;
+  width: 380px !important;
+  padding: 8px 8px 10px !important;
+  background: #55665d !important;
+  backdrop-filter: blur(22px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: none !important;
+  border-radius: 0 0 24px 24px !important;
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.18) !important;
+  z-index: 125 !important;
+}
+
+.dropdownContact::before,
+.dropdownSolutions::before,
+.dropdownAbout::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 4px !important;
+  left: -20px !important;
+  width: 20px !important;
+  height: 22px !important;
+  background: radial-gradient(circle at 0% 100%, transparent 20px, #55665d 20.5px) !important;
+  pointer-events: none !important;
+}
+
+.dropdownContact::after,
+.dropdownSolutions::after,
+.dropdownAbout::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 4px !important;
+  right: -20px !important;
+  width: 20px !important;
+  height: 22px !important;
+  background: radial-gradient(circle at 100% 100%, transparent 20px, #55665d 20.5px) !important;
+  pointer-events: none !important;
+}
+
+@keyframes liquidDropExpand {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scaleY(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  padding: 13px 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #ffffff;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.dropdownItem:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dropdownItem:hover {
+  background: rgba(180, 240, 70, 0.12);
+  border-color: rgba(180, 240, 70, 0.20);
+}
+
+.dropdownItem:focus-visible {
+  outline: 2px solid #b4f046;
+  outline-offset: 1px;
+}
+
+.dropdownItemContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropdownIconBox {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: rgba(163, 230, 53, 0.12);
+  border: 1px solid rgba(163, 230, 53, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a3e635;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.dropdownItem:hover .dropdownIconBox {
+  background: #a3e635;
+  color: #071a0e;
+  border-color: #a3e635;
+  transform: scale(1.05);
+}
+
+.dropdownItemText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dropdownItemTitle {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  transition: color 0.18s ease;
+}
+
+.dropdownItemDesc {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.35;
+  transition: color 0.18s ease;
+}
+
+.dropdownItem:hover .dropdownItemDesc {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.dropdownItemArrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  color: #a3e635;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+}
+
+.dropdownItem:hover .dropdownItemArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Right Actions */
+.rightActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Get a Demo Lime-Green Button */
+.getDemoBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 26px;
+  background: #b4f046;
+  color: #07150e;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+  outline: none;
+  white-space: nowrap;
+}
+
+.getDemoBtn:hover {
+  background: #c3f757;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px -4px rgba(180, 240, 70, 0.35);
+}
+
+.getDemoBtn:active {
+  transform: translateY(0);
+}
+
+.getDemoBtn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Mobile Hamburger Button */
+.hamburgerBtn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  outline: none;
+}
+
+.hamburgerBtn:focus-visible {
+  outline: 2px solid #b4f046;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.hamburgerBar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+
+.barTopOpen {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.barMidOpen {
+  opacity: 0;
+}
+
+.barBotOpen {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Responsive Mobile Menu Drawer */
+.mobileMenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 16px;
+  right: 16px;
+  background: rgba(9, 29, 18, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(134, 239, 172, 0.2);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  animation: mobileSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes mobileSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobileLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileCategoryTitle {
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #b4f046;
+  padding: 4px 12px;
+  text-decoration: none;
+  display: block;
+}
+
+.mobileItem {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+
+.mobileItem:hover {
+  background: rgba(180, 240, 70, 0.12);
+  color: #b4f046;
+}
+
+.mobileDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 6px 0;
+}
+
+.mobileActionContainer {
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.mobileDemoBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  background: #b4f046;
+  color: #07150e;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 9999px;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .navLinks {
+    gap: 22px;
+  }
+
+  .navbar {
+    padding: 0 12px 0 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbarWrapper {
+    padding: 0 12px;
+  }
+
+  .navbar {
+    height: 56px;
+    padding: 0 10px 0 18px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .getDemoBtn {
+    display: none;
+  }
+
+  .hamburgerBtn {
+    display: flex;
+  }
+
+  .brandName {
+    font-size: 1.3rem;
+  }
+}
+
+/* ==========================================================================
+   Light Theme Variant (Used on Light Pages e.g. Contact Page)
+   ========================================================================== */
+.wrapperLight {
+  max-width: 100%;
+  padding: 0;
+}
+
+.navbarLight {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  height: 52px;
+  padding: 0;
+}
+
+.wrapperLight .navItem {
+  color: #1a2e22;
+  font-weight: 500;
+}
+
+.wrapperLight .navItem:hover {
+  color: #07150e;
+}
+
+.wrapperLight .hamburgerLine {
+  background: #1a2e22;
+}
+
+.wrapperLight .dropdownMenu {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.12);
+}
+
+.wrapperLight .dropdownItemTitle {
+  color: #111827;
+}
+
+.wrapperLight .dropdownItemDesc {
+  color: #64748b;
+}
+
+.wrapperLight .dropdownItem:hover {
+  background: #f1f5f9;
+}

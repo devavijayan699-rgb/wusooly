@@ -1,0 +1,117 @@
+:root {
+  /* ── Core Font Families ── */
+  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* ── Fluid Typographic Scale ── */
+  --text-display: clamp(2.8rem, 5.5vw, 4.8rem); /* Massive hero & FAQ display headlines */
+  --text-h1: clamp(2.2rem, 4vw, 3.4rem);       /* Primary page titles */
+  --text-h2: clamp(1.6rem, 2.8vw, 2.4rem);     /* Major section headlines */
+  --text-h3: clamp(1.2rem, 1.8vw, 1.55rem);    /* Editorial card headings */
+  --text-h4: clamp(1.05rem, 1.4vw, 1.25rem);   /* Subheadings & accordions */
+  --text-lead: clamp(1rem, 1.2vw, 1.15rem);    /* Lead introductory copy */
+  --text-body: 0.95rem;                        /* Standard body copy */
+  --text-sm: 0.85rem;                          /* Secondary copy, inputs */
+  --text-xs: 0.75rem;                          /* Badges, tags, timestamps */
+  --text-micro: 0.68rem;                       /* Captions, fine print */
+
+  /* ── Optical Letter Spacing (Tracking) ── */
+  --tracking-tighter: -0.04em;  /* Giant display headlines */
+  --tracking-tight: -0.025em;   /* Major headings (H1-H3) */
+  --tracking-snug: -0.015em;    /* Subheadings and card titles */
+  --tracking-normal: 0em;       /* Body prose */
+  --tracking-wide: 0.04em;      /* UI controls & buttons */
+  --tracking-wider: 0.09em;     /* All-caps badges & micro-labels */
+
+  /* ── Line Heights (Leading) ── */
+  --leading-none: 0.96;         /* Ultra-tight editorial display headlines */
+  --leading-tight: 1.12;        /* Major titles */
+  --leading-snug: 1.28;         /* Subheadings and cards */
+  --leading-normal: 1.6;        /* Highly readable body prose */
+  --leading-relaxed: 1.75;      /* Long-form editorial reading */
+
+  /* ── Font Weights ── */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* ── Studio Background & Lighting ── */
+  --bg-deep: #07150e;
+  --bg-mid: #0b1f15;
+  --bg-surface: #0f2c1e;
+
+  --emerald-glow: rgba(14, 113, 75, 0.4);
+  --sunbeam-glow: rgba(120, 150, 110, 0.22);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  background-color: var(--bg-deep);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-sans);
+}
+
+body {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-deep);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* Force all interactive and form elements to inherit the brand font */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* Ambient Natural Light & Botanical Studio Backdrop */
+.ambient-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 18% 12%, var(--sunbeam-glow) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, var(--emerald-glow) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, #040d08 0%, var(--bg-deep) 100%);
+  opacity: 0.95;
+  animation: ambientBreathe 12s ease-in-out infinite alternate;
+}
+
+@keyframes ambientBreathe {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
