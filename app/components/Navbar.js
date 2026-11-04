@@ -241,9 +241,9 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
           >
             Pricing
           </TransitionLink>
-          <a href="/#download" className={styles.navItem} onClick={handleLinkClick}>
+          <TransitionLink href="/#download" className={styles.navItem} onClick={handleLinkClick}>
             Download
-          </a>
+          </TransitionLink>
           <TransitionLink
             href="/about"
             className={`${styles.navItem} ${pathname === "/about" ? styles.dropdownTriggerActive : ""}`}
@@ -316,9 +316,9 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
             <a href="/pricing" className={styles.mobileItem} onClick={handleLinkClick}>
               Pricing
             </a>
-            <a href="/#download" className={styles.mobileItem} onClick={handleLinkClick}>
+            <TransitionLink href="/#download" className={styles.mobileItem} onClick={handleLinkClick}>
               Download App
-            </a>
+            </TransitionLink>
             <a href="/about" className={styles.mobileItem} onClick={handleLinkClick}>
               About
             </a>

@@ -40,16 +40,36 @@ export default function TransitionLink({
       return;
     }
 
-    // Ignore pure anchor links or hash jumps on current page
+    // Handle pure anchor links or hash jumps on current page
     if (typeof href === "string") {
-      if (href.startsWith("#") || (href.startsWith("/#") && pathname === "/")) {
+      const isSamePage =
+        href.startsWith("#") ||
+        (href.startsWith("/#") && pathname === "/") ||
+        (href.includes("#") && href.split("#")[0] === pathname);
+
+      if (isSamePage) {
+        e.preventDefault();
+        const hash = href.split("#")[1];
+        if (hash) {
+          const targetEl = document.getElementById(hash);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: "smooth" });
+            window.history.pushState(null, "", `#${hash}`);
+          }
+        }
         return;
       }
+
       if (href === pathname) {
         e.preventDefault();
         return;
       }
-      if (href.startsWith("http://") || href.startsWith("https://") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      if (
+        href.startsWith("http://") ||
+        href.startsWith("https://") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("tel:")
+      ) {
         return;
       }
 

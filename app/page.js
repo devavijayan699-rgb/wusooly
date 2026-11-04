@@ -30,6 +30,16 @@ export default function Home() {
       } else if (hash === "#solutions-retail" || hash === "#retail") {
         setSelectedAudience("retail");
       }
+
+      if (hash) {
+        const targetId = hash.slice(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          setTimeout(() => {
+            targetEl.scrollIntoView({ behavior: "smooth" });
+          }, 400);
+        }
+      }
     };
     handleHash();
     window.addEventListener("hashchange", handleHash);

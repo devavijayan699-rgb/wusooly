@@ -26,8 +26,12 @@ export default function TransitionProvider({ children }) {
     if (!curtainRef.current) return;
     const curtain = curtainRef.current;
 
-    // Reset scroll to top immediately
-    if (typeof window !== "undefined") {
+    const targetHash = pendingHrefRef.current?.includes("#")
+      ? pendingHrefRef.current.split("#")[1]
+      : (typeof window !== "undefined" && window.location.hash ? window.location.hash.slice(1) : "");
+
+    // If there is NO hash target, reset scroll to top immediately
+    if (!targetHash && typeof window !== "undefined") {
       window.scrollTo(0, 0);
       scrollTo?.(0, { immediate: true });
     }
@@ -52,8 +56,24 @@ export default function TransitionProvider({ children }) {
           setIsTransitioning(false);
           pendingHrefRef.current = null;
           ScrollTrigger.refresh();
+
+          if (targetHash) {
+            setTimeout(() => {
+              const el = document.getElementById(targetHash);
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+              }
+            }, 100);
+          }
         },
       });
+    } else if (targetHash) {
+      setTimeout(() => {
+        const el = document.getElementById(targetHash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 350);
     }
   }, [pathname, scrollTo]);
 

@@ -15,7 +15,7 @@ export const useSmoothScroll = () => useContext(ScrollContext);
 
 /**
  * Child component that directly uses useLenis() hook from within ReactLenis tree.
- * Guarantees that lenis is non-null when binding to gsap.ticker!
+ * Synchronizes with GSAP ticker and provides seamless anchor hash navigation.
  */
 function LenisGsapSync({ onLenisReady }) {
   const lenis = useLenis();
@@ -35,7 +35,56 @@ function LenisGsapSync({ onLenisReady }) {
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
 
+    // Global click listener for anchor links containing hashes
+    const handleAnchorClick = (e) => {
+      const link = e.target.closest("a");
+      if (!link) return;
+      const href = link.getAttribute("href");
+      if (!href) return;
+
+      const isSamePageHash =
+        href.startsWith("#") ||
+        (href.startsWith("/#") && window.location.pathname === "/");
+
+      if (isSamePageHash) {
+        const hash = href.split("#")[1];
+        if (!hash) return;
+        const targetEl = document.getElementById(hash);
+        if (targetEl) {
+          e.preventDefault();
+          lenis.scrollTo(targetEl, {
+            offset: -60,
+            duration: 1.2,
+          });
+          window.history.pushState(null, "", `#${hash}`);
+        }
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+
+    // Check if initial URL on mount already contains a hash target
+    const scrollToInitialHash = () => {
+      if (window.location.hash) {
+        const hash = window.location.hash.slice(1);
+        const targetEl = document.getElementById(hash);
+        if (targetEl) {
+          lenis.scrollTo(targetEl, {
+            offset: -60,
+            duration: 1.2,
+          });
+        }
+      }
+    };
+
+    // Run slightly delayed to allow DOM hydration and dynamic components to mount
+    const timer = setTimeout(scrollToInitialHash, 350);
+    window.addEventListener("hashchange", scrollToInitialHash);
+
     return () => {
+      clearTimeout(timer);
+      window.removeEventListener("hashchange", scrollToInitialHash);
+      document.removeEventListener("click", handleAnchorClick);
       lenis.off("scroll", ScrollTrigger.update);
       gsap.ticker.remove(update);
     };

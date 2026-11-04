@@ -87,9 +87,9 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
                 </TransitionLink>
               </li>
               <li>
-                <a href="/#download" className={styles.link}>
+                <TransitionLink href="/#download" className={styles.link}>
                   Desktop App
-                </a>
+                </TransitionLink>
               </li>
             </ul>
           </div>
@@ -109,9 +109,9 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
                 </TransitionLink>
               </li>
               <li>
-                <a href="/#faq" className={styles.link}>
+                <TransitionLink href="/#faq" className={styles.link}>
                   FAQ
-                </a>
+                </TransitionLink>
               </li>
               <li>
                 <TransitionLink href="/contact" className={styles.link}>
