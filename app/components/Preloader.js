@@ -10,7 +10,7 @@ export default function Preloader() {
   const logoRef = useRef(null);
   const tagRef = useRef(null);
   const [show, setShow] = useState(false);
-  const { stop, start } = useSmoothScroll();
+  const { lenis } = useSmoothScroll();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -26,46 +26,62 @@ export default function Preloader() {
     }
 
     setShow(true);
-    stop?.();
+    lenis?.stop();
+
+    const cleanup = () => {
+      sessionStorage.setItem("wusooly_intro_seen", "true");
+      lenis?.start();
+      setShow(false);
+      window.dispatchEvent(new CustomEvent("wusooly_preloader_complete"));
+    };
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        onComplete: () => {
-          sessionStorage.setItem("wusooly_intro_seen", "true");
-          start?.();
-          setShow(false);
-          window.dispatchEvent(new CustomEvent("wusooly_preloader_complete"));
-        },
+        onComplete: cleanup,
       });
 
       // 1. Logo & wordmark entrance
       tl.fromTo(
         logoRef.current,
         { opacity: 0, y: 18, scale: 0.96 },
-        { opacity: 1, y: 0, scale: 1.0, duration: 0.6, ease: "expo.out" }
+        { opacity: 1, y: 0, scale: 1.0, duration: 0.55, ease: "expo.out" }
       );
 
       // 2. Micro tagline
       tl.fromTo(
         tagRef.current,
         { opacity: 0, y: 8 },
-        { opacity: 0.8, y: 0, duration: 0.4, ease: "power2.out" },
-        "-=0.25"
+        { opacity: 0.8, y: 0, duration: 0.35, ease: "power2.out" },
+        "-=0.2"
       );
 
-      // 3. Pause
-      tl.to({}, { duration: 0.25 });
+      // 3. Short pause
+      tl.to({}, { duration: 0.2 });
 
       // 4. Upward mask wipe exit
       tl.to(containerRef.current, {
         clipPath: "inset(0 0 100% 0)",
-        duration: 0.8,
+        duration: 0.75,
         ease: "power3.inOut",
+        onStart: () => {
+          if (containerRef.current) {
+            containerRef.current.style.pointerEvents = "none";
+          }
+        },
       });
     }, containerRef);
 
-    return () => ctx.revert();
-  }, [stop, start]);
+    // Safety fallback: guaranteed cleanup after 2.2s so user is never blocked
+    const fallbackTimer = setTimeout(() => {
+      cleanup();
+    }, 2200);
+
+    return () => {
+      ctx.revert();
+      clearTimeout(fallbackTimer);
+      lenis?.start();
+    };
+  }, [lenis]);
 
   if (!show) return null;
 
@@ -85,6 +101,7 @@ export default function Preloader() {
         gap: "16px",
         clipPath: "inset(0 0 0% 0)",
         willChange: "clip-path",
+        pointerEvents: "auto",
       }}
     >
       <div ref={logoRef} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -114,4 +131,3 @@ export default function Preloader() {
     </div>
   );
 }
-

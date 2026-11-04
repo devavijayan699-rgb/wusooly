@@ -64,7 +64,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   width: 100%;
   background-color: var(--bg-deep);
   overflow-x: hidden;
@@ -72,6 +71,28 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-family: var(--font-sans);
+}
+
+/* ── Lenis CSS Essentials ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
