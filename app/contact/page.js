@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Input, Select, Button } from "@ziqx/react-comps";
 import Navbar from "../components/Navbar";
+import OutroCTA from "../components/OutroCTA";
 import Footer from "../components/Footer";
 import Magnetic from "../components/Magnetic";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
@@ -357,36 +358,8 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* ── Store Operations Outro Banner ── */}
-      <section className={styles.bannerSection} aria-label="Store operations banner">
-        <div className={styles.bannerCard} ref={bannerRef}>
-          <h2 className={styles.bannerTitle}>
-            Ready to bring your store<br className={styles.bannerBr} />operations together?
-          </h2>
-          <p className={styles.bannerSubtext}>
-            Talk to our team about Wusooly for your business.
-          </p>
-          <Magnetic>
-            <Button
-              type="button"
-              variant="primary"
-              bgColor="#a3e635"
-              fgColor="#071a0e"
-              onClick={handleScrollToForm}
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontWeight: "700",
-                fontSize: "0.92rem",
-                borderRadius: "9999px",
-                padding: "13px 28px",
-                boxShadow: "0 2px 10px rgba(163, 230, 53, 0.3)",
-              }}
-            >
-              Get in Touch →
-            </Button>
-          </Magnetic>
-        </div>
-      </section>
+      {/* ── Store Operations Outro Banner (Unified Component) ── */}
+      <OutroCTA onClick={handleScrollToForm} />
 
       {/* ── Floating Glass Footer (Navbar Aesthetic DNA) ── */}
       <Footer onGetDemo={handleScrollToForm} theme="dark" />

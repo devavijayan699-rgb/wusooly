@@ -8,6 +8,7 @@ import EditorialFeaturesSection from "../components/EditorialFeaturesSection";
 import CafeRestaurantFeaturesSection from "../components/CafeRestaurantFeaturesSection";
 import FAQSection from "../components/FAQSection";
 import DownloadSection from "../components/DownloadSection";
+import OutroCTA from "../components/OutroCTA";
 import { gsap } from "../../lib/gsap";
 import styles from "./solutions.module.css";
 
@@ -179,6 +180,9 @@ export default function SolutionsPage() {
 
       {/* ── Download Desktop App Section ── */}
       <DownloadSection />
+
+      {/* ── Outro Store Operations CTA Banner ── */}
+      <OutroCTA />
 
       {/* ── Floating Dark Glass Footer ── */}
       <Footer onGetDemo={handleGetDemoNavbar} theme="dark" />

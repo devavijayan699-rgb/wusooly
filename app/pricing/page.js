@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PricingSection from "../components/PricingSection";
 import FAQSection from "../components/FAQSection";
+import OutroCTA from "../components/OutroCTA";
 import styles from "./pricing.module.css";
 
 export default function PricingPage() {
@@ -27,6 +28,9 @@ export default function PricingPage() {
       <div className={styles.faqSection}>
         <FAQSection />
       </div>
+
+      {/* ── Outro Store Operations CTA Banner ── */}
+      <OutroCTA />
 
       {/* ── Full-Bleed Site Footer ── */}
       <Footer onGetDemo={handleGetDemo} theme="dark" />

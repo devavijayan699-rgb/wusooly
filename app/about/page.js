@@ -5,6 +5,7 @@ import Image from "next/image";
 import TransitionLink from "../components/TransitionLink";
 import Magnetic from "../components/Magnetic";
 import Navbar from "../components/Navbar";
+import OutroCTA from "../components/OutroCTA";
 import Footer from "../components/Footer";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 import styles from "./about.module.css";
@@ -448,23 +449,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 07. Outro Card (Exact match of beloved Wusooly card layout) ── */}
-      <section className={`${styles.sectionWrap} ${styles.outroSection}`} aria-label="Get Started">
-        <div className={`${styles.outroCard} ${styles.reveal}`}>
-          <h2 className={styles.outroTitle}>
-            Ready to bring your store <br className={styles.titleBr} />operations together?
-          </h2>
-          <p className={styles.outroSubtext}>
-            Talk to our team about Wusooly for your business.
-          </p>
-          <Magnetic>
-            <TransitionLink href="/contact" className={styles.outroBtn}>
-              <span>Get in Touch</span>
-              <span className={styles.btnArrow} aria-hidden="true">&rarr;</span>
-            </TransitionLink>
-          </Magnetic>
-        </div>
-      </section>
+      {/* ── 07. Outro Card (Unified Wusooly Store Operations CTA) ── */}
+      <OutroCTA />
 
       {/* ── 08. Floating Glass Dark Footer ── */}
       <Footer theme="dark" />

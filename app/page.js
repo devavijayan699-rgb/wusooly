@@ -10,6 +10,7 @@ import CafeRestaurantFeaturesSection from "./components/CafeRestaurantFeaturesSe
 import FAQSection from "./components/FAQSection";
 import DownloadSection from "./components/DownloadSection";
 import PricingSection from "./components/PricingSection";
+import OutroCTA from "./components/OutroCTA";
 import { gsap, ScrollTrigger } from "../lib/gsap";
 import styles from "./page.module.css";
 
@@ -363,6 +364,9 @@ export default function Home() {
         <div id="about" className={styles.sectionAnchor} />
         <div id="contact" className={styles.sectionAnchor} />
         <div id="demo" className={styles.sectionAnchor} />
+
+        {/* Outro Store Operations CTA Banner */}
+        <OutroCTA />
 
         {/* Site Footer (Navbar Aesthetic DNA) */}
         <Footer onGetDemo={handleGetDemo} theme="dark" />
