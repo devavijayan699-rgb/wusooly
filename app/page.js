@@ -321,27 +321,11 @@ export default function Home() {
             )}
           </h1>
 
-          {/* Description - Deliberate Two-Line Hierarchy */}
+          {/* Description */}
           <p className={styles.description} ref={descRef}>
-            {selectedAudience === "retail" ? (
-              <>
-                <span className={styles.descLine}>
-                  Handle billing, stock, purchases, expenses, and performance reports with
-                </span>
-                <span className={styles.descLine}>
-                  Wusooly POS—built for everyday retail operations.
-                </span>
-              </>
-            ) : (
-              <>
-                <span className={styles.descLine}>
-                  From table service to takeaway and online ordering, manage billing, kitchen tickets, and business
-                </span>
-                <span className={styles.descLine}>
-                  analytics through one unified POS.
-                </span>
-              </>
-            )}
+            {selectedAudience === "retail"
+              ? "Handle billing, stock, purchases, expenses, and performance reports with Wusooly POS, built for everyday retail operations."
+              : "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS."}
           </p>
         </div>
 
