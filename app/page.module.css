@@ -17,7 +17,7 @@
 .heroSection {
   position: relative;
   width: 100%;
-  min-height: max(740px, 100vh);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,10 +28,10 @@
 /* Layer 1: Dedicated Background Artwork */
 .bgArtworkLayer {
   position: absolute;
-  top: 0;
+  top: -8%;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 116%;
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
@@ -63,7 +63,7 @@
   position: relative;
   width: 100%;
   z-index: 50;
-  padding-top: clamp(14px, 2vh, 24px);
+  padding-top: 24px;
 }
 
 /* Layer 3: Centred Marketing Copy Group */
@@ -74,8 +74,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 0 20px;
-  margin-top: clamp(12px, 2.2vh, 28px);
+  padding: 0 24px;
+  margin-top: clamp(20px, 3.8vh, 42px);
   max-width: 860px;
   will-change: transform, opacity;
 }
@@ -90,7 +90,7 @@
   border: 1px solid rgba(134, 239, 172, 0.16);
   border-radius: 9999px;
   padding: 4px;
-  margin-bottom: clamp(10px, 1.6vh, 18px);
+  margin-bottom: clamp(14px, 2.2vh, 22px);
   box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.3);
 }
 
@@ -141,10 +141,10 @@
 .headline {
   color: #ffffff;
   font-weight: var(--font-bold);
-  font-size: clamp(2.1rem, 3.2vw, 3.2rem);
+  font-size: var(--text-h1);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
-  margin: 0 0 clamp(8px, 1.3vh, 16px) 0;
+  margin: 0 0 clamp(12px, 1.8vh, 18px) 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,53 +164,11 @@
 /* Description Typography */
 .description {
   color: rgba(210, 236, 222, 0.85);
-  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
-  line-height: 1.48;
-  max-width: clamp(580px, 56vw, 740px);
+  font-size: var(--text-lead);
+  line-height: var(--leading-normal);
+  max-width: 640px;
   margin: 0 auto;
   font-weight: var(--font-regular);
-}
-
-/* Laptop & Compact Displays (Viewport height <= 900px) */
-@media (max-height: 900px) {
-  .navbarContainer {
-    padding-top: 12px;
-  }
-  .heroContent {
-    margin-top: 10px;
-  }
-  .audienceSelector {
-    margin-bottom: 8px;
-    padding: 3px;
-  }
-  .headline {
-    font-size: clamp(1.85rem, 2.9vw, 2.5rem);
-    margin-bottom: 8px;
-  }
-  .description {
-    font-size: 0.92rem;
-    line-height: 1.42;
-    max-width: 700px;
-  }
-}
-
-/* Ultra-compact / short laptop screens (Viewport height <= 730px) */
-@media (max-height: 730px) {
-  .navbarContainer {
-    padding-top: 8px;
-  }
-  .heroContent {
-    margin-top: 6px;
-  }
-  .headline {
-    font-size: 1.95rem;
-    margin-bottom: 6px;
-  }
-  .description {
-    font-size: 0.88rem;
-    line-height: 1.38;
-    max-width: 680px;
-  }
 }
 
 /* Monitor View Spacer: Keeps POS dashboard unblocked and prominent */
