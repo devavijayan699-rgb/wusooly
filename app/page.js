@@ -335,10 +335,10 @@ export default function Home() {
             ) : (
               <>
                 <span className={styles.descLine}>
-                  From table service to takeaway and online ordering, manage billing, kitchen tickets, and business
+                  From table service to takeaway and online ordering, manage billing, kitchen
                 </span>
                 <span className={styles.descLine}>
-                  analytics through one unified POS.
+                  tickets, and business analytics through one unified POS.
                 </span>
               </>
             )}
