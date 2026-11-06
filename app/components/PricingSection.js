@@ -208,13 +208,7 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
   const whatsappMessage = `Hi Wusooly Team, I'd like to get a quote for Wusooly POS (${currentData.categoryLabel} - ${activeOption.name}).`;
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
 
-  const handleDemoClick = () => {
-    if (typeof onGetDemo === "function") {
-      onGetDemo(activeOption.name);
-    } else {
-      window.location.href = `/contact?plan=${encodeURIComponent(currentData.categoryLabel + " - " + activeOption.name)}`;
-    }
-  };
+
 
   return (
     <section
@@ -385,13 +379,7 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
             </a>
           </Magnetic>
 
-          <button
-            type="button"
-            onClick={handleDemoClick}
-            className={styles.demoLink}
-          >
-            or schedule a 1-on-1 walkthrough →
-          </button>
+
         </div>
 
         {/* ══════════════════════════════════════════════════════════
