@@ -324,9 +324,15 @@ export default function Home() {
 
           {/* Description */}
           <p className={styles.description} ref={descRef}>
-            {selectedAudience === "retail"
-              ? "Handle billing, stock, purchases, expenses, and performance reports with Wusooly POS, built for everyday retail operations."
-              : "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS."}
+            {selectedAudience === "retail" ? (
+              <>
+                Handle billing, stock, purchases, expenses, and performance reports with
+                <br className={styles.descLineBreak} />
+                {" "}Wusooly POS—built for everyday retail operations.
+              </>
+            ) : (
+              "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS."
+            )}
           </p>
         </div>
 

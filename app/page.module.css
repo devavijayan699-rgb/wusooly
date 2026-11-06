@@ -163,12 +163,16 @@
 
 /* Description Typography */
 .description {
-  color: rgba(210, 236, 222, 0.88);
-  font-size: clamp(0.85rem, 0.96vw, 0.95rem);
-  line-height: 1.45;
-  max-width: 880px;
+  color: rgba(225, 245, 235, 0.9);
+  font-size: clamp(0.85rem, 0.95vw, 0.92rem);
+  line-height: 1.5;
+  max-width: 680px;
   margin: 0 auto;
   font-weight: var(--font-regular);
+}
+
+.descLineBreak {
+  display: block;
 }
 
 /* Monitor View Spacer: Keeps POS dashboard unblocked and prominent */
