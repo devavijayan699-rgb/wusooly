@@ -692,17 +692,18 @@ export default function EditorialFeaturesStandalone({
 
         .w-kot-photo-wrap {
           margin-top: auto;
-          padding-top: 10px;
-          border-radius: 12px 12px 0 0;
+          margin-left: -32px;
+          margin-right: -32px;
+          margin-bottom: 0;
+          padding-top: 16px;
           overflow: hidden;
         }
 
         .w-kot-photo {
           width: 100%;
-          aspect-ratio: 4 / 3;
+          aspect-ratio: 16 / 11;
           height: auto;
           display: block;
-          border-radius: 12px 12px 0 0;
           object-fit: cover;
           object-position: center 22%;
         }
