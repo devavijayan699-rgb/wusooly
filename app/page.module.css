@@ -164,9 +164,9 @@
 /* Description Typography */
 .description {
   color: rgba(225, 245, 235, 0.9);
-  font-size: clamp(0.85rem, 0.95vw, 0.92rem);
+  font-size: clamp(0.85rem, 0.95vw, 0.95rem);
   line-height: 1.5;
-  max-width: 680px;
+  max-width: clamp(520px, 42vw, 680px);
   margin: 0 auto;
   font-weight: var(--font-regular);
 }
@@ -236,6 +236,13 @@
 
   .monitorViewSpacer {
     min-height: 320px;
+  }
+}
+
+/* Compact Mobile: Let description text flow naturally */
+@media (max-width: 480px) {
+  .descLineBreak {
+    display: inline;
   }
 }
 
