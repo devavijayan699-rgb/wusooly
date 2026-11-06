@@ -280,8 +280,8 @@
 }
 
 .optionCardActive {
-  border-color: #0c291e;
-  box-shadow: 0 12px 32px -6px rgba(8, 32, 18, 0.14), 0 0 0 1px #0c291e;
+  border-color: rgba(12, 41, 30, 0.12);
+  box-shadow: 0 12px 32px -6px rgba(12, 41, 30, 0.08);
 }
 
 .optionHeader {
@@ -303,7 +303,7 @@
 }
 
 .radioSelected {
-  border-color: #0c291e;
+  border-color: #a3e635;
 }
 
 .radioDot {
