@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 export default function Magnetic({
   children,
   strength = 0.35,
+  pullFactor,
   maxDisplacement = 12,
   className = "",
   style = {},

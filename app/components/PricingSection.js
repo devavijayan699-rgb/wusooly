@@ -354,7 +354,7 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
             SECTION 3: ACTION CTA BAR (WHATSAPP DEEP LINK + DEMO)
             ══════════════════════════════════════════════════════════ */}
         <div className={styles.ctaBar}>
-          <Magnetic pullFactor={0.25}>
+          <Magnetic strength={0.25}>
             <a
               href={whatsappUrl}
               target="_blank"
