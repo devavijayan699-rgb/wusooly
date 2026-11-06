@@ -14,6 +14,11 @@
   background-color: transparent;
 }
 
+.pricingWrapHero {
+  padding-top: clamp(20px, 3vh, 32px);
+  padding-bottom: clamp(60px, 8vw, 96px);
+}
+
 .contentContainer {
   max-width: 1060px;
   width: 100%;
@@ -30,9 +35,9 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 14px;
+  gap: 16px;
   max-width: 680px;
-  margin: 12px auto 0 auto;
+  margin: 0 auto;
 }
 
 .headline {
@@ -59,7 +64,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-bottom: 6px;
+  margin-bottom: clamp(14px, 2.2vh, 22px);
 }
 
 .audienceSelector {
@@ -85,6 +90,9 @@
   transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
 }
 

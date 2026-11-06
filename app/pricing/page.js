@@ -21,7 +21,7 @@ export default function PricingPage() {
 
       {/* ── Main Content Area: Grand Botanical Pricing Canvas ── */}
       <div className={styles.mainContent}>
-        <PricingSection onGetDemo={handleGetDemo} />
+        <PricingSection onGetDemo={handleGetDemo} isHero={true} />
       </div>
 
       {/* ── Frequently Asked Questions ── */}

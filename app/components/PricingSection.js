@@ -146,7 +146,7 @@ const PRICING_DATA = {
   },
 };
 
-export default function PricingSection({ onGetDemo, id = "pricing", initialAudience = "retail" }) {
+export default function PricingSection({ onGetDemo, id = "pricing", initialAudience = "retail", isHero = false }) {
   const [audience, setAudience] = useState(initialAudience || "retail");
   const [selectedOption, setSelectedOption] = useState("backup");
 
@@ -218,7 +218,7 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
 
   return (
     <section
-      className={styles.pricingWrap}
+      className={`${styles.pricingWrap} ${isHero ? styles.pricingWrapHero : ""}`}
       id={id}
       ref={sectionRef}
       aria-label="Wusooly POS Pricing & License Configurator"
