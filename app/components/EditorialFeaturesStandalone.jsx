@@ -21,6 +21,7 @@ import { gsap, ScrollTrigger } from "../../lib/gsap";
  */
 
 const ASSETS = {
+  brandLogoDark: "/assets/wusooly-brand-logo-dark.png",
   // Shops & Supermarkets
   retailLifetimeBilling: "/images/retail-lifetime-billing.jpg",
   retailLifetimeWallets: "/images/retail-lifetime-wallets.jpg",
@@ -651,6 +652,14 @@ export default function EditorialFeaturesStandalone({
           font-weight: 800;
           letter-spacing: -0.04em;
           color: var(--w-forest-dark);
+        }
+
+        .w-brand-logo-img {
+          height: 22px;
+          width: auto;
+          object-fit: contain;
+          align-self: flex-start;
+          display: block;
         }
 
         .w-kot-title {
@@ -1352,7 +1361,7 @@ export default function EditorialFeaturesStandalone({
             {/* ── CAFE ROW 3 · Kitchen KOT Card (38%) + Table Management & Reservations (62%) ── */}
             <div className="w-row">
               <div className="w-card w-kot-card">
-                <div className="w-brand-logo-text">wusooly</div>
+                <img src={ASSETS.brandLogoDark} alt="Wusooly POS" className="w-brand-logo-img" />
                 <h3 className="w-kot-title">
                   KITCHEN ORDER TICKETS &amp; LIVE DISPLAY
                 </h3>
