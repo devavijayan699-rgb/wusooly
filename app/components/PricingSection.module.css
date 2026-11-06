@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════
-   WUSOOLY POS — EXACT REFERENCE PRICING SECTION
-   Clean Editorial Layout • Pixel-Faithful to Reference Mockup
+   WUSOOLY POS — LUXURY BOTANICAL PRICING & LICENSE CONFIGURATOR
+   Reference-Faithful Architecture • Luxury Studio Aesthetic
    ═══════════════════════════════════════════════════════════════ */
 
 .pricingWrap {
   width: 100%;
-  padding: clamp(52px, 7vw, 96px) clamp(16px, 3.5vw, 32px);
+  padding: clamp(56px, 8vw, 104px) clamp(16px, 4vw, 36px);
   display: flex;
   justify-content: center;
   position: relative;
@@ -15,12 +15,11 @@
 }
 
 .contentContainer {
-  max-width: 980px;
+  max-width: 1060px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: clamp(36px, 4.5vw, 48px);
+  gap: clamp(32px, 4.5vw, 48px);
   box-sizing: border-box;
   font-family: var(--font-sans, "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
@@ -31,300 +30,496 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 12px;
+  gap: 14px;
   max-width: 680px;
-  margin: 0 auto;
+  margin: 12px auto 0 auto;
 }
 
 .headline {
-  font-size: clamp(2.1rem, 3.8vw, 3rem);
+  font-family: var(--font-headline, var(--font-sans));
+  font-size: clamp(2.2rem, 3.8vw, 3.1rem);
   font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
-  color: #111111;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #0c291e;
   margin: 0;
 }
 
 .subtext {
-  font-size: clamp(0.92rem, 1.25vw, 1.02rem);
+  font-size: clamp(0.94rem, 1.2vw, 1.04rem);
   line-height: 1.55;
-  color: #666666;
+  color: #4a5c52;
   margin: 0;
   font-weight: 400;
-  max-width: 580px;
+  max-width: 600px;
 }
 
-/* ── 2-Column Pricing Cards Grid ── */
-.pricingGrid {
+/* ── Audience Segmented Control (Retail & Stores vs Restaurants & Cafes) ── */
+.audienceToggleWrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.audienceSelector {
+  display: inline-flex;
+  align-items: center;
+  background: #edf1e8;
+  border: 1px solid rgba(12, 41, 30, 0.08);
+  border-radius: 9999px;
+  padding: 4px;
+  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.04);
+}
+
+.audienceSegment {
+  position: relative;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 22px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  outline: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.segmentActive {
+  color: #07150e;
+}
+
+.segmentInactive {
+  color: #4a5c52;
+}
+
+.segmentInactive:hover {
+  color: #0c291e;
+}
+
+.segmentPill {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  z-index: -1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 1: LIFETIME INCLUSIONS MASTER BENTO CARD
+   ═══════════════════════════════════════════════════════════════ */
+.inclusionsCard {
+  background-color: #edf1e8;
+  border: 1px solid rgba(12, 41, 30, 0.08);
+  border-radius: 28px;
+  padding: clamp(32px, 4.2vw, 48px);
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+.inclusionsCard:hover {
+  box-shadow: 0 8px 32px rgba(12, 41, 30, 0.06);
+}
+
+.inclusionsLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.categoryPill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(12, 41, 30, 0.06);
+  border: 1px solid rgba(12, 41, 30, 0.08);
+  border-radius: 9999px;
+  padding: 4px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0c291e;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.lifetimeTitle {
+  font-family: var(--font-headline, var(--font-sans));
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: #0c291e;
+  margin: 0;
+}
+
+.lifetimeLead {
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: #3b5043;
+  margin: 0;
+  font-weight: 400;
+}
+
+.inclusionsRight {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.featuresGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(20px, 2.5vw, 32px);
+  gap: 14px 24px;
   width: 100%;
-  align-items: stretch;
-}
-
-@media (max-width: 860px) {
-  .pricingGrid {
-    grid-template-columns: 1fr;
-    max-width: 480px;
-  }
-}
-
-/* ── Shared Tier Card Base ── */
-.tierCard {
-  border-radius: 28px;
-  padding: clamp(34px, 4vw, 44px) clamp(30px, 3.6vw, 38px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  box-sizing: border-box;
-  height: 100%;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
-}
-
-.tierCard:hover {
-  transform: translateY(-3px);
-}
-
-/* ── Card 1: POS Core (Crisp White Card) ── */
-.cardCore {
-  background: #ffffff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
-  color: #111111;
-}
-
-.cardCore:hover {
-  border-color: rgba(0, 0, 0, 0.14);
-  box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
-}
-
-/* ── Card 2: Cloud & Growth (Deep Forest Green) ── */
-.cardGrowth {
-  background: #082012;
-  border: 1px solid rgba(163, 230, 53, 0.16);
-  box-shadow: 0 18px 44px rgba(8, 32, 18, 0.28);
-  color: #ffffff;
-}
-
-.cardGrowth:hover {
-  border-color: rgba(163, 230, 53, 0.38);
-  box-shadow: 0 24px 56px rgba(8, 32, 18, 0.42), 0 0 0 1px rgba(180, 240, 70, 0.22);
-}
-
-/* ── Card Top Flex Area ── */
-.cardTop {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-/* ── Card Header Row (Badge / Pill) ── */
-.cardHeaderRow {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 18px;
-}
-
-.labelCore {
-  display: inline-flex;
-  align-items: center;
-  background: #f0f0ed;
-  border-radius: 9999px;
-  padding: 5px 12px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #222222;
-  letter-spacing: -0.01em;
-}
-
-.badgeGrowth {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #9ce62a;
-  border-radius: 9999px;
-  padding: 5px 14px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #071a0e;
-  letter-spacing: -0.01em;
-}
-
-.badgeDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #071a0e;
-}
-
-/* ── Card Title & Description ── */
-.planTitle {
-  font-size: clamp(1.6rem, 2.2vw, 1.95rem);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
-  margin: 0 0 10px 0;
-}
-
-.cardCore .planTitle {
-  color: #111111;
-}
-
-.cardGrowth .planTitle {
-  color: #ffffff;
-}
-
-.planDescription {
-  font-size: 0.88rem;
-  line-height: 1.5;
-  margin: 0 0 22px 0;
-  font-weight: 400;
-}
-
-.cardCore .planDescription {
-  color: #666666;
-}
-
-.cardGrowth .planDescription {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-/* ── Divider Line (Card 1) ── */
-.divider {
-  width: 100%;
-  height: 1px;
-  background: #f0f0ed;
-  margin: 0 0 24px 0;
-}
-
-/* ── Cloud Backup Highlight Strip (Card 2) ── */
-.highlightStrip {
-  background: #55665d;
-  border: 1px solid rgba(156, 230, 42, 0.45);
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: #ffffff;
-  margin-bottom: 22px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.cloudIcon {
-  color: #9ce62a;
-  flex-shrink: 0;
-}
-
-.supportingHeading {
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0 0 14px 0;
-  line-height: 1.4;
-}
-
-/* ── Bare Checklist Items ── */
-.featureList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.cardCore .featureList {
-  gap: 11px;
-}
-
-.cardGrowth .featureList {
-  gap: 16px;
 }
 
 .featureItem {
   display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: #1a3328;
+  font-weight: 500;
+}
+
+.checkBadge {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(163, 230, 53, 0.28);
+  color: #0c291e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+@media (max-width: 860px) {
+  .inclusionsCard {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 2: CHOOSE YOUR OPTION (INTERACTIVE CARDS)
+   ═══════════════════════════════════════════════════════════════ */
+.chooseSection {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.subSectionTitle {
+  font-family: var(--font-headline, var(--font-sans));
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0c291e;
+  margin: 0;
+}
+
+.optionCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(var(--option-cols, 2), minmax(0, 1fr));
+  gap: 18px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.optionCard {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid rgba(12, 41, 30, 0.1);
+  border-radius: 20px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+}
+
+.optionCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(12, 41, 30, 0.25);
+  box-shadow: 0 10px 28px -6px rgba(8, 32, 18, 0.08);
+}
+
+.optionCardActive {
+  border-color: #0c291e;
+  box-shadow: 0 12px 32px -6px rgba(8, 32, 18, 0.14), 0 0 0 1px #0c291e;
+}
+
+.optionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.radioIndicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(12, 41, 30, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease;
+}
+
+.radioSelected {
+  border-color: #0c291e;
+}
+
+.radioDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #a3e635;
+}
+
+.optionName {
+  font-family: var(--font-headline, var(--font-sans));
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: #0c291e;
+  margin: 0;
+}
+
+.optionBody {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #4a5c52;
+  margin: 0;
+  flex: 1;
+}
+
+.optionTag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #27523f;
+  background: #edf1e8;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  align-self: flex-start;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 860px) {
+  .optionCardsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 3: ACTION CTA BAR (WHATSAPP DEEP LINK)
+   ═══════════════════════════════════════════════════════════════ */
+.ctaBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.demoLink {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #4a5c52;
+  cursor: pointer;
+  padding: 4px 8px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+
+.demoLink:hover {
+  color: #0c291e;
+}
+
+.quoteBtn {
+  background-color: #0c291e;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.96rem;
+  font-weight: 700;
+  padding: 14px 34px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.86rem;
-  font-weight: 500;
-  line-height: 1.4;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(12, 41, 30, 0.2);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.cardCore .featureItem {
-  color: #171717;
+.quoteBtn:hover {
+  background-color: #173d2f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(12, 41, 30, 0.28);
 }
 
-.cardGrowth .featureItem {
-  color: rgba(255, 255, 255, 0.94);
+.whatsappIcon {
+  width: 18px;
+  height: 18px;
+  fill: #a3e635;
 }
 
-.checkIcon {
-  flex-shrink: 0;
+.btnArrow {
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
 }
 
-.cardCore .checkIcon {
-  color: #111111;
+.quoteBtn:hover .btnArrow {
+  transform: translateX(3px);
 }
 
-.cardGrowth .checkIcon {
-  color: #9ce62a;
-}
-
-/* ── Action Buttons (Pinned to Bottom) ── */
-.cardBtnCore {
-  width: 100%;
-  margin-top: 32px;
-  background: #55665d;
-  color: #ffffff;
-  border: none;
-  border-radius: 9999px;
-  padding: 14px 24px;
-  font-size: 0.90rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  cursor: pointer;
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 4: COMPARE OPTIONS FEATURE MATRIX TABLE
+   ═══════════════════════════════════════════════════════════════ */
+.compareSection {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: inherit;
-  box-shadow: 0 2px 8px rgba(85, 102, 93, 0.25);
-}
-
-.cardBtnCore:hover {
-  background: #47574f;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(85, 102, 93, 0.32);
-}
-
-.cardBtnGrowth {
+  flex-direction: column;
+  gap: 20px;
   width: 100%;
-  margin-top: 32px;
-  background: #9ce62a;
-  color: #071a0e;
-  border: none;
-  border-radius: 9999px;
-  padding: 14px 24px;
-  font-size: 0.90rem;
+  margin-top: 8px;
+}
+
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(12, 41, 30, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  -webkit-overflow-scrolling: touch;
+}
+
+.compareTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 600px;
+}
+
+.tableHeadRow {
+  border-bottom: 1.5px solid rgba(12, 41, 30, 0.1);
+}
+
+.thFeature {
+  padding: 20px 24px;
+  font-family: var(--font-headline, var(--font-sans));
+  font-size: 0.92rem;
   font-weight: 800;
-  letter-spacing: 0.01em;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: inherit;
-  box-shadow: 0 4px 14px rgba(156, 230, 42, 0.28);
+  color: #0c291e;
+  width: 45%;
 }
 
-.cardBtnGrowth:hover {
-  background: #abed45;
-  transform: translateY(-1px);
+.thCol {
+  padding: 20px 20px;
+  font-family: var(--font-headline, var(--font-sans));
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: #0c291e;
+  text-align: center;
+  transition: background-color 0.25s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.thColActive {
+  background: rgba(163, 230, 53, 0.1);
+  color: #082012;
+}
+
+.tableRow {
+  border-bottom: 1px solid rgba(12, 41, 30, 0.06);
+  transition: background-color 0.15s ease;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableRow:hover {
+  background-color: #fafbf9;
+}
+
+.tdFeature {
+  padding: 16px 24px;
+  font-size: 0.88rem;
+  color: #1a3328;
+  font-weight: 500;
+}
+
+.tdVal {
+  padding: 16px 20px;
+  text-align: center;
+  font-size: 0.86rem;
+  color: #4a5c52;
+  transition: background-color 0.25s ease;
+}
+
+.tdValActive {
+  background: rgba(163, 230, 53, 0.06);
+}
+
+.checkIncluded {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #0c291e;
+  color: #a3e635;
+}
+
+.dashExcluded {
+  display: inline-block;
+  color: #9ca3af;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 5: TRANSPARENT FOOTNOTE STRIP
+   ═══════════════════════════════════════════════════════════════ */
+.pricingFootnote {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #6b7280;
+  text-align: center;
+  max-width: 840px;
+  margin: 12px auto 0 auto;
 }
