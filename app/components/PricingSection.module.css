@@ -122,7 +122,7 @@
    SECTION 1: LIFETIME INCLUSIONS MASTER BENTO CARD
    ═══════════════════════════════════════════════════════════════ */
 .inclusionsCard {
-  background-color: #55665d;
+  background-color: #0c291e;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 28px;
   padding: clamp(32px, 4.2vw, 48px);

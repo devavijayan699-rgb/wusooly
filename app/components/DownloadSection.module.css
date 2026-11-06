@@ -1,7 +1,7 @@
 /* ==========================================================================
    Wusooly Download Section — Clean Minimal Editorial Aesthetic
    • ZERO container background (sits seamlessly directly on page canvas)
-   • Download cards styled with custom mineral sage (#55665d)
+   • Download cards styled with signature brand green (#0c291e)
    • Crisp dark editorial typography for headline & subtext
    • Vibrant Wusooly lime pill CTAs
    • STRICTLY ZERO EYEBROW TEXT
@@ -72,7 +72,7 @@
 
 .card {
   position: relative;
-  background-color: #55665d;
+  background-color: #0c291e;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 22px;
   padding: clamp(28px, 3.5vw, 38px);
@@ -217,15 +217,15 @@
   text-decoration: none;
   padding: 8px 18px;
   border-radius: 9999px;
-  background: rgba(85, 102, 93, 0.1);
-  border: 1px solid rgba(85, 102, 93, 0.22);
+  background: rgba(12, 41, 30, 0.08);
+  border: 1px solid rgba(12, 41, 30, 0.2);
   transition: all 0.2s ease;
 }
 
 .ltsLink:hover {
   color: #0c291e;
   border-color: rgba(12, 41, 30, 0.35);
-  background: rgba(85, 102, 93, 0.18);
+  background: rgba(12, 41, 30, 0.14);
 }
 
 .ltsArrow {
