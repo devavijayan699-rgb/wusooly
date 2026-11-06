@@ -8,7 +8,7 @@ import styles from "./PricingSection.module.css";
 
 const PRICING_DATA = {
   retail: {
-    categoryLabel: "Retail & Stores",
+    categoryLabel: "Shops & Supermarkets",
     title: "Lifetime license",
     lead: "Pay once per terminal and own your POS. Every feature on the right is included in all options below.",
     inclusions: [
@@ -67,7 +67,7 @@ const PRICING_DATA = {
       "Priced per terminal. Additional outlets, installation, product data import, barcode setup and staff training are quoted separately. Taxes and payment fees are shown in your final quote.",
   },
   cafe: {
-    categoryLabel: "Restaurants & Cafés",
+    categoryLabel: "Cafés & Restaurants",
     title: "Lifetime license",
     lead: "Pay once per terminal and own your POS. Every feature on the right is included in all options below.",
     inclusions: [
@@ -226,13 +226,8 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
       <div className={styles.contentContainer}>
         {/* ── Section Header ── */}
         <header className={styles.headerBlock} ref={headerRef}>
-          <h2 className={styles.headline}>Plans that grow your business.</h2>
-          <p className={styles.subtext}>
-            Simple, transparent lifetime licensing tailored for retail stores, restaurants, and cafés.
-          </p>
-
-          {/* ── Audience Segmented Control (Retail vs Cafes) ── */}
-          <div className={styles.audienceToggleWrap} role="tablist" aria-label="Business Type">
+          {/* ── Audience Segmented Control (Matched to Solutions Page Position & Style) ── */}
+          <div className={styles.audienceToggleWrap} role="tablist" aria-label="Select store category">
             <div className={styles.audienceSelector}>
               <button
                 type="button"
@@ -241,14 +236,14 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
                 className={`${styles.audienceSegment} ${audience === "retail" ? styles.segmentActive : styles.segmentInactive}`}
                 onClick={() => setAudience("retail")}
               >
-                Retail &amp; Stores
                 {audience === "retail" && (
                   <motion.span
                     layoutId="activePricingAudienceTab"
                     className={styles.segmentPill}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 420, damping: 30 }}
                   />
                 )}
+                Shops &amp; Supermarkets
               </button>
 
               <button
@@ -258,17 +253,22 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
                 className={`${styles.audienceSegment} ${audience === "cafe" ? styles.segmentActive : styles.segmentInactive}`}
                 onClick={() => setAudience("cafe")}
               >
-                Restaurants &amp; Cafés
                 {audience === "cafe" && (
                   <motion.span
                     layoutId="activePricingAudienceTab"
                     className={styles.segmentPill}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 420, damping: 30 }}
                   />
                 )}
+                Cafés &amp; Restaurants
               </button>
             </div>
           </div>
+
+          <h2 className={styles.headline}>Plans that grow your business.</h2>
+          <p className={styles.subtext}>
+            Simple, transparent lifetime licensing tailored for retail stores, restaurants, and cafés.
+          </p>
         </header>
 
         {/* ══════════════════════════════════════════════════════════
