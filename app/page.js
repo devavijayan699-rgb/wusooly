@@ -331,7 +331,11 @@ export default function Home() {
                 {" "}Wusooly POS—built for everyday retail operations.
               </>
             ) : (
-              "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS."
+              <>
+                From table service to takeaway and online ordering, manage billing,
+                <br className={styles.descLineBreak} />
+                {" "}kitchen tickets, and business analytics through one unified POS.
+              </>
             )}
           </p>
         </div>
