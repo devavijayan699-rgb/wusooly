@@ -359,11 +359,11 @@ export default function Home() {
           <CafeRestaurantFeaturesSection onGetDemo={handleGetDemo} />
         )}
 
-        {/* Frequently Asked Questions Section */}
-        <FAQSection />
-
         {/* Pricing Section (Lifetime Core & Cloud Growth) */}
         <PricingSection onGetDemo={handleGetDemo} initialAudience={selectedAudience} id="pricing" />
+
+        {/* Frequently Asked Questions Section */}
+        <FAQSection />
 
         {/* Download Wusooly Desktop Section */}
         <DownloadSection />
