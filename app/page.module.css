@@ -75,7 +75,7 @@
   align-items: center;
   text-align: center;
   padding: 0 24px;
-  margin-top: clamp(24px, 4.2vw - 6px, 80px);
+  margin-top: clamp(28px, 4.5vw - 8px, 76px);
   max-width: 960px;
   will-change: transform, opacity;
 }
@@ -248,31 +248,8 @@
   }
 }
 
-/* Height-Aware Adaptive Rules (Safeguards laptop screen clearance without overriding wide monitors) */
-@media (max-height: 800px) and (max-width: 1440px) {
-  .heroContent {
-    margin-top: clamp(14px, 3vh, 26px);
-  }
-
-  .audienceSelector {
-    margin-bottom: 10px;
-  }
-
-  .headline {
-    font-size: clamp(2.1rem, 3.5vw, 2.9rem);
-    margin-bottom: 8px;
-  }
-
-  .description {
-    font-size: 0.88rem;
-  }
-
-  .monitorViewSpacer {
-    min-height: clamp(240px, 38vh, 380px);
-  }
-}
-
-@media (max-height: 680px) and (max-width: 1440px) {
+/* Height-Aware Adaptive Rules (Safeguards laptop screen clearance across all aspect ratios) */
+@media (max-height: 780px) {
   .heroContent {
     margin-top: 10px;
   }
@@ -282,7 +259,28 @@
   }
 
   .headline {
-    font-size: 2.15rem;
+    font-size: clamp(1.85rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .description {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  .monitorViewSpacer {
+    min-height: clamp(200px, 32vh, 320px);
+  }
+}
+
+@media (max-height: 650px) {
+  .heroContent {
+    margin-top: 6px;
+  }
+
+  .headline {
+    font-size: 1.85rem;
     margin-bottom: 6px;
   }
 }
