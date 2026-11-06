@@ -371,8 +371,8 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
               <svg
                 className={styles.whatsappIcon}
                 viewBox="0 0 24 24"
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 fill="currentColor"
                 aria-hidden="true"
               >
