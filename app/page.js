@@ -11,7 +11,7 @@ import FAQSection from "./components/FAQSection";
 import DownloadSection from "./components/DownloadSection";
 import PricingSection from "./components/PricingSection";
 import OutroCTA from "./components/OutroCTA";
-import { gsap, ScrollTrigger } from "../lib/gsap";
+import { gsap } from "../lib/gsap";
 import styles from "./page.module.css";
 
 export default function Home() {

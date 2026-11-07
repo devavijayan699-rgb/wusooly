@@ -1,13 +1,12 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { Input, Select, Button } from "@ziqx/react-comps";
 import Navbar from "../components/Navbar";
 import OutroCTA from "../components/OutroCTA";
 import Footer from "../components/Footer";
 import Magnetic from "../components/Magnetic";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import { gsap } from "../../lib/gsap";
 import styles from "./contact.module.css";
 
 const BUSINESS_OPTIONS = [
