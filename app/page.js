@@ -224,15 +224,40 @@ export default function Home() {
 
         {/* Layer 1: Dedicated Background Artwork Layer */}
         <div className={styles.bgArtworkLayer} ref={bgImageRef} style={{ position: "absolute" }} aria-hidden="true">
-          <Image
-            src="/assets/hero-pos.webp"
-            alt="Wusooly POS display in clean forest-green studio with monitor, billing dashboard, marble pedestals, plants and ribbed glass panel"
-            fill
-            priority
-            unoptimized
-            className={styles.bgImage}
-            sizes="100vw"
-          />
+          {/* Retail Studio Setup */}
+          <div
+            className={`${styles.bgImageWrapper} ${
+              selectedAudience === "retail" ? styles.bgActive : styles.bgInactive
+            }`}
+          >
+            <Image
+              src="/assets/hero-pos.webp"
+              alt="Wusooly POS display in clean forest-green studio with monitor, billing dashboard, marble pedestals, plants and ribbed glass panel"
+              fill
+              priority
+              unoptimized
+              className={styles.bgImage}
+              sizes="100vw"
+            />
+          </div>
+
+          {/* Café & Restaurant Studio Setup */}
+          <div
+            className={`${styles.bgImageWrapper} ${
+              selectedAudience === "cafe" ? styles.bgActive : styles.bgInactive
+            }`}
+          >
+            <Image
+              src="/assets/Wusooly Café POS Studio Setup.png"
+              alt="Wusooly Café POS studio setup with monitor, receipt printer, barcode scanner and terminal"
+              fill
+              priority
+              unoptimized
+              className={styles.bgImage}
+              sizes="100vw"
+            />
+          </div>
+
           {/* Subtle contrast scrim to enhance text legibility over sunlight beam without hiding artwork */}
           <div className={styles.scrimOverlay} />
         </div>

@@ -38,6 +38,26 @@
   will-change: transform;
 }
 
+.bgImageWrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity;
+}
+
+.bgActive {
+  opacity: 1;
+  z-index: 1;
+}
+
+.bgInactive {
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .bgImage {
   width: 100%;
   height: 100%;
@@ -56,6 +76,7 @@
       rgba(3, 14, 8, 0.16) 55%,
       transparent 85%);
   pointer-events: none;
+  z-index: 2;
 }
 
 /* Layer 2: Floating Navbar Container */
