@@ -231,7 +231,7 @@ export default function Home() {
             }`}
           >
             <Image
-              src="/assets/hero-pos.webp"
+              src="/assets/Gemini_Generated_Image_3w01763w01763w01.png"
               alt="Wusooly POS display in clean forest-green studio with monitor, billing dashboard, marble pedestals, plants and ribbed glass panel"
               fill
               priority
