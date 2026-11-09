@@ -153,10 +153,10 @@
 .categoryPill {
   display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #55665d;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 9999px;
-  padding: 4px 14px;
+  padding: 5px 14px;
   font-size: 0.78rem;
   font-weight: 700;
   color: #ffffff;
@@ -333,8 +333,9 @@
 .optionTag {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #27523f;
-  background: #edf1e8;
+  color: #ffffff;
+  background: #55665d;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 5px 12px;
   border-radius: 9999px;
   align-self: flex-start;
@@ -391,8 +392,9 @@
 }
 
 .btnArrow {
-  font-size: 1.1rem;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: #071a0e;
   transition: transform 0.18s ease;
 }

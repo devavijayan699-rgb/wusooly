@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { ChevronDown, ShoppingBag, Coffee, ArrowRight } from "lucide-react";
 import TransitionLink from "./TransitionLink";
 import Magnetic from "./Magnetic";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
@@ -146,20 +147,12 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
               aria-haspopup="true"
             >
               <span>Solutions</span>
-              <svg
+              <ChevronDown
                 className={`${styles.chevronIcon} ${solutionsOpen ? styles.chevronRotated : ""}`}
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                size={14}
+                strokeWidth={2.5}
                 aria-hidden="true"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
+              />
             </TransitionLink>
 
             {solutionsOpen && (
@@ -175,21 +168,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
                 >
                   <div className={styles.dropdownItemContent}>
                     <div className={styles.dropdownIconBox}>
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-                        <line x1="3" y1="6" x2="21" y2="6" />
-                        <path d="M16 10a4 4 0 0 1-8 0" />
-                      </svg>
+                      <ShoppingBag size={18} strokeWidth={2} aria-hidden="true" />
                     </div>
                     <div className={styles.dropdownItemText}>
                       <span className={styles.dropdownItemTitle}>Shops &amp; Supermarkets</span>
@@ -206,23 +185,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
                 >
                   <div className={styles.dropdownItemContent}>
                     <div className={styles.dropdownIconBox}>
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
-                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
-                        <line x1="6" y1="1" x2="6" y2="4" />
-                        <line x1="10" y1="1" x2="10" y2="4" />
-                        <line x1="14" y1="1" x2="14" y2="4" />
-                      </svg>
+                      <Coffee size={18} strokeWidth={2} aria-hidden="true" />
                     </div>
                     <div className={styles.dropdownItemText}>
                       <span className={styles.dropdownItemTitle}>Cafés &amp; Restaurants</span>
@@ -304,7 +267,10 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
               style={{ display: "flex", alignItems: "center", justifyContent: "space-between", textDecoration: "none" }}
             >
               <span>Solutions</span>
-              <span style={{ fontSize: "0.82rem", opacity: 0.75 }}>View all &rarr;</span>
+              <span style={{ fontSize: "0.82rem", opacity: 0.75, display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                View all
+                <ArrowRight size={13} strokeWidth={2.2} aria-hidden="true" />
+              </span>
             </a>
             <a href="/solutions#retail" className={styles.mobileItem} onClick={handleLinkClick}>
               Shops & Supermarkets

@@ -231,7 +231,7 @@ export default function Home() {
             }`}
           >
             <Image
-              src="/assets/Gemini_Generated_Image_3w01763w01763w01.png"
+              src="/assets/hero-retail-pos.webp"
               alt="Wusooly POS display in clean forest-green studio with monitor, billing dashboard, marble pedestals, plants and ribbed glass panel"
               fill
               priority
@@ -248,7 +248,7 @@ export default function Home() {
             }`}
           >
             <Image
-              src="/assets/Wusooly Café POS Studio Setup.png"
+              src="/assets/hero-cafe-pos.webp"
               alt="Wusooly Café POS studio setup with monitor, receipt printer, barcode scanner and terminal"
               fill
               priority

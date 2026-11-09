@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Plus, ArrowRight } from "lucide-react";
 import Magnetic from "./Magnetic";
 import TransitionLink from "./TransitionLink";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
@@ -186,22 +187,11 @@ export default function FAQSection() {
                       className={`${styles.toggleCircle} ${isOpen ? styles.circleOpen : ""}`}
                       aria-hidden="true"
                     >
-                      <svg
+                      <Plus
                         className={`${styles.plusIcon} ${isOpen ? styles.plusRotated : ""}`}
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M8 3.2V12.8M3.2 8H12.8"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                        size={16}
+                        strokeWidth={2}
+                      />
                     </span>
                   </button>
 
@@ -233,21 +223,12 @@ export default function FAQSection() {
             <Magnetic strength={0.3} maxDisplacement={10}>
               <TransitionLink href="/contact" className={styles.ctaCard} aria-label="Still have a question? Contact our team">
                 <div className={styles.ctaCircle}>
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                  <ArrowRight
+                    size={18}
+                    strokeWidth={2.4}
                     className={styles.ctaArrow}
                     aria-hidden="true"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
+                  />
                 </div>
                 <div className={styles.ctaContent}>
                   <span className={styles.ctaTitle}>Still have a question?</span>

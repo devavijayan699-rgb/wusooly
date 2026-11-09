@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Input, Select, Button } from "@ziqx/react-comps";
+import { ArrowUpRight, Check } from "lucide-react";
 import Navbar from "../components/Navbar";
 import OutroCTA from "../components/OutroCTA";
 import Footer from "../components/Footer";
@@ -178,7 +179,10 @@ export default function ContactPage() {
                 }}
                 aria-label="Open Ziqx Creative Clique in Google Maps"
               >
-                Open Maps ↗
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                  Open Maps
+                  <ArrowUpRight size={13} strokeWidth={2.4} aria-hidden="true" />
+                </span>
               </Button>
             </div>
 
@@ -315,19 +319,7 @@ export default function ContactPage() {
           ) : (
             <div className={styles.successContainer}>
               <div className={styles.successIcon}>
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <Check size={26} strokeWidth={2.8} aria-hidden="true" />
               </div>
               <h2 className={styles.successTitle}>Thank You!</h2>
               <p className={styles.successBody}>

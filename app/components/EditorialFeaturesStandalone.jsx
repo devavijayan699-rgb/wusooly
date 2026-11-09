@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { UtensilsCrossed, ShoppingBag, Globe, BarChart3, Tag, Cloud } from "lucide-react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 
 /**
@@ -23,22 +24,22 @@ import { gsap, ScrollTrigger } from "../../lib/gsap";
 const ASSETS = {
   brandLogoDark: "/assets/wusooly-brand-logo-dark.png",
   // Shops & Supermarkets
-  retailLifetimeBilling: "/images/retail-lifetime-billing.jpg",
-  retailLifetimeWallets: "/images/retail-lifetime-wallets.jpg",
-  retailLifetimeStock: "/images/retail-lifetime-stock.jpg",
-  retailLifetimePurchase: "/images/retail-lifetime-purchase.jpg",
-  retailLifetimeReports: "/images/retail-lifetime-reports.jpg",
-  retailCloudDashboard: "/images/retail-cloud-dashboard.jpg",
-  retailCloudPromos: "/images/retail-cloud-promos.jpg",
+  retailLifetimeBilling: "/images/retail-lifetime-billing.webp",
+  retailLifetimeWallets: "/images/retail-lifetime-wallets.webp",
+  retailLifetimeStock: "/images/retail-lifetime-stock.webp",
+  retailLifetimePurchase: "/images/retail-lifetime-purchase.webp",
+  retailLifetimeReports: "/images/retail-lifetime-reports.webp",
+  retailCloudDashboard: "/images/retail-cloud-dashboard.webp",
+  retailCloudPromos: "/images/retail-cloud-promos.webp",
 
   // Cafés & Restaurants
-  cafeLifetimeBilling: "/images/cafe-lifetime-billing.jpg",
-  cafeLifetimeWallets: "/images/cafe-lifetime-wallets.jpg",
-  cafeLifetimeKot: "/images/cafe-lifetime-kot.jpg",
-  cafeLifetimeTables: "/images/cafe-lifetime-tables.jpg",
-  cafeLifetimeStock: "/images/cafe-lifetime-stock.jpg",
-  cafeLifetimeReports: "/images/cafe-lifetime-reports.jpg",
-  cafeCloudQrOnline: "/images/cafe-cloud-qr-online.jpg",
+  cafeLifetimeBilling: "/images/cafe-lifetime-billing.webp",
+  cafeLifetimeWallets: "/images/cafe-lifetime-wallets.webp",
+  cafeLifetimeKot: "/images/cafe-lifetime-kot.webp",
+  cafeLifetimeTables: "/images/cafe-lifetime-tables.webp",
+  cafeLifetimeStock: "/images/cafe-lifetime-stock.webp",
+  cafeLifetimeReports: "/images/cafe-lifetime-reports.webp",
+  cafeCloudQrOnline: "/images/cafe-cloud-qr-online.webp",
 };
 
 function getIntroCopy(audience) {
@@ -1315,27 +1316,15 @@ export default function EditorialFeaturesStandalone({
                 </div>
                 <div className="w-chips">
                   <span className="w-chip">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-                      <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
-                      <path d="M7 2v20" />
-                      <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
-                    </svg>
+                    <UtensilsCrossed size={13} strokeWidth={2.2} aria-hidden="true" />
                     Dine-in
                   </span>
                   <span className="w-chip">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-                      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                      <path d="M3 6h18" />
-                      <path d="M16 10a4 4 0 0 1-8 0" />
-                    </svg>
+                    <ShoppingBag size={13} strokeWidth={2.2} aria-hidden="true" />
                     Takeaway
                   </span>
                   <span className="w-chip">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M2 12h20" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
+                    <Globe size={13} strokeWidth={2.2} aria-hidden="true" />
                     Online
                   </span>
                 </div>
@@ -1464,10 +1453,7 @@ export default function EditorialFeaturesStandalone({
               <div className="w-strip-grid">
                 <div className="w-strip-item">
                   <div className="w-strip-icon-box" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="3" y="3" width="18" height="18" rx="3" />
-                      <path d="M8 16V12M12 16V8M16 16V10" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" />
-                    </svg>
+                    <BarChart3 size={20} strokeWidth={2.2} />
                   </div>
                   <h4 className="w-strip-title">Expense Ledger &amp; Tracking</h4>
                   <p className="w-strip-body">
@@ -1477,10 +1463,7 @@ export default function EditorialFeaturesStandalone({
                 </div>
                 <div className="w-strip-item">
                   <div className="w-strip-icon-box" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
-                      <circle cx="7" cy="7" r="1.8" fill="#ffffff" />
-                    </svg>
+                    <Tag size={20} strokeWidth={2.2} />
                   </div>
                   <h4 className="w-strip-title">Promo Codes &amp; Gift Cards</h4>
                   <p className="w-strip-body">
@@ -1491,10 +1474,7 @@ export default function EditorialFeaturesStandalone({
                 </div>
                 <div className="w-strip-item">
                   <div className="w-strip-icon-box" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                      <polyline points="16 7 22 7 22 13" />
-                    </svg>
+                    <Cloud size={20} strokeWidth={2.2} />
                   </div>
                   <h4 className="w-strip-title">
                     Cloud Backup (1st Year Free)

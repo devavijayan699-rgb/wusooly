@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { Users, Zap, ShieldCheck, BarChart3, Sparkles, Clock, ArrowRight } from "lucide-react";
 import TransitionLink from "../components/TransitionLink";
 import Magnetic from "../components/Magnetic";
 import Navbar from "../components/Navbar";
@@ -172,19 +173,12 @@ export default function AboutPage() {
               &ldquo;We build powerful, intuitive POS tools for the businesses that keep our communities moving.&rdquo;
             </p>
             <div className={styles.purposeMeta}>
-              <svg
+              <Clock
                 className={styles.metaIcon}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                size={16}
+                strokeWidth={2.4}
                 aria-hidden="true"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
-              </svg>
+              />
               <span>Wusooly Purpose</span>
             </div>
           </div>
@@ -209,7 +203,7 @@ export default function AboutPage() {
           {/* Photo 2: Ambient Café & Hospitality Dining */}
           <div className={styles.photoFrame}>
             <Image
-              src="/assets/cafe-aerial-v4.jpg"
+              src="/assets/cafe-aerial-v4.webp"
               alt="Café interior and table hospitality management"
               fill
               sizes="(max-width: 768px) 100vw, 560px"
@@ -233,7 +227,7 @@ export default function AboutPage() {
             <Magnetic>
               <TransitionLink href="/contact" className={styles.cardBtn}>
                 <span>Get to Know Us</span>
-                <span className={styles.btnArrow} aria-hidden="true">&rarr;</span>
+                <ArrowRight size={16} strokeWidth={2.4} className={styles.btnArrow} aria-hidden="true" />
               </TransitionLink>
             </Magnetic>
           </div>
@@ -271,7 +265,7 @@ export default function AboutPage() {
 
           <div className={styles.missionMedia}>
             <Image
-              src="/assets/cafe-table-management-v5.jpg"
+              src="/assets/cafe-table-management-v5.webp"
               alt="Warm restaurant dining space with modern POS management"
               fill
               sizes="(max-width: 960px) 100vw, 520px"
@@ -296,22 +290,7 @@ export default function AboutPage() {
           {/* Card 1: Customer First Approach */}
           <div className={`${styles.valueCard} ${styles.reveal}`}>
             <div className={styles.valueIconBox}>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
+              <Users size={20} strokeWidth={2.2} aria-hidden="true" />
             </div>
             <h3 className={styles.valueTitle}>Customer First Approach</h3>
             <p className={styles.valueDesc}>
@@ -322,19 +301,7 @@ export default function AboutPage() {
           {/* Card 2: Simplicity by Design */}
           <div className={`${styles.valueCard} ${styles.reveal}`}>
             <div className={styles.valueIconBox}>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-              </svg>
+              <Zap size={20} strokeWidth={2.2} aria-hidden="true" />
             </div>
             <h3 className={styles.valueTitle}>Simplicity by Design</h3>
             <p className={styles.valueDesc}>
@@ -345,20 +312,7 @@ export default function AboutPage() {
           {/* Card 3: Transparent Experience */}
           <div className={`${styles.valueCard} ${styles.reveal}`}>
             <div className={styles.valueIconBox}>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <polyline points="9 12 11 14 15 10" />
-              </svg>
+              <ShieldCheck size={20} strokeWidth={2.2} aria-hidden="true" />
             </div>
             <h3 className={styles.valueTitle}>Transparent Experience</h3>
             <p className={styles.valueDesc}>
@@ -369,21 +323,7 @@ export default function AboutPage() {
           {/* Card 4: Constant Innovation */}
           <div className={`${styles.valueCard} ${styles.reveal}`}>
             <div className={styles.valueIconBox}>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="18" y1="20" x2="18" y2="10" />
-                <line x1="12" y1="20" x2="12" y2="4" />
-                <line x1="6" y1="20" x2="6" y2="14" />
-              </svg>
+              <BarChart3 size={20} strokeWidth={2.2} aria-hidden="true" />
             </div>
             <h3 className={styles.valueTitle}>Constant Innovation</h3>
             <p className={styles.valueDesc}>
@@ -399,19 +339,7 @@ export default function AboutPage() {
           {/* Light Card: Always improving. */}
           <div className={`${styles.splitCardLight} ${styles.reveal}`}>
             <div className={styles.splitIconLight}>
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-              </svg>
+              <Sparkles size={22} strokeWidth={2.2} aria-hidden="true" />
             </div>
             <h3 className={styles.splitTitleLight}>
               Always improving.
@@ -424,20 +352,7 @@ export default function AboutPage() {
           {/* Dark Card: Always reliable. */}
           <div className={`${styles.splitCardDark} ${styles.reveal}`}>
             <div className={styles.splitIconDark}>
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <path d="M9 12l2 2 4-4" />
-              </svg>
+              <ShieldCheck size={22} strokeWidth={2.2} aria-hidden="true" />
             </div>
             <h3 className={styles.splitTitleDark}>
               Always reliable.
