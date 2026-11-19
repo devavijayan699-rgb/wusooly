@@ -253,23 +253,23 @@
   }
 
   .heroContent {
-    padding: 0 16px;
-    margin-top: 20px;
+    padding: 0 20px;
+    margin-top: 24px;
   }
 
   .audienceSegment {
-    padding: 6px 14px;
-    font-size: 0.82rem;
+    padding: 8px 16px;
+    font-size: 0.88rem;
   }
 
   .headline {
-    font-size: clamp(2rem, 6.5vw, 2.75rem);
+    font-size: clamp(2.2rem, 8vw, 2.85rem);
     letter-spacing: -0.02em;
   }
 
   .description {
-    font-size: 0.92rem;
-    line-height: 1.5;
+    font-size: 1rem;
+    line-height: 1.55;
   }
 
   .monitorViewSpacer {
