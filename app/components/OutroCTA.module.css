@@ -90,6 +90,18 @@
   transform: translateX(3px);
 }
 
+/* ── Large Monitor Typography Scaling ── */
+@media (min-width: 1440px) {
+  .outroSubtext {
+    font-size: clamp(1.02rem, 1.15vw, 1.15rem);
+  }
+
+  .outroBtn {
+    font-size: 1.02rem;
+    padding: 14px 34px;
+  }
+}
+
 @media (max-width: 640px) {
   .titleBr {
     display: none;

@@ -514,6 +514,63 @@
 /* ═══════════════════════════════════════════════════════════════
    SECTION 5: TRANSPARENT FOOTNOTE STRIP
    ═══════════════════════════════════════════════════════════════ */
+/* ── Large Monitor Typography Scaling ── */
+@media (min-width: 1440px) {
+  .contentContainer {
+    max-width: 1140px;
+  }
+
+  .audienceSegment {
+    font-size: 0.96rem;
+    padding: 9px 24px;
+  }
+
+  .subtext {
+    font-size: clamp(1rem, 1.2vw, 1.12rem);
+  }
+
+  .lifetimeLead {
+    font-size: 1.02rem;
+  }
+
+  .featureItem {
+    font-size: 0.95rem;
+  }
+
+  .optionName {
+    font-size: 1.25rem;
+  }
+
+  .optionBody {
+    font-size: 0.95rem;
+  }
+
+  .categoryPill {
+    font-size: 0.84rem;
+  }
+
+  .optionTag {
+    font-size: 0.86rem;
+  }
+
+  .tdFeature {
+    font-size: 0.95rem;
+  }
+
+  .tdVal {
+    font-size: 0.92rem;
+  }
+
+  .thFeature,
+  .thCol {
+    font-size: 1rem;
+  }
+
+  .quoteBtn {
+    font-size: 1.02rem;
+  }
+}
+
 .pricingFootnote {
   font-size: 0.82rem;
   line-height: 1.6;

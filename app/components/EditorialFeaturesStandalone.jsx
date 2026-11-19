@@ -978,6 +978,41 @@ export default function EditorialFeaturesStandalone({
           width: 100%;
           justify-content: center;
         }
+
+        /* ── Large Monitor Typography Scaling ── */
+        @media (min-width: 1440px) {
+          .w-segment-btn {
+            font-size: 0.98rem;
+            padding: 11px 26px;
+          }
+          .w-intro-headline {
+            font-size: clamp(2.6rem, 4vw, 3.8rem);
+          }
+          .w-intro-subtext {
+            font-size: 1.04rem;
+          }
+          .w-card-title {
+            font-size: clamp(1.35rem, 1.7vw, 1.65rem);
+          }
+          .w-card-desc {
+            font-size: 0.96rem;
+          }
+          .w-card-badge {
+            font-size: 0.85rem;
+          }
+          .w-cloud-banner-title {
+            font-size: clamp(1.35rem, 1.85vw, 1.72rem);
+          }
+          .w-cloud-banner-subtitle {
+            font-size: clamp(1.85rem, 2.75vw, 2.6rem);
+          }
+          .w-cloud-feature-title {
+            font-size: clamp(1.35rem, 1.8vw, 1.7rem);
+          }
+          .w-cloud-feature-desc {
+            font-size: 0.96rem;
+          }
+        }
       `}</style>
 
       <div className="w-container">

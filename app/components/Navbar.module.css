@@ -542,6 +542,30 @@
   }
 }
 
+/* ── Large Monitor Typography Scaling ── */
+@media (min-width: 1440px) {
+  .navItem {
+    font-size: 1.02rem;
+  }
+
+  .getDemoBtn {
+    font-size: 1rem;
+    padding: 12px 30px;
+  }
+
+  .brandName {
+    font-size: 1.55rem;
+  }
+
+  .dropdownItemTitle {
+    font-size: 1rem;
+  }
+
+  .dropdownItemDesc {
+    font-size: 0.82rem;
+  }
+}
+
 /* ==========================================================================
    Light Theme Variant (Used on Light Pages e.g. Contact Page)
    ========================================================================== */

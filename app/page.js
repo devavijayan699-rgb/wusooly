@@ -236,8 +236,17 @@ export default function Home() {
               fill
               priority
               unoptimized
-              className={styles.bgImage}
-              sizes="100vw"
+              className={`${styles.bgImage} ${styles.bgDesktop}`}
+              sizes="(max-width: 768px) 1px, 100vw"
+            />
+            <Image
+              src="/assets/hero-retail-pos-mobile.webp"
+              alt="Wusooly POS display in clean forest-green studio mobile view"
+              fill
+              priority
+              unoptimized
+              className={`${styles.bgImage} ${styles.bgMobile}`}
+              sizes="(max-width: 768px) 100vw, 1px"
             />
           </div>
 
@@ -253,8 +262,17 @@ export default function Home() {
               fill
               priority
               unoptimized
-              className={styles.bgImage}
-              sizes="100vw"
+              className={`${styles.bgImage} ${styles.bgDesktop}`}
+              sizes="(max-width: 768px) 1px, 100vw"
+            />
+            <Image
+              src="/assets/hero-cafe-pos-mobile.webp"
+              alt="Wusooly Café POS studio setup mobile view"
+              fill
+              priority
+              unoptimized
+              className={`${styles.bgImage} ${styles.bgMobile}`}
+              sizes="(max-width: 768px) 100vw, 1px"
             />
           </div>
 
