@@ -245,7 +245,7 @@
 
   .bgMobile {
     display: block !important;
-    object-position: center top;
+    object-position: center bottom;
   }
 
   .navbarContainer {
