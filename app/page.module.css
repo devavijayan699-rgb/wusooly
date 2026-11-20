@@ -239,6 +239,10 @@
 }
 
 @media (max-width: 768px) {
+  .heroSection {
+    min-height: auto;
+  }
+
   .bgDesktop {
     display: none !important;
   }
@@ -275,7 +279,7 @@
   }
 
   .monitorViewSpacer {
-    min-height: clamp(340px, 48vh, 440px);
+    min-height: clamp(210px, 32vh, 250px);
   }
 }
 

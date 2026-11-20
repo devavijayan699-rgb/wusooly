@@ -240,7 +240,7 @@ export default function Home() {
               sizes="(max-width: 768px) 1px, 100vw"
             />
             <Image
-              src="/assets/hero-retail-pos-mobile-v3.webp"
+              src="/assets/hero-retail-pos-mobile-v4.webp"
               alt="Wusooly POS display in clean forest-green studio mobile view"
               fill
               priority
@@ -266,7 +266,7 @@ export default function Home() {
               sizes="(max-width: 768px) 1px, 100vw"
             />
             <Image
-              src="/assets/hero-cafe-pos-mobile-v3.webp"
+              src="/assets/hero-cafe-pos-mobile-v4.webp"
               alt="Wusooly Café POS studio setup mobile view"
               fill
               priority

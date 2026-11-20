@@ -10,7 +10,7 @@
     "trailingSlash": false,
     "headers": [
       {
-        "source": "**/*.@(html|json)",
+        "source": "**",
         "headers": [
           {
             "key": "Cache-Control",
@@ -19,7 +19,7 @@
         ]
       },
       {
-        "source": "**/*.@(webp|jpg|jpeg|png|svg)",
+        "source": "**/*.@(webp|jpg|jpeg|png|svg|ico|woff|woff2|ttf|css|js)",
         "headers": [
           {
             "key": "Cache-Control",
