@@ -223,7 +223,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .footerWrapper {
     margin-top: 24px;
     padding: 0 14px;

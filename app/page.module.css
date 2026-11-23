@@ -125,12 +125,16 @@
 
 .audienceSegment {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
   border: none;
   background: transparent;
   font-family: inherit;
   font-size: 0.88rem;
   font-weight: 500;
-  padding: 7px 18px;
+  padding: 8px 18px;
   border-radius: 9999px;
   cursor: pointer;
   transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -254,7 +258,7 @@
   }
 
   .navbarContainer {
-    padding-top: 14px;
+    padding-top: max(14px, env(safe-area-inset-top, 14px));
   }
 
   .heroContent {
@@ -263,7 +267,8 @@
   }
 
   .audienceSegment {
-    padding: 7px 16px;
+    min-height: 38px;
+    padding: 8px 16px;
     font-size: 0.85rem;
   }
 

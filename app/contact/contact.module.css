@@ -691,7 +691,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .page {
     padding: 14px 0 28px;
   }

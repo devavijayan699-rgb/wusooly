@@ -17,6 +17,26 @@
   --text-xs: 0.75rem;                          /* Badges, tags, timestamps */
   --text-micro: 0.68rem;                       /* Captions, fine print */
 
+  /* ── Fluid Spacing Scale ── */
+  --space-xs: clamp(6px, 0.8vw, 10px);
+  --space-sm: clamp(10px, 1.2vw, 16px);
+  --space-md: clamp(16px, 2.2vw, 28px);
+  --space-lg: clamp(28px, 3.8vw, 48px);
+  --space-xl: clamp(48px, 6.2vw, 84px);
+  --space-2xl: clamp(72px, 9.5vw, 128px);
+
+  /* ── Container Max Width Bounds ── */
+  --container-max-mobile: 100%;
+  --container-max-tablet: 768px;
+  --container-max-desktop: 1200px;
+  --container-max-wide: 1440px;
+
+  /* ── Safe Area Inset Tokens ── */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
   /* ── Optical Letter Spacing (Tracking) ── */
   --tracking-tighter: -0.04em;  /* Giant display headlines */
   --tracking-tight: -0.025em;   /* Major headings (H1-H3) */
@@ -110,13 +130,15 @@ body {
   letter-spacing: var(--tracking-normal);
 }
 
-/* Force all interactive and form elements to inherit the brand font */
+/* Force all interactive and form elements to inherit the brand font and enable instant touch feedback */
 button,
+a,
 input,
 optgroup,
 select,
 textarea {
   font-family: inherit;
+  touch-action: manipulation;
 }
 
 /* Ambient Natural Light & Botanical Studio Backdrop */

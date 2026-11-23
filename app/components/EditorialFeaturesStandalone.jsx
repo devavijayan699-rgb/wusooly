@@ -344,7 +344,7 @@ export default function EditorialFeaturesStandalone({
           align-items: stretch;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 767px) {
           .w-row {
             flex-direction: column;
           }
@@ -376,7 +376,7 @@ export default function EditorialFeaturesStandalone({
           gap: clamp(28px, 4.5vw, 56px);
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 767px) {
           .w-hero-card {
             flex-direction: column;
             text-align: center;
@@ -448,7 +448,7 @@ export default function EditorialFeaturesStandalone({
           transform: translateY(-1px);
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 767px) {
           .w-lime-pill-btn {
             align-self: center;
           }
@@ -545,7 +545,7 @@ export default function EditorialFeaturesStandalone({
           flex: 0 0 41%;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 767px) {
           .w-visual-card.flex-67,
           .w-visual-card.flex-61,
           .w-visual-card.flex-62,
@@ -642,7 +642,7 @@ export default function EditorialFeaturesStandalone({
           gap: 14px;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 767px) {
           .w-kot-card {
             flex: 1 1 auto;
           }
@@ -774,7 +774,7 @@ export default function EditorialFeaturesStandalone({
           border-left: 1px solid #ecece7;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 767px) {
           .w-strip-grid {
             grid-template-columns: 1fr;
             gap: 24px;
@@ -977,6 +977,52 @@ export default function EditorialFeaturesStandalone({
         .w-full-btn {
           width: 100%;
           justify-content: center;
+        }
+
+        /* ── Tablet Optimization (768px – 1024px) ── */
+        @media (min-width: 768px) and (max-width: 1024px) {
+          .w-row {
+            flex-direction: row;
+            gap: 12px;
+          }
+          .w-hero-card {
+            flex-direction: row;
+            text-align: left;
+            padding: clamp(24px, 3.5vw, 36px);
+            gap: clamp(20px, 3vw, 32px);
+          }
+          .w-hero-media {
+            flex: 0 0 46%;
+          }
+          .w-text-card {
+            flex: 0 0 38%;
+            min-height: auto;
+            padding: 24px;
+          }
+          .w-visual-card {
+            min-height: 330px;
+            padding: 24px;
+          }
+          .w-visual-card.w-wide-card {
+            min-height: 350px;
+            padding: 28px;
+          }
+          .w-visual-card.w-tall-card {
+            min-height: 420px;
+          }
+          .w-kot-card {
+            flex: 0 0 42%;
+            padding: 24px 24px 0 24px;
+          }
+          .w-stat-card {
+            padding: 26px;
+          }
+          .w-strip-card {
+            padding: 24px 20px;
+          }
+          .w-strip-item {
+            padding: 4px 14px;
+          }
         }
 
         /* ── Large Monitor Typography Scaling ── */

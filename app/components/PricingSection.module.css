@@ -218,7 +218,23 @@
   margin-top: 1px;
 }
 
-@media (max-width: 860px) {
+@media (min-width: 768px) and (max-width: 1024px) {
+  .inclusionsCard {
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    padding: 32px 28px;
+  }
+
+  .featuresGrid {
+    gap: 14px 16px;
+  }
+
+  .optionCardsGrid {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 767px) {
   .inclusionsCard {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -342,7 +358,7 @@
   letter-spacing: 0.01em;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 767px) {
   .optionCardsGrid {
     grid-template-columns: 1fr;
   }

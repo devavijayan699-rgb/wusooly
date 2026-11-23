@@ -381,7 +381,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .faqSection {
     padding: 48px 0;
   }
