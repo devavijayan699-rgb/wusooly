@@ -262,7 +262,7 @@
   }
 
   .heroContent {
-    padding: 0 16px;
+    padding: 0 20px;
     margin-top: 16px;
   }
 
@@ -272,20 +272,44 @@
     font-size: 0.85rem;
   }
 
+  /* Headline: balanced wrapping, capped width, proper spacing */
   .headline {
     font-size: clamp(2rem, 7.5vw, 2.5rem);
     letter-spacing: -0.02em;
-    margin-bottom: 8px;
+    margin-bottom: 14px;
+    max-width: 11em;
+    text-wrap: balance;
   }
 
+  /* Let the headline spans reflow naturally on mobile */
+  .headlineMask {
+    display: inline;
+  }
+
+  .headlineLine {
+    display: inline;
+    white-space: normal;
+  }
+
+  /* Hide the forced <br> on mobile so text flows naturally */
+  .descLineBreak {
+    display: none;
+  }
+
+  /* Description: natural reflow, no orphans, capped line length */
   .description {
     font-size: 0.94rem;
-    line-height: 1.5;
-    max-width: 340px;
+    line-height: 1.55;
+    max-width: 34ch;
+    text-wrap: pretty;
+    margin: 0 auto;
   }
 
+  /* Tighten the gap between description and monitor image */
   .monitorViewSpacer {
-    min-height: clamp(280px, 42vh, 360px);
+    min-height: 0;
+    flex: 1;
+    margin-top: 32px;
   }
 }
 
