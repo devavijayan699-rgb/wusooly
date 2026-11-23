@@ -150,27 +150,30 @@ export default function EditorialFeaturesStandalone({
         );
       });
 
-      // 2. "Window to the World" inner photo scrub inside existing .w-visual-card containers
-      const visualCards = gsap.utils.toArray(".w-visual-card", sectionRef.current);
-      visualCards.forEach((card) => {
-        const img = card.querySelector(".w-visual-img");
-        if (img) {
-          gsap.fromTo(
-            img,
-            { yPercent: -6 },
-            {
-              yPercent: 6,
-              ease: "none",
-              scrollTrigger: {
-                trigger: card,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-              },
-            }
-          );
-        }
-      });
+      // 2. "Window to the World" inner photo scrub inside existing .w-visual-card containers (desktop fine pointer only)
+      const isFinePointer = typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches;
+      if (isFinePointer) {
+        const visualCards = gsap.utils.toArray(".w-visual-card", sectionRef.current);
+        visualCards.forEach((card) => {
+          const img = card.querySelector(".w-visual-img");
+          if (img) {
+            gsap.fromTo(
+              img,
+              { yPercent: -6 },
+              {
+                yPercent: 6,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: true,
+                },
+              }
+            );
+          }
+        });
+      }
     }, sectionRef);
 
     const timer = setTimeout(() => {
@@ -347,6 +350,9 @@ export default function EditorialFeaturesStandalone({
         @media (max-width: 767px) {
           .w-row {
             flex-direction: column;
+          }
+          .w-card {
+            transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
           }
         }
 
