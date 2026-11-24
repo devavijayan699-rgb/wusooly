@@ -64,7 +64,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-bottom: clamp(14px, 2.2vh, 22px);
+  margin-bottom: clamp(18px, 2.8vh, 26px);
 }
 
 .audienceSelector {
@@ -75,6 +75,7 @@
   border-radius: 9999px;
   padding: 4px;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  max-width: 100%;
 }
 
 .audienceSegment {
@@ -94,6 +95,24 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .audienceToggleWrap {
+    margin-bottom: 20px;
+  }
+
+  .audienceSegment {
+    padding: 7px 14px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .audienceSegment {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
 }
 
 .segmentActive {
@@ -534,11 +553,6 @@
 @media (min-width: 1440px) {
   .contentContainer {
     max-width: 1140px;
-  }
-
-  .audienceSegment {
-    font-size: 0.96rem;
-    padding: 9px 24px;
   }
 
   .subtext {
