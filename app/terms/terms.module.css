@@ -1,0 +1,301 @@
+/* ==========================================================================
+   Wusooly POS - Terms of Service Styles
+   Clean, Editorial Typography with Warm Stone, Crisp White & Obsidian Forest
+   ========================================================================== */
+
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f3;
+  color: #0c291e;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: clip;
+  overflow-y: visible;
+  padding: 0 0 clamp(32px, 5vh, 52px);
+}
+
+.navbarContainer {
+  position: relative;
+  width: 100%;
+  z-index: 50;
+  padding-top: clamp(16px, 2.5vh, 28px);
+}
+
+.mainContainer {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(32px, 4.5vh, 60px) clamp(18px, 4vw, 36px) clamp(56px, 7vh, 88px);
+  box-sizing: border-box;
+}
+
+/* Header / Hero Area */
+.headerWrap {
+  margin-bottom: clamp(28px, 4vh, 44px);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(12, 41, 30, 0.06);
+  border: 1px solid rgba(12, 41, 30, 0.12);
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #0c291e;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: #0c291e;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  margin: 0 0 14px;
+}
+
+.lead {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: #3e5047;
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0 0 20px;
+}
+
+.metaBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(12, 41, 30, 0.08);
+  font-size: 0.88rem;
+  color: #55665d;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaDivider {
+  display: inline-block;
+  color: #8fa397;
+}
+
+.metaLink {
+  color: #0c291e;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(180, 240, 70, 0.9);
+  transition: opacity 0.18s ease;
+}
+
+.metaLink:hover {
+  opacity: 0.8;
+}
+
+/* Document Paper Card */
+.docCard {
+  background: #ffffff;
+  border: 1px solid rgba(12, 41, 30, 0.08);
+  border-radius: 28px;
+  padding: clamp(28px, 5vw, 56px);
+  box-shadow: 0 12px 36px -12px rgba(0, 0, 0, 0.05);
+}
+
+.section {
+  padding-bottom: clamp(24px, 3.5vh, 36px);
+  margin-bottom: clamp(24px, 3.5vh, 36px);
+  border-bottom: 1px solid rgba(12, 41, 30, 0.07);
+}
+
+.section:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.sectionTitle {
+  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+  font-weight: 700;
+  color: #0c291e;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.sectionNumber {
+  font-size: 0.9em;
+  font-weight: 800;
+  color: #55665d;
+}
+
+.text {
+  font-size: 0.98rem;
+  color: #2e4237;
+  line-height: 1.75;
+  margin: 0 0 14px;
+}
+
+.text:last-child {
+  margin-bottom: 0;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.listItem {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.96rem;
+  color: #2e4237;
+  line-height: 1.65;
+}
+
+.listItem::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #0c291e;
+}
+
+.calloutCard {
+  background: #f7f9f7;
+  border: 1px solid rgba(12, 41, 30, 0.09);
+  border-radius: 18px;
+  padding: 22px 24px;
+  margin: 18px 0;
+}
+
+.calloutText {
+  font-size: 0.95rem;
+  color: #1a2f24;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.inlineLink {
+  color: #0c291e;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(180, 240, 70, 0.9);
+  transition: opacity 0.18s ease;
+}
+
+.inlineLink:hover {
+  opacity: 0.75;
+}
+
+/* Contact Support Box */
+.helpBox {
+  margin-top: clamp(36px, 5vh, 48px);
+  background: #0c291e;
+  color: #ffffff;
+  border-radius: 22px;
+  padding: clamp(24px, 4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 16px 40px -10px rgba(12, 41, 30, 0.35);
+}
+
+.helpTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.helpText {
+  font-size: 0.94rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.helpActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.helpBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #b4f046;
+  color: #07150e;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.18s ease;
+}
+
+.helpBtnPrimary:hover {
+  background: #c3f757;
+  transform: translateY(-1px);
+}
+
+.helpBtnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.helpBtnSecondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .docCard {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .metaBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .metaDivider {
+    display: none;
+  }
+}

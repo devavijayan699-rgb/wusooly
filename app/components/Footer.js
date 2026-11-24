@@ -145,14 +145,14 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
             <h3 className={styles.colTitle}>Legal</h3>
             <ul className={styles.linkList}>
               <li>
-                <a href="/privacy" className={styles.link}>
+                <TransitionLink href="/privacy" className={styles.link}>
                   Privacy Policy
-                </a>
+                </TransitionLink>
               </li>
               <li>
-                <a href="/terms" className={styles.link}>
-                  Terms &amp; Conditions
-                </a>
+                <TransitionLink href="/terms" className={styles.link}>
+                  Terms of Service
+                </TransitionLink>
               </li>
             </ul>
           </div>
