@@ -244,8 +244,13 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    min-height: 100vh;
-    min-height: 100svh;
+    min-height: auto;
+    height: auto;
+    padding-bottom: 0px;
+  }
+
+  .bgArtworkLayer {
+    height: 100% !important;
   }
 
   .bgDesktop {
@@ -263,7 +268,7 @@
 
   .heroContent {
     padding: 0 20px;
-    margin-top: 16px;
+    margin-top: 14px;
   }
 
   .audienceSegment {
@@ -276,7 +281,7 @@
   .headline {
     font-size: clamp(2rem, 7.5vw, 2.5rem);
     letter-spacing: -0.02em;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     max-width: 11em;
     text-wrap: balance;
   }
@@ -305,11 +310,12 @@
     margin: 0 auto;
   }
 
-  /* Tighten the gap between description and monitor image */
+  /* Tighten the gap between description and monitor image: calibrated spacing */
   .monitorViewSpacer {
     min-height: 0;
-    flex: 1;
-    margin-top: 32px;
+    flex: 0 0 auto;
+    height: clamp(230px, 32vh, 290px);
+    margin-top: 16px;
   }
 }
 
