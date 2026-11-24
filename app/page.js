@@ -65,14 +65,23 @@ export default function Home() {
     }
 
     const ctx = gsap.context(() => {
+      const isDesktop = typeof window !== "undefined" && window.matchMedia("(min-width: 769px) and (pointer: fine)").matches;
       const heroTl = gsap.timeline();
 
       // Initial states - subtle and immediately visible
       if (bgImageRef.current) {
-        gsap.set(bgImageRef.current, {
-          scale: 1.025,
-          opacity: 0.85,
-        });
+        if (isDesktop) {
+          gsap.set(bgImageRef.current, {
+            scale: 1.025,
+            opacity: 0.85,
+          });
+        } else {
+          gsap.set(bgImageRef.current, {
+            scale: 1,
+            opacity: 1,
+            clearProps: "transform",
+          });
+        }
       }
       if (navbarRef.current) {
         gsap.set(navbarRef.current, { opacity: 0, y: -8 });
@@ -91,8 +100,8 @@ export default function Home() {
         gsap.set(descRef.current, { opacity: 0, y: 8 });
       }
 
-      // 1. Background artwork soft settling
-      if (bgImageRef.current) {
+      // 1. Background artwork soft settling (desktop only)
+      if (isDesktop && bgImageRef.current) {
         heroTl.to(bgImageRef.current, {
           scale: 1.0,
           opacity: 1,
@@ -159,8 +168,8 @@ export default function Home() {
         );
       }
 
-      // 6. Hero 4-Layer Optical Parallax Scrubbing
-      if (heroRef.current) {
+      // 6. Hero 4-Layer Optical Parallax Scrubbing (desktop only)
+      if (isDesktop && heroRef.current) {
         if (bgImageRef.current) {
           gsap.to(bgImageRef.current, {
             yPercent: 12,
