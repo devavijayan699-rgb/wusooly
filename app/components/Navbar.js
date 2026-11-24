@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { ChevronDown, ShoppingBag, Coffee, ArrowRight } from "lucide-react";
+import { ChevronDown, ShoppingBag, Coffee } from "lucide-react";
 import TransitionLink from "./TransitionLink";
 import Magnetic from "./Magnetic";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
@@ -260,18 +260,6 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
       {mobileMenuOpen && (
         <div className={styles.mobileMenu} role="dialog" aria-modal="true">
           <div className={styles.mobileLinks}>
-            <a
-              href="/solutions"
-              className={styles.mobileCategoryTitle}
-              onClick={handleLinkClick}
-              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", textDecoration: "none" }}
-            >
-              <span>Solutions</span>
-              <span style={{ fontSize: "0.82rem", opacity: 0.75, display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                View all
-                <ArrowRight size={13} strokeWidth={2.2} aria-hidden="true" />
-              </span>
-            </a>
             <a href="/solutions#retail" className={styles.mobileItem} onClick={handleLinkClick}>
               Shops & Supermarkets
             </a>
