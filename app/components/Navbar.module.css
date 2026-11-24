@@ -30,7 +30,7 @@
 .navbarContact,
 .navbarSolutions,
 .navbarAbout {
-  background: #55665d !important;
+  background: #0c291e !important;
   backdrop-filter: blur(22px) saturate(140%) !important;
   -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -183,7 +183,7 @@
 }
 
 /* ==========================================================================
-   Contact, Solutions & About Dedicated Dropdown Notch (Sage-Green Frosted Glass)
+   Contact, Solutions & About Dedicated Dropdown Notch (Deep Obsidian Forest)
    ========================================================================== */
 .dropdownContact,
 .dropdownSolutions,
@@ -192,7 +192,7 @@
   left: -20px !important;
   width: 380px !important;
   padding: 8px 8px 10px !important;
-  background: #55665d !important;
+  background: #0c291e !important;
   backdrop-filter: blur(22px) saturate(140%) !important;
   -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -211,7 +211,7 @@
   left: -20px !important;
   width: 20px !important;
   height: 22px !important;
-  background: radial-gradient(circle at 0% 100%, transparent 20px, #55665d 20.5px) !important;
+  background: radial-gradient(circle at 0% 100%, transparent 20px, #0c291e 20.5px) !important;
   pointer-events: none !important;
 }
 
@@ -224,7 +224,7 @@
   right: -20px !important;
   width: 20px !important;
   height: 22px !important;
-  background: radial-gradient(circle at 100% 100%, transparent 20px, #55665d 20.5px) !important;
+  background: radial-gradient(circle at 100% 100%, transparent 20px, #0c291e 20.5px) !important;
   pointer-events: none !important;
 }
 
@@ -433,6 +433,10 @@
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
   z-index: 100;
   animation: mobileSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mobileMenuOther {
+  background: #0c291e !important;
 }
 
 @keyframes mobileSlide {

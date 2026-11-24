@@ -21,10 +21,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
     variant === "solutions" ||
     variant === "about" ||
     variant === "pricing" ||
-    pathname === "/contact" ||
-    pathname === "/solutions" ||
-    pathname === "/about" ||
-    pathname === "/pricing";
+    (Boolean(pathname) && pathname !== "/");
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -258,7 +255,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
 
       {/* Responsive Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className={styles.mobileMenu} role="dialog" aria-modal="true">
+        <div className={`${styles.mobileMenu} ${isSageLiquid ? styles.mobileMenuOther : ""}`} role="dialog" aria-modal="true">
           <div className={styles.mobileLinks}>
             <a href="/solutions#retail" className={styles.mobileItem} onClick={handleLinkClick}>
               Shops & Supermarkets
