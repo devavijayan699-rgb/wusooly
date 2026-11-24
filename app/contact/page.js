@@ -13,10 +13,6 @@ import styles from "./contact.module.css";
 const BUSINESS_OPTIONS = [
   { value: "Shops & Supermarkets", label: "Shops & Supermarkets" },
   { value: "Cafés & Restaurants", label: "Cafés & Restaurants" },
-  { value: "Fashion & Boutique", label: "Fashion & Boutique" },
-  { value: "Electronics & Hardware", label: "Electronics & Hardware" },
-  { value: "Grocery & FMCG", label: "Grocery & FMCG" },
-  { value: "Other Retail / Hospitality", label: "Other Retail / Hospitality" },
 ];
 
 export default function ContactPage() {
