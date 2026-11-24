@@ -244,9 +244,14 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    min-height: auto;
-    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     padding-bottom: 0px;
+    overflow: hidden;
   }
 
   .bgArtworkLayer {
@@ -263,12 +268,14 @@
   }
 
   .navbarContainer {
-    padding-top: max(14px, env(safe-area-inset-top, 14px));
+    padding-top: max(16px, env(safe-area-inset-top, 16px));
+    flex: 0 0 auto;
   }
 
   .heroContent {
     padding: 0 20px;
-    margin-top: 14px;
+    margin-top: clamp(18px, 3.5vh, 32px);
+    flex: 0 0 auto;
   }
 
   .audienceSegment {
@@ -277,12 +284,13 @@
     font-size: 0.85rem;
   }
 
-  /* Headline: balanced wrapping, capped width, proper spacing */
+  /* Headline: balanced wrapping, authoritative scale, proper spacing */
   .headline {
-    font-size: clamp(2rem, 7.5vw, 2.5rem);
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
+    font-size: clamp(2.15rem, 8vw, 2.65rem);
+    letter-spacing: -0.025em;
+    margin-bottom: 14px;
     max-width: 11em;
+    line-height: 1.15;
     text-wrap: balance;
   }
 
@@ -301,21 +309,20 @@
     display: none;
   }
 
-  /* Description: natural reflow, no orphans, capped line length */
+  /* Description: natural reflow, no orphans, comfortable 31ch measure */
   .description {
-    font-size: 0.94rem;
-    line-height: 1.55;
-    max-width: 34ch;
+    font-size: clamp(0.96rem, 3.2vw, 1.04rem);
+    line-height: 1.58;
+    max-width: 31ch;
     text-wrap: pretty;
     margin: 0 auto;
   }
 
-  /* Tighten the gap between description and monitor image: calibrated spacing */
+  /* Dynamic spring spacer absorbs remaining viewport height */
   .monitorViewSpacer {
     min-height: 0;
-    flex: 0 0 auto;
-    height: clamp(230px, 32vh, 290px);
-    margin-top: 16px;
+    flex: 1;
+    margin-top: 0;
   }
 }
 
