@@ -80,7 +80,6 @@ export default function TestimonialsSection({ id = "testimonials" }) {
               <div>
                 <div className={styles.cardTop}>
                   <QuoteMarkIcon />
-                  <span className={styles.metricBadge}>{item.badge}</span>
                 </div>
 
                 <blockquote className={styles.blockquote}>

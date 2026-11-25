@@ -12,7 +12,6 @@ export const TESTIMONIALS = [
     author: "Ahmed Zaid",
     initials: "AZ",
     role: "Founder, Luxe Retail Group",
-    badge: "15 Branches · Dubai",
   },
   {
     id: "bekachi",
@@ -21,7 +20,6 @@ export const TESTIMONIALS = [
     author: "Ali Hassan",
     initials: "AH",
     role: "MD, Bekachi",
-    badge: "Zero Training",
   },
   {
     id: "faabz-cafe",
@@ -30,6 +28,5 @@ export const TESTIMONIALS = [
     author: "Saleeth K",
     initials: "SK",
     role: "OM, Faabz Cafe",
-    badge: "Offline Uptime",
   },
 ];
