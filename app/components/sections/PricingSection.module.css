@@ -94,13 +94,13 @@
 .categoryPill {
   display: inline-flex;
   align-items: center;
-  background: rgba(163, 230, 53, 0.16);
-  border: none;
+  background: #edf1e8;
+  border: 1px solid rgba(12, 41, 30, 0.08);
   border-radius: 9999px;
   padding: 5px 14px;
   font-size: 0.78rem;
   font-weight: 700;
-  color: #a3e635;
+  color: #1b3828;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
