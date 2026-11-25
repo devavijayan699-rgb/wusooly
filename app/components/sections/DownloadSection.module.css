@@ -216,17 +216,7 @@
   border-radius: 18px;
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.025);
-  transition:
-    transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
   box-sizing: border-box;
-}
-
-.helperCard:hover {
-  transform: translateY(-2px);
-  border-color: rgba(12, 41, 30, 0.16);
-  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.1);
 }
 
 .helperLeft {
@@ -247,13 +237,6 @@
   justify-content: center;
   color: #0c291e;
   flex-shrink: 0;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.helperCard:hover .helperIconBox {
-  background: #0c291e;
-  color: #a3e635;
-  border-color: #0c291e;
 }
 
 .helperCopy {
@@ -291,58 +274,6 @@
   white-space: nowrap;
   flex-shrink: 0;
   box-shadow: 0 2px 10px rgba(163, 230, 53, 0.28);
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-
-.helperCard:hover .helperCtaPill {
-  background: #b4f046;
-}
-
-.helperArrowIcon {
-  transition: transform 0.2s ease;
-}
-
-.helperCard:hover .helperArrowIcon {
-  transform: translateX(3px);
-}
-
-/* ── Secondary LTS Link ── */
-.ltsRow {
-  margin-top: clamp(28px, 4vw, 42px);
-  display: flex;
-  justify-content: center;
-}
-
-.ltsLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #38483e;
-  font-size: 0.86rem;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 8px 18px;
-  border-radius: 9999px;
-  background: rgba(12, 41, 30, 0.08);
-  border: 1px solid rgba(12, 41, 30, 0.2);
-  transition: all 0.2s ease;
-}
-
-.ltsLink:hover {
-  color: #0c291e;
-  border-color: rgba(12, 41, 30, 0.35);
-  background: rgba(12, 41, 30, 0.14);
-}
-
-.ltsArrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-}
-
-.ltsLink:hover .ltsArrow {
-  transform: translateX(3px);
 }
 
 /* ── Large Monitor Typography Scaling ── */

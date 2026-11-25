@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Calendar, Cpu, ArrowDown, Clock, ArrowRight, Smartphone } from "lucide-react";
+import { Calendar, Cpu, ArrowDown, ArrowRight, Smartphone } from "lucide-react";
 import { WindowsIcon, AppleIcon } from "../ui/BrandIcons";
 import Magnetic from "../ui/Magnetic";
 import TransitionLink from "../layout/TransitionLink";
@@ -38,7 +38,6 @@ export default function DownloadSection() {
   const headerRef = useRef(null);
   const cardsRef = useRef(null);
   const helperBannerRef = useRef(null);
-  const ltsRef = useRef(null);
 
   useGsapReveal(
     sectionRef,
@@ -56,14 +55,12 @@ export default function DownloadSection() {
       if (helperBannerRef.current) {
         scrollReveal(helperBannerRef.current, { y: 10, opacity: 0.65, duration: 0.5 });
       }
-      scrollReveal(ltsRef.current, { y: 8, opacity: 0.65, duration: 0.45 });
     },
     {
       onReducedMotion: () => {
         if (headerRef.current) gsap.set(headerRef.current, { opacity: 1, y: 0 });
         if (cardsRef.current) gsap.set(cardsRef.current.children, { opacity: 1, y: 0 });
         if (helperBannerRef.current) gsap.set(helperBannerRef.current, { opacity: 1, y: 0 });
-        if (ltsRef.current) gsap.set(ltsRef.current, { opacity: 1, y: 0 });
       },
     }
   );
@@ -159,22 +156,6 @@ export default function DownloadSection() {
               <ArrowRight size={15} strokeWidth={2.4} className={styles.helperArrowIcon} aria-hidden="true" />
             </span>
           </TransitionLink>
-        </div>
-
-        {/* Secondary Legacy / LTS Link */}
-        <div className={styles.ltsRow} ref={ltsRef}>
-          <a
-            href="#lts"
-            className={styles.ltsLink}
-            onClick={(e) => {
-              e.preventDefault();
-              handleDownload("windows-lts");
-            }}
-          >
-            <Clock size={14} strokeWidth={2} aria-hidden="true" />
-            <span>Download Windows v0.5 LTS</span>
-            <ArrowRight size={14} strokeWidth={2.2} className={styles.ltsArrow} aria-hidden="true" />
-          </a>
         </div>
       </div>
     </section>
