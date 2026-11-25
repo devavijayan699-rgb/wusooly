@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import OutroCTA from "../components/sections/OutroCTA";
 import Magnetic from "../components/ui/Magnetic";
 import HelperPhonePreview from "../components/sections/HelperPhonePreview";
 import { HELPER_HERO, HELPER_STEPS, HELPER_NOTES, PAIRING_GUIDE } from "../data/helperData";
@@ -302,6 +303,9 @@ export default function HelperPage() {
           </div>
         </div>
       </section>
+
+      {/* Outro Store Operations CTA Banner */}
+      <OutroCTA />
 
       {/* Full-Bleed Obsidian Footer */}
       <Footer onGetDemo={handleGetDemo} />
