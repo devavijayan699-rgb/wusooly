@@ -116,7 +116,7 @@ export default function FAQSection() {
             <h2 className={styles.headline} ref={headlineRef} style={{ overflow: "hidden" }}>
               <span className={styles.headlineDark} style={{ display: "inline-block" }}>Frequently</span>{" "}
               <span className={styles.headlineDark} style={{ display: "inline-block" }}>Asked</span>{" "}
-              <span className={styles.headlineLime} style={{ display: "inline-block" }}>Questions</span>
+              <span className={styles.headlineLime} style={{ display: "inline-block" }}>Questions.</span>
             </h2>
             <p className={styles.subtext} ref={subtextRef}>
               Everything you need to know about Wusooly. From billing and inventory to reports

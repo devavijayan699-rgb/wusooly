@@ -86,7 +86,7 @@ export default function DownloadSection() {
       <div className={styles.container}>
         {/* Header - STRICTLY ZERO EYEBROW TEXT */}
         <header className={styles.header} ref={headerRef}>
-          <h2 className={styles.headline}>Download Wusooly</h2>
+          <h2 className={styles.headline}>Download Wusooly.</h2>
           <p className={styles.subtext}>
             Get the desktop app for Windows or macOS to manage billing, inventory, and sales.
           </p>
