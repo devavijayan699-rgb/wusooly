@@ -5,18 +5,18 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { ChevronDown, ShoppingBag, Coffee } from "lucide-react";
 import TransitionLink from "./TransitionLink";
-import Magnetic from "./Magnetic";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import Magnetic from "../ui/Magnetic";
+import { gsap, ScrollTrigger } from "../../../lib/gsap";
 import styles from "./Navbar.module.css";
 
-export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen = false }) {
+export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
   const [solutionsOpen, setSolutionsOpen] = useState(initialOpen);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navRef = useRef(null);
   const timeoutRef = useRef(null);
   const pathname = usePathname();
-  const isSageLiquid =
+  const isSolidNavbar =
     variant === "contact" ||
     variant === "solutions" ||
     variant === "about" ||
@@ -106,15 +106,15 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
   };
 
   return (
-    <header className={`${styles.navbarWrapper} ${theme === "light" ? styles.wrapperLight : ""}`} ref={navRef}>
+    <header className={styles.navbarWrapper} ref={navRef}>
       <nav
-        className={`${styles.navbar} ${theme === "light" ? styles.navbarLight : ""} ${isSageLiquid ? styles.navbarContact : ""}`}
+        className={`${styles.navbar} ${isSolidNavbar ? styles.navbarSolid : ""}`}
         aria-label="Main Navigation"
       >
         {/* Left: Brand Logo */}
         <TransitionLink href="/" className={styles.brandLogo} aria-label="Wusooly POS Home" onClick={handleLinkClick}>
           <Image
-            src={theme === "light" ? "/assets/wusooly-brand-logo-dark.png" : "/assets/wusooly-brand-logo.png"}
+            src="/brand/wusooly-logo-light.png"
             alt="Wusooly POS"
             width={116}
             height={26}
@@ -154,7 +154,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
 
             {solutionsOpen && (
               <div
-                className={`${styles.dropdownMenu} ${isSageLiquid ? styles.dropdownContact : ""}`}
+                className={`${styles.dropdownMenu} ${isSolidNavbar ? styles.dropdownSolid : ""}`}
                 role="menu"
               >
                 <TransitionLink
@@ -222,7 +222,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
 
         {/* Right: Get a Demo Button & Mobile Menu Toggle */}
         <div className={styles.rightActions}>
-          <Magnetic strength={0.35} maxDisplacement={10}>
+          <Magnetic>
             <TransitionLink
               href="/contact"
               className={styles.getDemoBtn}
@@ -255,7 +255,7 @@ export default function Navbar({ onGetDemo, theme = "dark", variant, initialOpen
 
       {/* Responsive Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className={`${styles.mobileMenu} ${isSageLiquid ? styles.mobileMenuOther : ""}`} role="dialog" aria-modal="true">
+        <div className={`${styles.mobileMenu} ${isSolidNavbar ? styles.mobileMenuSolid : ""}`} role="dialog" aria-modal="true">
           <div className={styles.mobileLinks}>
             <a href="/solutions#retail" className={styles.mobileItem} onClick={handleLinkClick}>
               Shops & Supermarkets

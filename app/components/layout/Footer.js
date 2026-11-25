@@ -3,11 +3,11 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import TransitionLink from "./TransitionLink";
-import Magnetic from "./Magnetic";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import Magnetic from "../ui/Magnetic";
+import { gsap } from "../../../lib/gsap";
 import styles from "./Footer.module.css";
 
-export default function Footer({ onGetDemo, theme = "dark" }) {
+export default function Footer({ onGetDemo }) {
   const currentYear = 2026;
   const footerRef = useRef(null);
 
@@ -40,26 +40,16 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
   return (
     <footer
       ref={footerRef}
-      className={`${styles.footerWrapper} ${
-        theme === "light" ? styles.wrapperLight : ""
-      }`}
+      className={styles.footerWrapper}
       aria-label="Site Footer"
     >
-      <div
-        className={`${styles.footerContainer} ${
-          theme === "light" ? styles.containerLight : ""
-        }`}
-      >
+      <div className={styles.footerContainer}>
         <div className={styles.grid}>
           {/* Column 1: Brand & Mission */}
           <div className={styles.brandCol}>
             <TransitionLink href="/" className={styles.brandLogo} aria-label="Wusooly POS Home">
               <Image
-                src={
-                  theme === "light"
-                    ? "/assets/wusooly-brand-logo-dark.png"
-                    : "/assets/wusooly-brand-logo.png"
-                }
+                src="/brand/wusooly-logo-light.png"
                 alt="Wusooly POS"
                 width={124}
                 height={28}
@@ -120,7 +110,7 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
               </li>
               <li>
                 {onGetDemo ? (
-                  <Magnetic strength={0.25} maxDisplacement={8}>
+                  <Magnetic>
                     <button
                       type="button"
                       onClick={onGetDemo}
@@ -130,7 +120,7 @@ export default function Footer({ onGetDemo, theme = "dark" }) {
                     </button>
                   </Magnetic>
                 ) : (
-                  <Magnetic strength={0.25} maxDisplacement={8}>
+                  <Magnetic>
                     <TransitionLink href="/contact" className={styles.link}>
                       Get a Demo
                     </TransitionLink>

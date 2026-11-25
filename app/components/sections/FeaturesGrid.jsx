@@ -1,127 +1,61 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { UtensilsCrossed, ShoppingBag, Globe, BarChart3, Tag, Cloud } from "lucide-react";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
-
-/**
- * EditorialFeaturesStandalone.jsx
- * -------------------------------------------------------------
- * 100% Standalone, Self-Contained Editorial Features Section
- * Based on wusooly-editorial-features.zip from Google AI Studio.
- *
- * Features:
- * • 14 Minimal Natural Editorial Photos (7 Retail + 7 Café)
- * • Complete lifetime & cloud tier card compositions
- * • Embedded scoped CSS (no external .module.css required)
- * • Zero Next.js-exclusive imports (uses standard <img> tags)
- * • Audience selector (Shops & Supermarkets vs. Cafés & Restaurants)
- * • Interactive Demo Walkthrough Booking Modal with validation
- * • Full compatibility with Next.js, AI Studio, and Vite
- */
+import { gsap, ScrollTrigger } from "../../../lib/gsap";
 
 const ASSETS = {
-  brandLogoDark: "/assets/wusooly-brand-logo-dark.png",
+  brandLogoDark: "/brand/wusooly-logo-dark.png",
   // Shops & Supermarkets
-  retailLifetimeBilling: "/images/retail-lifetime-billing.webp",
-  retailLifetimeWallets: "/images/retail-lifetime-wallets.webp",
-  retailLifetimeStock: "/images/retail-lifetime-stock.webp",
-  retailLifetimePurchase: "/images/retail-lifetime-purchase.webp",
-  retailLifetimeReports: "/images/retail-lifetime-reports.webp",
-  retailCloudDashboard: "/images/retail-cloud-dashboard.webp",
-  retailCloudPromos: "/images/retail-cloud-promos.webp",
+  retailLifetimeBilling: "/features/retail/lifetime-billing.webp",
+  retailLifetimeWallets: "/features/retail/lifetime-wallets.webp",
+  retailLifetimeStock: "/features/retail/lifetime-stock.webp",
+  retailLifetimePurchase: "/features/retail/lifetime-purchase.webp",
+  retailLifetimeReports: "/features/retail/lifetime-reports.webp",
+  retailCloudDashboard: "/features/retail/cloud-dashboard.webp",
+  retailCloudPromos: "/features/retail/cloud-promos.webp",
 
   // Cafés & Restaurants
-  cafeLifetimeBilling: "/images/cafe-lifetime-billing.webp",
-  cafeLifetimeWallets: "/images/cafe-lifetime-wallets.webp",
-  cafeLifetimeKot: "/images/cafe-lifetime-kot.webp",
-  cafeLifetimeTables: "/images/cafe-lifetime-tables.webp",
-  cafeLifetimeStock: "/images/cafe-lifetime-stock.webp",
-  cafeLifetimeReports: "/images/cafe-lifetime-reports.webp",
-  cafeCloudQrOnline: "/images/cafe-cloud-qr-online.webp",
+  cafeLifetimeBilling: "/features/cafe/lifetime-billing.webp",
+  cafeLifetimeWallets: "/features/cafe/lifetime-wallets.webp",
+  cafeLifetimeKot: "/features/cafe/lifetime-kot.webp",
+  cafeLifetimeTables: "/features/cafe/lifetime-tables.webp",
+  cafeLifetimeStock: "/features/cafe/lifetime-stock.webp",
+  cafeLifetimeReports: "/features/cafe/lifetime-reports.webp",
+  cafeCloudQrOnline: "/features/cafe/cloud-qr-online.webp",
 };
 
 function getIntroCopy(audience) {
   if (audience === "retail") {
     return {
-      headline: "The essentials to run your store, connected.",
       subtext:
         "From checkout to stock control and business reporting, manage key retail operations through one POS system.",
       outroTitle: "Ready to see Wusooly in your store?",
     };
   }
   return {
-    headline: "Every order. One simple system.",
     subtext:
       "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS.",
     outroTitle: "Ready to see Wusooly in your café?",
   };
 }
 
-function validateDemoRequest(input) {
-  const name = (input.fullName || "").trim();
-  const phone = (input.phone || "").trim();
-  if (!name) {
-    return { valid: false, error: "Please enter your full name." };
-  }
-  if (!phone || phone.length < 5) {
-    return {
-      valid: false,
-      error: "Please enter a valid phone or WhatsApp number.",
-    };
-  }
-  return { valid: true };
-}
-
-export default function EditorialFeaturesStandalone({
-  audience: controlledAudience,
-  defaultAudience = "retail",
-  showAudienceToggle = true,
+export default function FeaturesGrid({
+  audience = "retail",
   hideIntro = false,
   onGetDemo: externalGetDemo,
 }) {
-  const [internalAudience, setInternalAudience] = useState(defaultAudience);
-  const audience = controlledAudience ?? internalAudience;
-  const setAudience = setInternalAudience;
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("Schedule a 1-on-1 Walkthrough");
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [formError, setFormError] = useState(null);
-  const [submittedBookings, setSubmittedBookings] = useState([]);
-  const [justSubmitted, setJustSubmitted] = useState(null);
   const sectionRef = useRef(null);
-
   const introCopy = getIntroCopy(audience);
 
-  const handleOpenDemo = (title = "Get a Demo") => {
+  const handleOpenDemo = () => {
     if (externalGetDemo) {
       externalGetDemo();
       return;
     }
-    setModalTitle(title);
-    setFormError(null);
-    setJustSubmitted(null);
-    setModalOpen(true);
+    window.location.href = "/contact";
   };
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") setModalOpen(false);
-    };
-    if (modalOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [modalOpen]);
 
   // Ambient ScrollTrigger for Editorial Cards & "Window to the World" Photo Scrub
   useEffect(() => {
@@ -186,31 +120,6 @@ export default function EditorialFeaturesStandalone({
     };
   }, [audience]);
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const validation = validateDemoRequest({ fullName, phone });
-    if (!validation.valid) {
-      setFormError(validation.error || "Please check your details.");
-      return;
-    }
-    const booking = {
-      id: `${Date.now()}`,
-      title: modalTitle,
-      audience,
-      fullName: fullName.trim(),
-      phone: phone.trim(),
-      submittedAt: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    };
-    setSubmittedBookings((prev) => [booking, ...prev]);
-    setJustSubmitted(booking);
-    setFullName("");
-    setPhone("");
-    setFormError(null);
-  };
-
   return (
     <section
       className="wusooly-editorial-root"
@@ -219,8 +128,6 @@ export default function EditorialFeaturesStandalone({
       aria-label="Wusooly editorial POS features"
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
-
         .wusooly-editorial-root {
           --w-canvas: #f6f6f3;
           --w-card-bg: #ffffff;
@@ -270,46 +177,6 @@ export default function EditorialFeaturesStandalone({
           padding: 8px 0 18px;
           max-width: 600px;
           width: 100%;
-        }
-
-        .w-segmented-control {
-          position: relative;
-          display: inline-flex;
-          background: #ecece8;
-          border: 1px solid #dfdfd9;
-          padding: 4px;
-          border-radius: 9999px;
-          gap: 4px;
-          align-self: flex-start;
-        }
-
-        .w-segment-btn {
-          position: relative;
-          background: transparent;
-          border: none;
-          padding: 10px 22px;
-          border-radius: 9999px;
-          font-size: 0.9rem;
-          font-weight: 500;
-          color: #2c3e32;
-          cursor: pointer;
-          white-space: nowrap;
-          transition: color 0.2s ease;
-          z-index: 1;
-        }
-
-        .w-segment-btn.active {
-          color: var(--w-forest-dark);
-          font-weight: 700;
-        }
-
-        .w-segment-pill {
-          position: absolute;
-          inset: 0;
-          background: var(--w-lime);
-          border-radius: 9999px;
-          box-shadow: 0 2px 8px rgba(156, 230, 42, 0.35);
-          z-index: -1;
         }
 
         .w-intro-headline {
@@ -654,13 +521,6 @@ export default function EditorialFeaturesStandalone({
           }
         }
 
-        .w-brand-logo-text {
-          font-size: 1.25rem;
-          font-weight: 800;
-          letter-spacing: -0.04em;
-          color: var(--w-forest-dark);
-        }
-
         .w-brand-logo-img {
           height: 22px;
           width: auto;
@@ -845,146 +705,6 @@ export default function EditorialFeaturesStandalone({
           letter-spacing: -0.02em;
         }
 
-        /* ── Confirmed Bookings Banner ── */
-        .w-bookings-banner {
-          background: #eaf1ea;
-          border: 1px solid rgba(11, 31, 18, 0.14);
-          border-radius: 14px;
-          padding: 14px 20px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 12px;
-          font-size: 0.88rem;
-          color: var(--w-forest-dark);
-        }
-
-        /* ── Interactive Modal ── */
-        .w-modal-backdrop {
-          position: fixed;
-          inset: 0;
-          background: rgba(7, 26, 14, 0.72);
-          backdrop-filter: blur(8px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 16px;
-          z-index: 9999;
-        }
-
-        .w-modal-box {
-          background: #ffffff;
-          border-radius: 20px;
-          padding: 32px;
-          max-width: 480px;
-          width: 100%;
-          position: relative;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-          animation: wModalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes wModalIn {
-          from { opacity: 0; transform: scale(0.95) translateY(8px); }
-          to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .w-modal-close {
-          position: absolute;
-          top: 18px;
-          right: 18px;
-          background: #f0f0ed;
-          border: none;
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          font-size: 1.1rem;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #555;
-        }
-        .w-modal-close:hover {
-          background: #e2e2de;
-          color: #111;
-        }
-
-        .w-modal-heading {
-          margin: 0 0 8px 0;
-          font-size: 1.4rem;
-          color: var(--w-forest-dark);
-          font-weight: 800;
-        }
-
-        .w-modal-desc {
-          margin: 0 0 20px 0;
-          font-size: 0.9rem;
-          color: #666;
-        }
-
-        .w-modal-label {
-          display: block;
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: #333;
-          margin-bottom: 14px;
-        }
-
-        .w-modal-label-last {
-          display: block;
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: #333;
-          margin-bottom: 22px;
-        }
-
-        .w-modal-input {
-          width: 100%;
-          padding: 12px 14px;
-          border-radius: 10px;
-          border: 1px solid #d5d5d0;
-          font-size: 0.95rem;
-          margin-top: 10px;
-          font-family: inherit;
-        }
-        .w-modal-input:focus {
-          outline: none;
-          border-color: var(--w-forest);
-        }
-
-        .w-modal-error {
-          margin: 0 0 12px 0;
-          font-size: 0.85rem;
-          color: #b91c1c;
-          font-weight: 600;
-        }
-
-        .w-modal-success {
-          background: #eaf1ea;
-          border-radius: 14px;
-          padding: 20px;
-          text-align: center;
-          color: var(--w-forest-dark);
-        }
-
-        .w-modal-success-title {
-          margin: 0 0 8px 0;
-          font-weight: 700;
-          font-size: 1.05rem;
-        }
-
-        .w-modal-success-sub {
-          margin: 0 0 16px 0;
-          font-size: 0.9rem;
-          color: #3b5043;
-        }
-
-        .w-full-btn {
-          width: 100%;
-          justify-content: center;
-        }
-
         /* ── Tablet Optimization (768px – 1024px) ── */
         @media (min-width: 768px) and (max-width: 1024px) {
           .w-row {
@@ -1033,89 +753,18 @@ export default function EditorialFeaturesStandalone({
 
         /* ── Large Monitor Typography Scaling ── */
         @media (min-width: 1440px) {
-          .w-segment-btn {
-            font-size: 0.98rem;
-            padding: 11px 26px;
-          }
           .w-intro-headline {
             font-size: clamp(2.6rem, 4vw, 3.8rem);
           }
           .w-intro-subtext {
             font-size: 1.04rem;
           }
-          .w-card-title {
-            font-size: clamp(1.35rem, 1.7vw, 1.65rem);
-          }
-          .w-card-desc {
-            font-size: 0.96rem;
-          }
-          .w-card-badge {
-            font-size: 0.85rem;
-          }
-          .w-cloud-banner-title {
-            font-size: clamp(1.35rem, 1.85vw, 1.72rem);
-          }
-          .w-cloud-banner-subtitle {
-            font-size: clamp(1.85rem, 2.75vw, 2.6rem);
-          }
-          .w-cloud-feature-title {
-            font-size: clamp(1.35rem, 1.8vw, 1.7rem);
-          }
-          .w-cloud-feature-desc {
-            font-size: 0.96rem;
-          }
         }
       `}</style>
 
       <div className="w-container">
-        {/* ── Centered Audience Switcher & Clean Minimal Header ── */}
         {!hideIntro && (
           <header className="w-header-block">
-            {showAudienceToggle && (
-              <div
-                className="w-segmented-control"
-                role="tablist"
-                aria-label="Business Audience"
-              >
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={audience === "retail"}
-                  className={`w-segment-btn ${
-                    audience === "retail" ? "active" : ""
-                  }`}
-                  onClick={() => setAudience("retail")}
-                >
-                  {audience === "retail" && (
-                    <motion.span
-                      layoutId="activeEditorialAudienceTab"
-                      className="w-segment-pill"
-                      transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                    />
-                  )}
-                  Shops &amp; Supermarkets
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={audience === "cafe"}
-                  className={`w-segment-btn ${
-                    audience === "cafe" ? "active" : ""
-                  }`}
-                  onClick={() => setAudience("cafe")}
-                >
-                  {audience === "cafe" && (
-                    <motion.span
-                      layoutId="activeEditorialAudienceTab"
-                      className="w-segment-pill"
-                      transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                    />
-                  )}
-                  Cafés &amp; Restaurants
-                </button>
-              </div>
-            )}
-
             <h2 className="w-intro-headline">
               {audience === "retail" ? (
                 <>The essentials to run your store, connected.</>
@@ -1125,18 +774,6 @@ export default function EditorialFeaturesStandalone({
             </h2>
             <p className="w-intro-subtext">{introCopy.subtext}</p>
           </header>
-        )}
-
-        {/* ── Active Walkthrough Bookings Status ── */}
-        {submittedBookings.length > 0 && (
-          <div className="w-bookings-banner" role="status">
-            <span>
-              <strong>Walkthrough Scheduled:</strong>{" "}
-              {submittedBookings[0].title} for {submittedBookings[0].fullName} (
-              {submittedBookings[0].phone})
-            </span>
-            <span>{submittedBookings.length} requested</span>
-          </div>
         )}
 
         <AnimatePresence mode="wait" initial={false}>
@@ -1626,89 +1263,6 @@ export default function EditorialFeaturesStandalone({
           </motion.div>
         </AnimatePresence>
       </div>
-
-      {/* ── Demo Modal ── */}
-      {modalOpen && (
-        <div
-          className="w-modal-backdrop"
-          onClick={() => setModalOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="w-modal-heading"
-        >
-          <div className="w-modal-box" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="w-modal-close"
-              onClick={() => setModalOpen(false)}
-              aria-label="Close dialog"
-            >
-              &times;
-            </button>
-            <h3 id="w-modal-heading" className="w-modal-heading">
-              {modalTitle}
-            </h3>
-            <p className="w-modal-desc">
-              Experience the power of Wusooly POS customized for your business.
-            </p>
-
-            {justSubmitted ? (
-              <div className="w-modal-success">
-                <p className="w-modal-success-title">
-                  Thank you, {justSubmitted.fullName}!
-                </p>
-                <p className="w-modal-success-sub">
-                  Our product specialist will connect with you shortly at{" "}
-                  <strong>{justSubmitted.phone}</strong>.
-                </p>
-                <button
-                  type="button"
-                  className="w-lime-pill-btn w-full-btn"
-                  onClick={() => setModalOpen(false)}
-                >
-                  Done
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleFormSubmit} noValidate>
-                {formError && (
-                  <p role="alert" className="w-modal-error">
-                    {formError}
-                  </p>
-                )}
-                <label className="w-modal-label">
-                  Full Name
-                  <input
-                    type="text"
-                    required
-                    placeholder="Enter your name"
-                    className="w-modal-input"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                </label>
-                <label className="w-modal-label-last">
-                  Phone / WhatsApp Number
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+91 98765 43210"
-                    className="w-modal-input"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </label>
-                <button
-                  type="submit"
-                  className="w-lime-pill-btn w-full-btn"
-                >
-                  Request Walkthrough
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
     </section>
   );
 }

@@ -1,51 +1,26 @@
 "use client";
 
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import TransitionLink from "../components/TransitionLink";
-import { FileText, Clock, ArrowRight, Mail } from "lucide-react";
-import styles from "./terms.module.css";
+import TransitionLink from "../components/layout/TransitionLink";
+import LegalDocument from "../components/sections/LegalDocument";
+import styles from "../components/sections/LegalDocument.module.css";
+import { FileText } from "lucide-react";
 
 export default function TermsPage() {
-  const handleGetDemo = () => {
-    window.location.href = "/contact";
-  };
-
   return (
-    <main className={styles.page}>
-      {/* ── Top Header Navigation Bar ── */}
-      <div className={styles.navbarContainer}>
-        <Navbar onGetDemo={handleGetDemo} theme="dark" />
-      </div>
-
-      <div className={styles.mainContainer}>
-        {/* Header / Intro */}
-        <header className={styles.headerWrap}>
-          <div className={styles.badge}>
-            <FileText size={14} strokeWidth={2.4} aria-hidden="true" />
-            <span>Legal Terms of Service</span>
-          </div>
-          <h1 className={styles.title}>Terms of Service</h1>
-          <p className={styles.lead}>
-            These are the rules of the road for using Wusooly. We&apos;ve kept them as plain as we can without losing precision.
-          </p>
-          <div className={styles.metaBar}>
-            <span className={styles.metaItem}>
-              <Clock size={15} strokeWidth={2.2} aria-hidden="true" />
-              <span>Last updated: May 9, 2026</span>
-            </span>
-            <span className={styles.metaDivider}>&bull;</span>
-            <span>
-              Looking for our privacy policy?{" "}
-              <TransitionLink href="/privacy" className={styles.metaLink}>
-                Privacy Policy &rarr;
-              </TransitionLink>
-            </span>
-          </div>
-        </header>
-
-        {/* Paper Document Card */}
-        <article className={styles.docCard}>
+    <LegalDocument
+      badgeIcon={<FileText size={14} strokeWidth={2.4} aria-hidden="true" />}
+      badgeText="Legal Terms of Service"
+      title="Terms of Service"
+      lead="These are the rules of the road for using Wusooly. We've kept them as plain as we can without losing precision."
+      lastUpdated="May 9, 2026"
+      otherPolicyPrompt="Looking for our privacy policy?"
+      otherPolicyLabel="Privacy Policy"
+      otherPolicyHref="/privacy"
+      helpTitle="Questions regarding our Terms?"
+      helpText="Reach out to our legal department for enterprise agreements, licensing questions, or compliance clarifications."
+      helpEmail="legal@wusooly.com"
+      helpSecondaryLabel="Contact Team"
+    >
           {/* 1. Agreement to terms */}
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>
@@ -291,29 +266,6 @@ export default function TermsPage() {
               </TransitionLink>.
             </p>
           </section>
-
-          {/* Support / Quick Help Card */}
-          <div className={styles.helpBox}>
-            <h3 className={styles.helpTitle}>Questions regarding our Terms?</h3>
-            <p className={styles.helpText}>
-              Reach out to our legal department for enterprise agreements, licensing questions, or compliance clarifications.
-            </p>
-            <div className={styles.helpActions}>
-              <a href="mailto:legal@wusooly.com" className={styles.helpBtnPrimary}>
-                <Mail size={16} strokeWidth={2.4} aria-hidden="true" />
-                <span>legal@wusooly.com</span>
-              </a>
-              <TransitionLink href="/contact" className={styles.helpBtnSecondary}>
-                <span>Contact Team</span>
-                <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
-              </TransitionLink>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      {/* ── Site Footer ── */}
-      <Footer onGetDemo={handleGetDemo} theme="dark" />
-    </main>
+    </LegalDocument>
   );
 }

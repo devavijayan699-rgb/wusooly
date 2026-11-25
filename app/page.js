@@ -3,14 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import EditorialFeaturesSection from "./components/EditorialFeaturesSection";
-import CafeRestaurantFeaturesSection from "./components/CafeRestaurantFeaturesSection";
-import FAQSection from "./components/FAQSection";
-import DownloadSection from "./components/DownloadSection";
-import PricingSection from "./components/PricingSection";
-import OutroCTA from "./components/OutroCTA";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import FeaturesGrid from "./components/sections/FeaturesGrid";
+import FAQSection from "./components/sections/FAQSection";
+import DownloadSection from "./components/sections/DownloadSection";
+import PricingSection from "./components/sections/PricingSection";
+import OutroCTA from "./components/sections/OutroCTA";
 import { gsap } from "../lib/gsap";
 import styles from "./page.module.css";
 
@@ -240,7 +239,7 @@ export default function Home() {
             }`}
           >
             <Image
-              src="/assets/hero-retail-pos.webp"
+              src="/hero/retail-desktop.webp"
               alt="Wusooly POS display in clean forest-green studio with monitor, billing dashboard, marble pedestals, plants and ribbed glass panel"
               fill
               priority
@@ -249,7 +248,7 @@ export default function Home() {
               sizes="(max-width: 768px) 1px, 100vw"
             />
             <Image
-              src="/assets/hero-retail-pos-mobile-v7.webp"
+              src="/hero/retail-mobile.webp"
               alt="Wusooly POS display in clean forest-green studio mobile view"
               fill
               priority
@@ -266,7 +265,7 @@ export default function Home() {
             }`}
           >
             <Image
-              src="/assets/hero-cafe-pos.webp"
+              src="/hero/cafe-desktop.webp"
               alt="Wusooly Café POS studio setup with monitor, receipt printer, barcode scanner and terminal"
               fill
               priority
@@ -275,7 +274,7 @@ export default function Home() {
               sizes="(max-width: 768px) 1px, 100vw"
             />
             <Image
-              src="/assets/hero-cafe-pos-mobile-v7.webp"
+              src="/hero/cafe-mobile.webp"
               alt="Wusooly Café POS studio setup mobile view"
               fill
               priority
@@ -409,11 +408,7 @@ export default function Home() {
           Lower Content Canvas & Full-Bleed Footer
           ==================================================================== */}
       <div className={styles.lowerCanvas}>
-        {selectedAudience === "retail" ? (
-          <EditorialFeaturesSection onGetDemo={handleGetDemo} />
-        ) : (
-          <CafeRestaurantFeaturesSection onGetDemo={handleGetDemo} />
-        )}
+        <FeaturesGrid audience={selectedAudience} onGetDemo={handleGetDemo} />
 
         {/* Pricing Section (Lifetime Core & Cloud Growth) */}
         <PricingSection onGetDemo={handleGetDemo} initialAudience={selectedAudience} id="pricing" />
@@ -431,7 +426,7 @@ export default function Home() {
         <OutroCTA />
 
         {/* Site Footer (Navbar Aesthetic DNA) */}
-        <Footer onGetDemo={handleGetDemo} theme="dark" />
+        <Footer onGetDemo={handleGetDemo} />
       </div>
     </div>
   );

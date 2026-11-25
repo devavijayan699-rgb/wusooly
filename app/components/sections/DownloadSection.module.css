@@ -31,10 +31,6 @@
   overflow: visible;
 }
 
-.ambientGlow {
-  display: none;
-}
-
 /* ── Header: STRICTLY ZERO EYEBROW ── */
 .header {
   text-align: center;

@@ -1,10 +1,10 @@
 "use client";
 
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import PricingSection from "../components/PricingSection";
-import FAQSection from "../components/FAQSection";
-import OutroCTA from "../components/OutroCTA";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import PricingSection from "../components/sections/PricingSection";
+import FAQSection from "../components/sections/FAQSection";
+import OutroCTA from "../components/sections/OutroCTA";
 import styles from "./pricing.module.css";
 
 export default function PricingPage() {
@@ -16,7 +16,7 @@ export default function PricingPage() {
     <main className={styles.page}>
       {/* ── Top Header Navigation Bar ── */}
       <div className={styles.navbarContainer}>
-        <Navbar onGetDemo={handleGetDemo} variant="pricing" theme="dark" />
+        <Navbar onGetDemo={handleGetDemo} variant="pricing" />
       </div>
 
       {/* ── Main Content Area: Grand Botanical Pricing Canvas ── */}
@@ -33,7 +33,7 @@ export default function PricingPage() {
       <OutroCTA />
 
       {/* ── Full-Bleed Site Footer ── */}
-      <Footer onGetDemo={handleGetDemo} theme="dark" />
+      <Footer onGetDemo={handleGetDemo} />
     </main>
   );
 }

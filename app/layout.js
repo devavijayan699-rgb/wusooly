@@ -1,8 +1,8 @@
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import "@ziqx/react-comps/styles.css";
-import SmoothScroll from "./components/SmoothScroll";
-import TransitionProvider from "./components/TransitionProvider";
+import SmoothScroll from "./components/layout/SmoothScroll";
+import TransitionProvider from "./components/layout/TransitionProvider";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -25,12 +25,6 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.add('js');`,
           }}
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Manrope:wght@300..800&display=swap"
-          rel="stylesheet"
         />
       </head>
       <body>

@@ -2,13 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import EditorialFeaturesSection from "../components/EditorialFeaturesSection";
-import CafeRestaurantFeaturesSection from "../components/CafeRestaurantFeaturesSection";
-import FAQSection from "../components/FAQSection";
-import DownloadSection from "../components/DownloadSection";
-import OutroCTA from "../components/OutroCTA";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import FeaturesGrid from "../components/sections/FeaturesGrid";
+import FAQSection from "../components/sections/FAQSection";
+import DownloadSection from "../components/sections/DownloadSection";
+import OutroCTA from "../components/sections/OutroCTA";
 import { gsap } from "../../lib/gsap";
 import styles from "./solutions.module.css";
 
@@ -168,11 +167,11 @@ export default function SolutionsPage() {
 
       {/* ── Features Section from Hero ── */}
       <div className={styles.featuresWrapper}>
-        {selectedAudience === "retail" ? (
-          <EditorialFeaturesSection onGetDemo={handleGetDemoNavbar} hideIntro={true} />
-        ) : (
-          <CafeRestaurantFeaturesSection onGetDemo={handleGetDemoNavbar} hideIntro={true} />
-        )}
+        <FeaturesGrid
+          audience={selectedAudience}
+          hideIntro={true}
+          onGetDemo={handleGetDemoNavbar}
+        />
       </div>
 
       {/* ── Frequently Asked Questions ── */}
@@ -185,7 +184,7 @@ export default function SolutionsPage() {
       <OutroCTA />
 
       {/* ── Floating Dark Glass Footer ── */}
-      <Footer onGetDemo={handleGetDemoNavbar} theme="dark" />
+      <Footer onGetDemo={handleGetDemoNavbar} />
     </main>
   );
 }

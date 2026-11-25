@@ -2,9 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { Calendar, Cpu, ArrowDown, Clock, ArrowRight } from "lucide-react";
-import { WindowsIcon, AppleIcon } from "./icons/BrandIcons";
-import Magnetic from "./Magnetic";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import { WindowsIcon, AppleIcon } from "../ui/BrandIcons";
+import Magnetic from "../ui/Magnetic";
+import { gsap } from "../../../lib/gsap";
 import styles from "./DownloadSection.module.css";
 
 export default function DownloadSection() {
@@ -88,7 +88,6 @@ export default function DownloadSection() {
   }, []);
 
   const handleDownload = (platform) => {
-    console.log(`Initiating download for ${platform}`);
     const alertMsg =
       platform === "windows"
         ? "Downloading Wusooly for Windows (64-bit installer)..."

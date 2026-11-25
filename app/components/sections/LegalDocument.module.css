@@ -1,6 +1,5 @@
 /* ==========================================================================
-   Wusooly POS - Privacy Policy Styles
-   Clean, Editorial Typography with Warm Stone, Crisp White & Obsidian Forest
+   Wusooly POS - Shared Legal Document Page Styles (Privacy & Terms)
    ========================================================================== */
 
 .page {
@@ -32,7 +31,6 @@
   box-sizing: border-box;
 }
 
-/* Header / Hero Area */
 .headerWrap {
   margin-bottom: clamp(28px, 4vh, 44px);
 }
@@ -105,7 +103,6 @@
   opacity: 0.8;
 }
 
-/* Document Paper Card */
 .docCard {
   background: #ffffff;
   border: 1px solid rgba(12, 41, 30, 0.08);
@@ -217,7 +214,6 @@
   opacity: 0.75;
 }
 
-/* Contact Support Box */
 .helpBox {
   margin-top: clamp(36px, 5vh, 48px);
   background: #0c291e;

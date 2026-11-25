@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { Check, ArrowRight } from "lucide-react";
-import { WhatsAppIcon } from "./icons/BrandIcons";
-import Magnetic from "./Magnetic";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import { WhatsAppIcon } from "../ui/BrandIcons";
+import Magnetic from "../ui/Magnetic";
+import { gsap } from "../../../lib/gsap";
 import styles from "./PricingSection.module.css";
 
 const PRICING_DATA = {
@@ -342,7 +342,7 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
             SECTION 3: ACTION CTA BAR (WHATSAPP DEEP LINK + DEMO)
             ══════════════════════════════════════════════════════════ */}
         <div className={styles.ctaBar}>
-          <Magnetic strength={0.25}>
+          <Magnetic>
             <a
               href={whatsappUrl}
               target="_blank"

@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Input, Select, Button } from "@ziqx/react-comps";
 import { ArrowUpRight, Check } from "lucide-react";
-import Navbar from "../components/Navbar";
-import OutroCTA from "../components/OutroCTA";
-import Footer from "../components/Footer";
-import Magnetic from "../components/Magnetic";
+import Navbar from "../components/layout/Navbar";
+import OutroCTA from "../components/sections/OutroCTA";
+import Footer from "../components/layout/Footer";
+import Magnetic from "../components/ui/Magnetic";
 import { gsap } from "../../lib/gsap";
 import styles from "./contact.module.css";
 
@@ -29,7 +29,6 @@ export default function ContactPage() {
   const containerRef = useRef(null);
   const infoCardRef = useRef(null);
   const formCardRef = useRef(null);
-  const bannerRef = useRef(null);
 
   useEffect(() => {
     if (typeof window === "undefined" || !containerRef.current) return;
@@ -38,12 +37,11 @@ export default function ContactPage() {
     if (isReduced) {
       if (infoCardRef.current) gsap.set(infoCardRef.current, { opacity: 1, y: 0 });
       if (formCardRef.current) gsap.set(formCardRef.current, { opacity: 1, y: 0 });
-      if (bannerRef.current) gsap.set(bannerRef.current, { opacity: 1, y: 0 });
       return;
     }
 
     const ctx = gsap.context(() => {
-      // 1. Two main cards entrance
+      // Two main cards entrance
       if (infoCardRef.current && formCardRef.current) {
         gsap.fromTo(
           [infoCardRef.current, formCardRef.current],
@@ -54,25 +52,6 @@ export default function ContactPage() {
             duration: 0.5,
             stagger: 0.08,
             ease: "expo.out",
-          }
-        );
-      }
-
-      // 2. Outro Banner entrance
-      if (bannerRef.current) {
-        gsap.fromTo(
-          bannerRef.current,
-          { opacity: 0.65, y: 10 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.45,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: bannerRef.current,
-              start: "top 95%",
-              once: true,
-            },
           }
         );
       }
@@ -349,7 +328,7 @@ export default function ContactPage() {
       <OutroCTA onClick={handleScrollToForm} />
 
       {/* ── Floating Glass Footer (Navbar Aesthetic DNA) ── */}
-      <Footer onGetDemo={handleScrollToForm} theme="dark" />
+      <Footer onGetDemo={handleScrollToForm} />
     </main>
   );
 }

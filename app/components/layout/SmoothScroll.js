@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
-import { ScrollTrigger } from "../../lib/gsap";
+import { ScrollTrigger } from "../../../lib/gsap";
 
 export const ScrollContext = createContext({
   stop: () => {},

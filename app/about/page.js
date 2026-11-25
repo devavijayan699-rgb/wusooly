@@ -3,12 +3,12 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Users, Zap, ShieldCheck, BarChart3, Sparkles, Clock, ArrowRight } from "lucide-react";
-import TransitionLink from "../components/TransitionLink";
-import Magnetic from "../components/Magnetic";
-import Navbar from "../components/Navbar";
-import OutroCTA from "../components/OutroCTA";
-import Footer from "../components/Footer";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import TransitionLink from "../components/layout/TransitionLink";
+import Magnetic from "../components/ui/Magnetic";
+import Navbar from "../components/layout/Navbar";
+import OutroCTA from "../components/sections/OutroCTA";
+import Footer from "../components/layout/Footer";
+import { gsap } from "../../lib/gsap";
 import styles from "./about.module.css";
 
 export default function AboutPage() {
@@ -128,22 +128,6 @@ export default function AboutPage() {
         }
       );
 
-      // 7. Outro Card
-      gsap.fromTo(
-        `.${styles.outroCard}`,
-        { opacity: 0.65, y: 10 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: `.${styles.outroCard}`,
-            start: "top 95%",
-            once: true,
-          },
-        }
-      );
     }, containerRef);
 
     return () => ctx.revert();
@@ -151,9 +135,9 @@ export default function AboutPage() {
 
   return (
     <main className={styles.page} ref={containerRef}>
-      {/* ── 00. Floating Liquid Dark Sage Navbar ── */}
+      {/* ── 00. Floating Liquid Dark Navbar ── */}
       <div className={styles.navbarContainer}>
-        <Navbar variant="about" theme="dark" />
+        <Navbar variant="about" />
       </div>
 
       {/* ── 01. Hero & Purpose Section (Zero Eyebrow Text) ── */}
@@ -191,7 +175,7 @@ export default function AboutPage() {
           {/* Photo 1: Retail & Supermarket Checkout */}
           <div className={styles.photoFrame}>
             <Image
-              src="/assets/retailer-story.webp"
+              src="/about/retailer-story.webp"
               alt="Retail grocer managing fresh produce checkout"
               fill
               sizes="(max-width: 768px) 100vw, 560px"
@@ -203,7 +187,7 @@ export default function AboutPage() {
           {/* Photo 2: Ambient Café & Hospitality Dining */}
           <div className={styles.photoFrame}>
             <Image
-              src="/assets/cafe-aerial-v4.webp"
+              src="/about/cafe-aerial.webp"
               alt="Café interior and table hospitality management"
               fill
               sizes="(max-width: 768px) 100vw, 560px"
@@ -239,13 +223,12 @@ export default function AboutPage() {
               muted
               playsInline
               preload="metadata"
-              poster="/assets/pos-video-poster.webp"
+              poster="/about/pos-turntable-poster.webp"
               className={styles.storyVideo}
               aria-label="Wusooly POS Terminal 360-degree turntable hardware demonstration"
             >
-              <source src="/assets/pos.webm" type="video/webm" />
-              <source src="/assets/pos-optimized.mp4" type="video/mp4" />
-              <source src="/assets/pos.mp4" type="video/mp4" />
+              <source src="/about/pos-turntable.webm" type="video/webm" />
+              <source src="/about/pos-turntable.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -265,7 +248,7 @@ export default function AboutPage() {
 
           <div className={styles.missionMedia}>
             <Image
-              src="/assets/cafe-table-management-v5.webp"
+              src="/about/cafe-table-management.webp"
               alt="Warm restaurant dining space with modern POS management"
               fill
               sizes="(max-width: 960px) 100vw, 520px"
@@ -368,7 +351,7 @@ export default function AboutPage() {
       <OutroCTA />
 
       {/* ── 08. Floating Glass Dark Footer ── */}
-      <Footer theme="dark" />
+      <Footer />
     </main>
   );
 }

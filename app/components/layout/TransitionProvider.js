@@ -1,19 +1,11 @@
 "use client";
 
-import { createContext, useContext, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { ScrollTrigger } from "../../lib/gsap";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { ScrollTrigger } from "../../../lib/gsap";
 import { useSmoothScroll } from "./SmoothScroll";
 
-export const TransitionContext = createContext({
-  navigate: () => {},
-  isTransitioning: false,
-});
-
-export const usePageTransition = () => useContext(TransitionContext);
-
 export default function TransitionProvider({ children }) {
-  const router = useRouter();
   const pathname = usePathname();
   const { scrollTo } = useSmoothScroll();
 
@@ -57,14 +49,5 @@ export default function TransitionProvider({ children }) {
     return () => window.removeEventListener("popstate", handlePopState);
   }, [scrollTo]);
 
-  const navigate = (href) => {
-    if (!href) return;
-    router.push(href);
-  };
-
-  return (
-    <TransitionContext.Provider value={{ navigate, isTransitioning: false }}>
-      {children}
-    </TransitionContext.Provider>
-  );
+  return <>{children}</>;
 }

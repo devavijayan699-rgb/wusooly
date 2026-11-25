@@ -26,10 +26,8 @@
   transition: all 0.25s ease;
 }
 
-/* Contact, Solutions & About Dedicated Navbar Variant */
-.navbarContact,
-.navbarSolutions,
-.navbarAbout {
+/* Dedicated Non-Hero Solid Obsidian Forest Navbar Variant */
+.navbarSolid {
   background: #0c291e !important;
   backdrop-filter: blur(22px) saturate(140%) !important;
   -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
@@ -63,14 +61,6 @@
 .brandLogo:hover .brandLogoImg {
   opacity: 0.88;
   transform: translateY(-0.5px);
-}
-
-.brandName {
-  font-size: 1.45rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.025em;
-  text-transform: lowercase;
 }
 
 /* Center Desktop Links */
@@ -183,11 +173,9 @@
 }
 
 /* ==========================================================================
-   Contact, Solutions & About Dedicated Dropdown Notch (Deep Obsidian Forest)
+   Non-Hero Solid Dropdown Notch (Deep Obsidian Forest)
    ========================================================================== */
-.dropdownContact,
-.dropdownSolutions,
-.dropdownAbout {
+.dropdownSolid {
   top: calc(100% + 7px) !important;
   left: -20px !important;
   width: 380px !important;
@@ -202,9 +190,7 @@
   z-index: 125 !important;
 }
 
-.dropdownContact::before,
-.dropdownSolutions::before,
-.dropdownAbout::before {
+.dropdownSolid::before {
   content: "" !important;
   position: absolute !important;
   top: 4px !important;
@@ -215,9 +201,7 @@
   pointer-events: none !important;
 }
 
-.dropdownContact::after,
-.dropdownSolutions::after,
-.dropdownAbout::after {
+.dropdownSolid::after {
   content: "" !important;
   position: absolute !important;
   top: 4px !important;
@@ -315,20 +299,6 @@
 
 .dropdownItem:hover .dropdownItemDesc {
   color: rgba(255, 255, 255, 0.92);
-}
-
-.dropdownItemArrow {
-  opacity: 0;
-  transform: translateX(-4px);
-  color: #a3e635;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  align-items: center;
-}
-
-.dropdownItem:hover .dropdownItemArrow {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 /* Right Actions */
@@ -435,7 +405,7 @@
   animation: mobileSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.mobileMenuOther {
+.mobileMenuSolid {
   background: #0c291e !important;
 }
 
@@ -455,17 +425,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.mobileCategoryTitle {
-  font-size: 0.74rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #b4f046;
-  padding: 4px 12px;
-  text-decoration: none;
-  display: block;
 }
 
 .mobileItem {
@@ -542,10 +501,6 @@
   .hamburgerBtn {
     display: flex;
   }
-
-  .brandName {
-    font-size: 1.3rem;
-  }
 }
 
 /* ── Large Monitor Typography Scaling ── */
@@ -559,10 +514,6 @@
     padding: 12px 30px;
   }
 
-  .brandName {
-    font-size: 1.55rem;
-  }
-
   .dropdownItemTitle {
     font-size: 1rem;
   }
@@ -570,54 +521,4 @@
   .dropdownItemDesc {
     font-size: 0.82rem;
   }
-}
-
-/* ==========================================================================
-   Light Theme Variant (Used on Light Pages e.g. Contact Page)
-   ========================================================================== */
-.wrapperLight {
-  max-width: 100%;
-  padding: 0;
-}
-
-.navbarLight {
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-  height: 52px;
-  padding: 0;
-}
-
-.wrapperLight .navItem {
-  color: #1a2e22;
-  font-weight: 500;
-}
-
-.wrapperLight .navItem:hover {
-  color: #07150e;
-}
-
-.wrapperLight .hamburgerLine {
-  background: #1a2e22;
-}
-
-.wrapperLight .dropdownMenu {
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.12);
-}
-
-.wrapperLight .dropdownItemTitle {
-  color: #111827;
-}
-
-.wrapperLight .dropdownItemDesc {
-  color: #64748b;
-}
-
-.wrapperLight .dropdownItem:hover {
-  background: #f1f5f9;
 }

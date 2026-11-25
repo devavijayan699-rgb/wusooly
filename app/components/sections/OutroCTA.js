@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import TransitionLink from "./TransitionLink";
-import Magnetic from "./Magnetic";
+import TransitionLink from "../layout/TransitionLink";
+import Magnetic from "../ui/Magnetic";
 import styles from "./OutroCTA.module.css";
 
 export default function OutroCTA({
@@ -25,7 +25,7 @@ export default function OutroCTA({
             )}
           </h2>
           <p className={styles.outroSubtext}>{subtext}</p>
-          <Magnetic strength={0.3} maxDisplacement={8}>
+          <Magnetic>
             {onClick ? (
               <button type="button" onClick={onClick} className={styles.outroBtn}>
                 <span>{buttonText}</span>

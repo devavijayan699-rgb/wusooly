@@ -1,51 +1,26 @@
 "use client";
 
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import TransitionLink from "../components/TransitionLink";
-import { Shield, Clock, ArrowRight, Mail } from "lucide-react";
-import styles from "./privacy.module.css";
+import TransitionLink from "../components/layout/TransitionLink";
+import LegalDocument from "../components/sections/LegalDocument";
+import styles from "../components/sections/LegalDocument.module.css";
+import { Shield } from "lucide-react";
 
 export default function PrivacyPage() {
-  const handleGetDemo = () => {
-    window.location.href = "/contact";
-  };
-
   return (
-    <main className={styles.page}>
-      {/* ── Top Header Navigation Bar ── */}
-      <div className={styles.navbarContainer}>
-        <Navbar onGetDemo={handleGetDemo} theme="dark" />
-      </div>
-
-      <div className={styles.mainContainer}>
-        {/* Header / Intro */}
-        <header className={styles.headerWrap}>
-          <div className={styles.badge}>
-            <Shield size={14} strokeWidth={2.4} aria-hidden="true" />
-            <span>Legal &amp; Transparency</span>
-          </div>
-          <h1 className={styles.title}>Privacy Policy</h1>
-          <p className={styles.lead}>
-            You trust Wusooly with your data, and we tell you exactly what we do with it. No surprises.
-          </p>
-          <div className={styles.metaBar}>
-            <span className={styles.metaItem}>
-              <Clock size={15} strokeWidth={2.2} aria-hidden="true" />
-              <span>Last updated: November 16, 2026</span>
-            </span>
-            <span className={styles.metaDivider}>&bull;</span>
-            <span>
-              Looking for our terms?{" "}
-              <TransitionLink href="/terms" className={styles.metaLink}>
-                Terms of Service &rarr;
-              </TransitionLink>
-            </span>
-          </div>
-        </header>
-
-        {/* Paper Document Card */}
-        <article className={styles.docCard}>
+    <LegalDocument
+      badgeIcon={<Shield size={14} strokeWidth={2.4} aria-hidden="true" />}
+      badgeText="Legal & Transparency"
+      title="Privacy Policy"
+      lead="You trust Wusooly with your data, and we tell you exactly what we do with it. No surprises."
+      lastUpdated="November 16, 2026"
+      otherPolicyPrompt="Looking for our terms?"
+      otherPolicyLabel="Terms of Service"
+      otherPolicyHref="/terms"
+      helpTitle="Have a question about privacy?"
+      helpText="Our data protection team is always available to assist with data access requests, export inquiries, or compliance questions."
+      helpEmail="privacy@wusooly.com"
+      helpSecondaryLabel="Contact Support"
+    >
           {/* 1. Who we are */}
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>
@@ -259,29 +234,6 @@ export default function PrivacyPage() {
               </TransitionLink>.
             </p>
           </section>
-
-          {/* Support / Quick Help Card */}
-          <div className={styles.helpBox}>
-            <h3 className={styles.helpTitle}>Have a question about privacy?</h3>
-            <p className={styles.helpText}>
-              Our data protection team is always available to assist with data access requests, export inquiries, or compliance questions.
-            </p>
-            <div className={styles.helpActions}>
-              <a href="mailto:privacy@wusooly.com" className={styles.helpBtnPrimary}>
-                <Mail size={16} strokeWidth={2.4} aria-hidden="true" />
-                <span>privacy@wusooly.com</span>
-              </a>
-              <TransitionLink href="/contact" className={styles.helpBtnSecondary}>
-                <span>Contact Support</span>
-                <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
-              </TransitionLink>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      {/* ── Site Footer ── */}
-      <Footer onGetDemo={handleGetDemo} theme="dark" />
-    </main>
+    </LegalDocument>
   );
 }

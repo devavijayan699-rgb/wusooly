@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Plus, ArrowRight } from "lucide-react";
-import Magnetic from "./Magnetic";
-import TransitionLink from "./TransitionLink";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import Magnetic from "../ui/Magnetic";
+import TransitionLink from "../layout/TransitionLink";
+import { gsap } from "../../../lib/gsap";
 import styles from "./FAQSection.module.css";
 
 const FAQ_ITEMS = [
@@ -220,7 +220,7 @@ export default function FAQSection() {
 
           {/* Bottom CTA Row: Arrow Circle + Still have a question? */}
           <div className={styles.ctaRow}>
-            <Magnetic strength={0.3} maxDisplacement={10}>
+            <Magnetic>
               <TransitionLink href="/contact" className={styles.ctaCard} aria-label="Still have a question? Contact our team">
                 <div className={styles.ctaCircle}>
                   <ArrowRight

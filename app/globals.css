@@ -1,7 +1,6 @@
 :root {
   /* ── Core Font Families ── */
   --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: 'Funnel Display', var(--font-sans);
   --font-body: 'Manrope', var(--font-sans);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
@@ -167,17 +166,6 @@ textarea {
   }
 }
 
-/* ── SplitText Line Masks ── */
-.w-split-parent {
-  overflow: hidden !important;
-  display: block;
-}
-
-.w-split-child {
-  display: block;
-  will-change: transform, opacity;
-}
-
 /* ── Large Monitor Typography Scaling ── */
 @media (min-width: 1440px) {
   :root {
@@ -216,14 +204,5 @@ textarea {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .w-split-parent {
-    overflow: visible !important;
-  }
-
-  .w-split-child {
-    transform: none !important;
-    opacity: 1 !important;
   }
 }
