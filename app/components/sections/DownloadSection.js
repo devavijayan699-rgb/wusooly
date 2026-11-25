@@ -154,9 +154,10 @@ export default function DownloadSection() {
                 </span>
               </div>
             </div>
-            <div className={styles.helperArrowCircle} aria-hidden="true">
-              <ArrowRight size={16} strokeWidth={2.4} className={styles.helperArrowIcon} />
-            </div>
+            <span className={styles.helperCtaPill}>
+              <span>Get Helper Tool</span>
+              <ArrowRight size={15} strokeWidth={2.4} className={styles.helperArrowIcon} aria-hidden="true" />
+            </span>
           </TransitionLink>
         </div>
 

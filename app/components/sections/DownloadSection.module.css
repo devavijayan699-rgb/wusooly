@@ -208,13 +208,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 16px;
-  padding: clamp(16px, 2vw, 20px) clamp(20px, 2.6vw, 28px);
-  background-color: #0c291e;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 20px;
+  padding: clamp(18px, 2.4vw, 24px) clamp(20px, 2.8vw, 32px);
+  background-color: #ffffff;
+  border: 1px solid #e8e8e3;
+  border-radius: 18px;
   text-decoration: none;
-  box-shadow: 0 10px 28px -8px rgba(35, 45, 40, 0.24), 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.025);
   transition:
     transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
     border-color 0.25s ease,
@@ -224,79 +225,81 @@
 
 .helperCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(180, 240, 70, 0.42);
-  box-shadow: 0 18px 36px -10px rgba(12, 41, 30, 0.34), 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(12, 41, 30, 0.16);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.1);
 }
 
 .helperLeft {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   min-width: 0;
 }
 
 .helperIconBox {
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #edf1e8;
+  border: 1px solid rgba(12, 41, 30, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: #0c291e;
   flex-shrink: 0;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .helperCard:hover .helperIconBox {
-  color: #b4f046;
-  border-color: rgba(180, 240, 70, 0.4);
+  background: #0c291e;
+  color: #a3e635;
+  border-color: #0c291e;
 }
 
 .helperCopy {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
   min-width: 0;
 }
 
 .helperTitle {
-  font-size: 1.06rem;
-  font-weight: 800;
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: #071b0e;
   line-height: 1.25;
 }
 
 .helperDesc {
-  font-size: 0.86rem;
-  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.85rem;
+  color: #5a645e;
   line-height: 1.4;
 }
 
-.helperArrowCircle {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: #ffffff;
-  display: flex;
+.helperCtaPill {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  background: #9ce62a;
+  color: #071b0e;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 11px 22px;
+  border-radius: 9999px;
+  white-space: nowrap;
   flex-shrink: 0;
-  transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+  box-shadow: 0 2px 10px rgba(156, 230, 42, 0.28);
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
-.helperCard:hover .helperArrowCircle {
-  background-color: #b4f046;
-  border-color: #b4f046;
-  color: #071a0e;
+.helperCard:hover .helperCtaPill {
+  background: #aae942;
 }
 
 .helperArrowIcon {
-  transition: transform 0.22s ease;
+  transition: transform 0.2s ease;
 }
 
 .helperCard:hover .helperArrowIcon {
