@@ -4,7 +4,6 @@ import { useRef } from "react";
 import {
   Smartphone,
   ArrowRight,
-  ArrowDown,
   ShieldCheck,
   Download,
   QrCode,
@@ -165,10 +164,8 @@ export default function HelperPage() {
                 onClick={handleDownloadApk}
                 aria-label="Download Wusooly Helper APK for Android"
               >
+                <Download size={16} strokeWidth={2.4} className={styles.downloadBtnIcon} aria-hidden="true" />
                 <span>{HELPER_HERO.apkCard.ctaLabel}</span>
-                <span className={styles.arrowBubble} aria-hidden="true">
-                  <ArrowDown size={16} strokeWidth={2.5} />
-                </span>
               </button>
             </Magnetic>
 

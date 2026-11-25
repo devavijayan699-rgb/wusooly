@@ -128,19 +128,17 @@
   transform: translateX(4px);
 }
 
-/* ── Signature Obsidian Android Card ── */
+/* ── Minimalist Soft Sage Android Card ── */
 .apkCard {
-  background-color: #0c291e;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 26px;
-  padding: clamp(26px, 3.2vw, 34px);
-  color: #ffffff;
+  background-color: #edf1e8;
+  border: none;
+  border-radius: 24px;
+  padding: clamp(28px, 3.5vw, 36px);
+  color: #0c291e;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  box-shadow:
-    0 20px 50px -12px rgba(12, 41, 30, 0.34),
-    0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .apkCardTop {
@@ -157,15 +155,15 @@
 }
 
 .apkSquircle {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: #ffffff;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #a3e635;
+  color: #0c291e;
   flex-shrink: 0;
 }
 
@@ -173,13 +171,13 @@
   font-size: 1.08rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: #0c291e;
   margin: 0;
 }
 
 .apkVersionSub {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.72);
+  color: #4a5c52;
   font-weight: 500;
   margin-top: 2px;
 }
@@ -188,11 +186,11 @@
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  padding: 4px 11px;
+  padding: 5px 12px;
   border-radius: 9999px;
-  background: rgba(180, 240, 70, 0.18);
-  color: #b4f046;
-  border: 1px solid rgba(180, 240, 70, 0.36);
+  background: #ffffff;
+  color: #0c291e;
+  border: none;
   white-space: nowrap;
 }
 
@@ -200,9 +198,10 @@
   width: 100%;
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 13px 20px;
-  background: #b4f046;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  background: #9ce62a;
   color: #071a0e;
   border: none;
   border-radius: 9999px;
@@ -210,34 +209,26 @@
   font-size: 0.94rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(180, 240, 70, 0.28);
-  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: none;
+  transition: background-color 0.18s ease, transform 0.15s ease;
 }
 
 .downloadBtn:hover {
-  background: #c3f563;
+  background: #aae942;
   transform: translateY(-1px);
-  box-shadow: 0 6px 22px rgba(180, 240, 70, 0.42);
 }
 
-.arrowBubble {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(7, 26, 14, 0.14);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
+.downloadBtnIcon {
+  transition: transform 0.18s ease;
 }
 
-.downloadBtn:hover .arrowBubble {
+.downloadBtn:hover .downloadBtnIcon {
   transform: translateY(2px);
 }
 
 .apkCaption {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.68);
+  color: #4a5c52;
   text-align: center;
   margin: -6px 0 0;
 }
@@ -245,29 +236,30 @@
 .specsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 16px;
+  padding: 4px 2px 0;
 }
 
 .specTile {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  border-radius: 14px;
-  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
 .specLabel {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
+  color: #53645b;
 }
 
 .specValue {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0c291e;
 }
 
 .trustSeal {
@@ -275,15 +267,15 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 2px;
+  border-top: none;
   font-size: 0.78rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.78);
+  color: #3b5043;
 }
 
 .trustIcon {
-  color: #a3e635;
+  color: #1a4731;
 }
 
 /* ==========================================================================
@@ -626,7 +618,7 @@
   .setupAnchor,
   .anchorArrow,
   .downloadBtn,
-  .arrowBubble {
+  .downloadBtnIcon {
     transition: none;
   }
 
