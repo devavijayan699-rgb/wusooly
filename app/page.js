@@ -289,7 +289,7 @@ export default function Home() {
               <>
                 <span className={styles.headlineMask}>
                   <span className={styles.headlineLine}>Run your store with</span>
-                </span>
+                </span>{" "}
                 <span className={styles.headlineMask}>
                   <span className={styles.headlineLine}>more control.</span>
                 </span>
@@ -298,7 +298,7 @@ export default function Home() {
               <>
                 <span className={styles.headlineMask}>
                   <span className={styles.headlineLine}>Every order. One</span>
-                </span>
+                </span>{" "}
                 <span className={styles.headlineMask}>
                   <span className={styles.headlineLine}>simple system.</span>
                 </span>
@@ -335,7 +335,6 @@ export default function Home() {
       <div id="solutions-cafe" className={styles.sectionAnchor} />
       <div id="solutions-inventory" className={styles.sectionAnchor} />
       <div id="solutions-reports" className={styles.sectionAnchor} />
-      <div id="features" className={styles.sectionAnchor} />
 
       {/* ====================================================================
           Lower Content Canvas & Full-Bleed Footer

@@ -1,21 +1,21 @@
 .outroSection {
   width: 100%;
-  padding: 0 0 clamp(48px, 7vh, 84px);
+  padding: clamp(44px, 5vw, 56px) 16px clamp(16px, 2.5vh, 24px);
   box-sizing: border-box;
 }
 
 .container {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1104px;
   margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 48px);
+  padding: 0;
   box-sizing: border-box;
 }
 
 .outroCard {
   background-color: #edf1e8;
   border: 1px solid rgba(12, 41, 30, 0.08);
-  border-radius: 28px;
+  border-radius: 24px;
   padding: clamp(48px, 6.8vh, 68px) clamp(24px, 4.5vw, 56px);
   display: flex;
   flex-direction: column;

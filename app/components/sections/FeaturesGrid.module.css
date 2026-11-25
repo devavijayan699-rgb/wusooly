@@ -1,19 +1,20 @@
 .wusooly-editorial-root {
-  --w-canvas: #f6f6f3;
+  --w-canvas: #f5f5f3;
   --w-card-bg: #ffffff;
-  --w-forest: #081f11;
+  --w-forest: #0c291e;
   --w-forest-dark: #071b0e;
-  --w-lime: #9ce62a;
-  --w-lime-hover: #aae942;
-  --w-text-dark: #0a1f12;
-  --w-text-muted: #5a645e;
-  --w-border: #e8e8e3;
-  --w-radius: 18px;
-  --w-gap: 10px;
+  --w-lime: #a3e635;
+  --w-lime-hover: #b4f046;
+  --w-text-dark: #0c291e;
+  --w-text-muted: #4a5c52;
+  --w-border: rgba(12, 41, 30, 0.08);
+  --w-radius: 20px;
+  --w-gap: 12px;
   font-family: var(--font-sans, "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   background: var(--w-canvas);
   color: var(--w-text-dark);
-  padding: 48px 16px 88px;
+  padding: clamp(48px, 6vw, 64px) 16px clamp(44px, 5vw, 56px);
+  scroll-margin-top: 84px;
   box-sizing: border-box;
   width: 100%;
   -webkit-font-smoothing: antialiased;
@@ -54,7 +55,7 @@
   font-weight: 800;
   line-height: 1.12;
   letter-spacing: -0.025em;
-  color: #171717;
+  color: #0c291e;
   margin: 0;
   text-align: left;
   max-width: 600px;
@@ -63,7 +64,7 @@
 .w-intro-subtext {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #666666;
+  color: #4a5c52;
   max-width: 600px;
   margin: 0;
   font-weight: 400;

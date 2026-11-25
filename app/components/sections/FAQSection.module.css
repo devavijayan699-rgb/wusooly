@@ -12,7 +12,7 @@
   position: relative;
   width: 100%;
   background-color: #f5f5f3;
-  padding: clamp(64px, 8vw, 110px) 0 clamp(48px, 6vw, 80px);
+  padding: clamp(44px, 5vw, 56px) 16px clamp(44px, 5vw, 56px);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -29,12 +29,12 @@
 
 .container {
   position: relative;
-  max-width: 1220px;
+  max-width: 1104px;
   margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 48px);
+  padding: 0;
   display: grid;
   grid-template-columns: 1fr 1.35fr;
-  gap: clamp(36px, 6vw, 84px);
+  gap: clamp(36px, 5.5vw, 72px);
   align-items: start;
   box-sizing: border-box;
 }
@@ -71,7 +71,7 @@
 }
 
 .headlineLime {
-  color: #8ee42f;
+  color: #2c7a24;
   transition: color 0.2s ease;
 }
 
@@ -103,12 +103,12 @@
 
 .accordionItem {
   position: relative;
-  border-bottom: 1.5px solid rgba(142, 228, 47, 0.75);
+  border-bottom: 1px solid rgba(12, 41, 30, 0.1);
   transition: border-color 0.2s ease;
 }
 
 .accordionItem:first-child {
-  border-top: 1.5px solid rgba(142, 228, 47, 0.75);
+  border-top: 1px solid rgba(12, 41, 30, 0.1);
 }
 
 .questionBtn {
@@ -150,32 +150,32 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1.5px solid #8ee42f;
+  border: 1.5px solid rgba(12, 41, 30, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #0c291e;
   flex-shrink: 0;
   background-color: transparent;
-  box-shadow: 0 2px 8px rgba(142, 228, 47, 0.18);
+  box-shadow: none;
   transition:
     transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.2s ease,
     border-color 0.2s ease,
-    color 0.2s ease,
-    box-shadow 0.2s ease;
+    color 0.2s ease;
 }
 
 .questionBtn:hover .toggleCircle {
-  background-color: rgba(142, 228, 47, 0.18);
-  transform: scale(1.08);
+  background-color: #edf1e8;
+  border-color: #0c291e;
+  transform: scale(1.06);
 }
 
 .circleOpen {
-  background-color: #8ee42f;
-  border-color: #8ee42f;
+  background-color: #a3e635;
+  border-color: #a3e635;
   color: #07150e;
-  box-shadow: 0 4px 14px rgba(142, 228, 47, 0.4);
+  box-shadow: none;
 }
 
 .plusIcon {
@@ -229,7 +229,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #8ee42f;
+  color: #a3e635;
   box-shadow: 0 6px 20px rgba(12, 41, 30, 0.22);
   transition:
     background-color 0.2s ease,
@@ -274,7 +274,7 @@
 .ctaSub {
   font-size: var(--text-xs);
   font-weight: var(--font-bold);
-  color: #55665d;
+  color: #4a5c52;
   letter-spacing: var(--tracking-wider);
   line-height: 1.2;
 }
@@ -304,7 +304,7 @@
 
 @media (max-width: 767px) {
   .faqSection {
-    padding: 48px 0;
+    padding: 40px 16px;
   }
 
   .headline {

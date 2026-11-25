@@ -11,7 +11,7 @@
   width: 100%;
   background: transparent;
   margin: 0;
-  padding: clamp(56px, 7vw, 96px) 0 clamp(48px, 6vw, 80px);
+  padding: clamp(44px, 5vw, 56px) 16px clamp(44px, 5vw, 56px);
   box-sizing: border-box;
   position: relative;
   z-index: 15;
@@ -20,9 +20,9 @@
 .container {
   position: relative;
   width: 100%;
-  max-width: 1080px;
+  max-width: 1104px;
   margin: 0 auto;
-  padding: 0 clamp(16px, 3vw, 24px);
+  padding: 0;
   box-sizing: border-box;
   background: transparent;
   border: none;
@@ -53,7 +53,7 @@
 .subtext {
   font-size: clamp(0.95rem, 1.25vw, 1.1rem);
   line-height: 1.55;
-  color: #4b5563;
+  color: #4a5c52;
   margin: 0;
 }
 
@@ -61,22 +61,22 @@
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: clamp(20px, 2.5vw, 32px);
-  max-width: 960px;
+  gap: clamp(16px, 2vw, 24px);
+  max-width: 1104px;
   margin: 0 auto;
 }
 
 .card {
   position: relative;
   background-color: #0c291e;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
   padding: clamp(28px, 3.5vw, 38px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 380px;
-  box-shadow: 0 12px 32px -8px rgba(35, 45, 40, 0.28), 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 32px -12px rgba(12, 41, 30, 0.22), 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
               border-color 0.25s ease,
               box-shadow 0.25s ease;
@@ -163,7 +163,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 13px 22px;
-  background: #b4f046;
+  background: #a3e635;
   color: #071a0e;
   border: none;
   border-radius: 9999px;
@@ -171,14 +171,14 @@
   font-size: 0.92rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 2px 10px rgba(180, 240, 70, 0.28);
+  box-shadow: 0 2px 10px rgba(163, 230, 53, 0.28);
   transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .downloadBtn:hover {
-  background: #c3f563;
+  background: #b4f046;
   transform: translateY(-1px);
-  box-shadow: 0 4px 18px rgba(180, 240, 70, 0.45);
+  box-shadow: 0 4px 18px rgba(163, 230, 53, 0.42);
 }
 
 .downloadBtn:hover .arrowBubble {
@@ -198,7 +198,7 @@
 
 /* ── Companion Android Helper Strip ── */
 .helperRow {
-  max-width: 960px;
+  max-width: 1104px;
   width: 100%;
   margin: clamp(18px, 2.2vw, 24px) auto 0;
 }
@@ -281,7 +281,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #9ce62a;
+  background: #a3e635;
   color: #071b0e;
   font-size: 0.86rem;
   font-weight: 700;
@@ -290,12 +290,12 @@
   border-radius: 9999px;
   white-space: nowrap;
   flex-shrink: 0;
-  box-shadow: 0 2px 10px rgba(156, 230, 42, 0.28);
+  box-shadow: 0 2px 10px rgba(163, 230, 53, 0.28);
   transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .helperCard:hover .helperCtaPill {
-  background: #aae942;
+  background: #b4f046;
 }
 
 .helperArrowIcon {
@@ -348,7 +348,7 @@
 /* ── Large Monitor Typography Scaling ── */
 @media (min-width: 1440px) {
   .container {
-    max-width: 1160px;
+    max-width: 1104px;
   }
 
   .subtext {
@@ -385,10 +385,6 @@
   .cardsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    padding: 0 16px;
-  }
-  .helperRow {
-    padding: 0 16px;
   }
   .card {
     min-height: 360px;
