@@ -69,18 +69,6 @@
   justify-content: space-between;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.025);
   box-sizing: border-box;
-  transition:
-    transform 0.35s var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color 0.3s ease,
-    box-shadow 0.35s var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(12, 41, 30, 0.16);
-  box-shadow:
-    0 18px 40px -12px rgba(12, 41, 30, 0.09),
-    0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .cardTop {
@@ -93,11 +81,6 @@
 .quoteIcon {
   color: #84cc16;
   flex-shrink: 0;
-  transition: transform 0.3s var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
-}
-
-.card:hover .quoteIcon {
-  transform: scale(1.06);
 }
 
 .metricBadge {
@@ -151,16 +134,6 @@
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.03em;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.card:hover .avatar {
-  background-color: var(--brand-obsidian, #0c291e);
-  color: var(--brand-lime, #a3e635);
-  border-color: var(--brand-obsidian, #0c291e);
 }
 
 .authorMeta {
