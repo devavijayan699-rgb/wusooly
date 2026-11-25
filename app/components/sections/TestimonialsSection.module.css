@@ -37,7 +37,7 @@
 }
 
 .headlineDot {
-  color: var(--brand-lime, #a3e635);
+  color: inherit;
 }
 
 .subtext {
