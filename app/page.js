@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import FeaturesGrid from "./components/sections/FeaturesGrid";
+import TestimonialsSection from "./components/sections/TestimonialsSection";
 import FAQSection from "./components/sections/FAQSection";
 import DownloadSection from "./components/sections/DownloadSection";
 import PricingSection from "./components/sections/PricingSection";
@@ -341,6 +342,9 @@ export default function Home() {
           ==================================================================== */}
       <div className={styles.lowerCanvas}>
         <FeaturesGrid audience={selectedAudience} onGetDemo={handleGetDemo} />
+
+        {/* Regional Merchant Testimonials */}
+        <TestimonialsSection />
 
         {/* Pricing Section (Lifetime Core & Cloud Growth) */}
         <PricingSection onGetDemo={handleGetDemo} initialAudience={selectedAudience} id="pricing" />

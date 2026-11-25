@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import FeaturesGrid from "../components/sections/FeaturesGrid";
+import TestimonialsSection from "../components/sections/TestimonialsSection";
 import FAQSection from "../components/sections/FAQSection";
 import DownloadSection from "../components/sections/DownloadSection";
 import OutroCTA from "../components/sections/OutroCTA";
@@ -101,6 +102,9 @@ export default function SolutionsPage() {
           onGetDemo={handleGetDemoNavbar}
         />
       </div>
+
+      {/* ── Regional Merchant Testimonials ── */}
+      <TestimonialsSection />
 
       {/* ── Frequently Asked Questions ── */}
       <FAQSection />

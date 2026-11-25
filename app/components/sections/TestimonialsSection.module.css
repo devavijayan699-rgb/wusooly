@@ -1,0 +1,251 @@
+.section {
+  width: 100%;
+  background: transparent;
+  padding: clamp(32px, 4vw, 52px) clamp(16px, 4vw, 36px) clamp(32px, 4vw, 52px);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+}
+
+.container {
+  max-width: 1104px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.6vw, 40px);
+  font-family: var(--font-sans, "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+/* ── Split Editorial Header ── */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(16px, 3vw, 40px);
+  flex-wrap: wrap;
+}
+
+.headline {
+  font-family: var(--font-headline, var(--font-sans));
+  font-size: clamp(2.15rem, 3.8vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--brand-obsidian, #0c291e);
+  margin: 0;
+}
+
+.headlineDot {
+  color: var(--brand-lime, #a3e635);
+}
+
+.subtext {
+  font-size: clamp(0.92rem, 1.1vw, 1rem);
+  line-height: 1.55;
+  color: #4a5c52;
+  margin: 0;
+  max-width: 370px;
+  font-weight: 400;
+}
+
+/* ── 3-Card Architectural Triptych ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 18px);
+  align-items: stretch;
+  width: 100%;
+}
+
+.card {
+  margin: 0;
+  background-color: #ffffff;
+  border: 1px solid rgba(12, 41, 30, 0.08);
+  border-radius: 22px;
+  padding: clamp(24px, 2.8vw, 32px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.025);
+  box-sizing: border-box;
+  transition:
+    transform 0.35s var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.3s ease,
+    box-shadow 0.35s var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(12, 41, 30, 0.16);
+  box-shadow:
+    0 18px 40px -12px rgba(12, 41, 30, 0.09),
+    0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.quoteIcon {
+  color: #84cc16;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.card:hover .quoteIcon {
+  transform: scale(1.06);
+}
+
+.metricBadge {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--surface-sage-tint, #edf1e8);
+  border: 1px solid rgba(12, 41, 30, 0.06);
+  border-radius: 9999px;
+  padding: 5px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #1b3828;
+  white-space: nowrap;
+}
+
+.blockquote {
+  margin: 22px 0 26px;
+  flex: 1;
+}
+
+.quoteText {
+  font-size: clamp(0.98rem, 1.15vw, 1.08rem);
+  line-height: 1.58;
+  color: #162c21;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  margin: 0;
+}
+
+/* ── Attribution Footer ── */
+.attribution {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(12, 41, 30, 0.08);
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 9999px;
+  background-color: var(--surface-sage-tint, #edf1e8);
+  border: 1px solid rgba(12, 41, 30, 0.08);
+  color: var(--brand-obsidian, #0c291e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.card:hover .avatar {
+  background-color: var(--brand-obsidian, #0c291e);
+  color: var(--brand-lime, #a3e635);
+  border-color: var(--brand-obsidian, #0c291e);
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.authorName {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--brand-obsidian, #0c291e);
+  line-height: 1.25;
+  font-style: normal;
+}
+
+.authorRole {
+  font-size: 0.79rem;
+  font-weight: 500;
+  color: #53645b;
+  line-height: 1.35;
+}
+
+/* ── Tablet Optimization (768px – 1023px): 2 + 1 Wide Layout ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .subtext {
+    max-width: 520px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── Mobile Optimization (<= 767px) ── */
+@media (max-width: 767px) {
+  .section {
+    padding: clamp(28px, 6vw, 40px) 16px clamp(28px, 6vw, 40px);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .card {
+    border-radius: 18px;
+    padding: 22px;
+  }
+
+  .blockquote {
+    margin: 18px 0 22px;
+  }
+}
+
+/* ── Reduced Motion Support ── */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .quoteIcon,
+  .avatar {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:hover .quoteIcon {
+    transform: none;
+  }
+}
