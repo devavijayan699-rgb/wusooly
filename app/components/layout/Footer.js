@@ -59,6 +59,11 @@ export default function Footer({ onGetDemo }) {
                   Desktop App
                 </TransitionLink>
               </li>
+              <li>
+                <TransitionLink href="/helper" className={styles.link}>
+                  Helper Tool
+                </TransitionLink>
+              </li>
             </ul>
           </div>
 

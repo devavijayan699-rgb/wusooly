@@ -1,9 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import { Calendar, Cpu, ArrowDown, Clock, ArrowRight } from "lucide-react";
+import { Calendar, Cpu, ArrowDown, Clock, ArrowRight, Smartphone } from "lucide-react";
 import { WindowsIcon, AppleIcon } from "../ui/BrandIcons";
 import Magnetic from "../ui/Magnetic";
+import TransitionLink from "../layout/TransitionLink";
 import { gsap, scrollReveal, useGsapReveal } from "../../../lib/gsap";
 import styles from "./DownloadSection.module.css";
 
@@ -36,6 +37,7 @@ export default function DownloadSection() {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const cardsRef = useRef(null);
+  const helperBannerRef = useRef(null);
   const ltsRef = useRef(null);
 
   useGsapReveal(
@@ -51,12 +53,16 @@ export default function DownloadSection() {
           trigger: cardsRef.current,
         });
       }
+      if (helperBannerRef.current) {
+        scrollReveal(helperBannerRef.current, { y: 10, opacity: 0.65, duration: 0.5 });
+      }
       scrollReveal(ltsRef.current, { y: 8, opacity: 0.65, duration: 0.45 });
     },
     {
       onReducedMotion: () => {
         if (headerRef.current) gsap.set(headerRef.current, { opacity: 1, y: 0 });
         if (cardsRef.current) gsap.set(cardsRef.current.children, { opacity: 1, y: 0 });
+        if (helperBannerRef.current) gsap.set(helperBannerRef.current, { opacity: 1, y: 0 });
         if (ltsRef.current) gsap.set(ltsRef.current, { opacity: 1, y: 0 });
       },
     }
@@ -128,6 +134,30 @@ export default function DownloadSection() {
               </Magnetic>
             </div>
           ))}
+        </div>
+
+        {/* Companion Android Helper Banner */}
+        <div className={styles.helperRow} ref={helperBannerRef}>
+          <TransitionLink
+            href="/helper"
+            className={styles.helperCard}
+            aria-label="Wusooly Helper Tool - Caller ID and WhatsApp alerts on Android"
+          >
+            <div className={styles.helperLeft}>
+              <div className={styles.helperIconBox} aria-hidden="true">
+                <Smartphone size={20} strokeWidth={2} />
+              </div>
+              <div className={styles.helperCopy}>
+                <span className={styles.helperTitle}>Wusooly Helper Tool</span>
+                <span className={styles.helperDesc}>
+                  Caller ID and WhatsApp alerts on Android
+                </span>
+              </div>
+            </div>
+            <div className={styles.helperArrowCircle} aria-hidden="true">
+              <ArrowRight size={16} strokeWidth={2.4} className={styles.helperArrowIcon} />
+            </div>
+          </TransitionLink>
         </div>
 
         {/* Secondary Legacy / LTS Link */}
