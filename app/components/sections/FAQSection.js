@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Plus, ArrowRight } from "lucide-react";
 import Magnetic from "../ui/Magnetic";
 import TransitionLink from "../layout/TransitionLink";
-import { gsap } from "../../../lib/gsap";
+import { gsap, scrollReveal, useGsapReveal } from "../../../lib/gsap";
 import styles from "./FAQSection.module.css";
 
 const FAQ_ITEMS = [
@@ -61,80 +61,44 @@ export default function FAQSection() {
   const subtextRef = useRef(null);
   const listRef = useRef(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || !sectionRef.current) return;
-    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (isReduced) {
-      if (headlineRef.current) gsap.set(headlineRef.current.children, { opacity: 1, y: 0 });
-      if (subtextRef.current) gsap.set(subtextRef.current, { opacity: 1, y: 0 });
-      if (listRef.current) gsap.set(listRef.current.children, { opacity: 1, y: 0 });
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      // 1. Headline words masked rise
+  useGsapReveal(
+    sectionRef,
+    () => {
       if (headlineRef.current) {
-        gsap.fromTo(
-          headlineRef.current.children,
-          { opacity: 0.65, y: 8 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.04,
-            duration: 0.5,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: headlineRef.current,
-              start: "top 95%",
-              once: true,
-            },
-          }
-        );
+        scrollReveal(headlineRef.current.children, {
+          y: 8,
+          opacity: 0.65,
+          duration: 0.5,
+          stagger: 0.04,
+          trigger: headlineRef.current,
+        });
       }
-
-      // 2. Subtext fade
       if (subtextRef.current) {
-        gsap.fromTo(
-          subtextRef.current,
-          { opacity: 0.65, y: 8 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: headlineRef.current,
-              start: "top 95%",
-              once: true,
-            },
-          }
-        );
+        scrollReveal(subtextRef.current, {
+          y: 8,
+          opacity: 0.65,
+          duration: 0.5,
+          trigger: headlineRef.current,
+        });
       }
-
-      // 3. Accordion items ambient rise
       if (listRef.current) {
-        gsap.fromTo(
-          listRef.current.children,
-          { opacity: 0.65, y: 10 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.04,
-            duration: 0.5,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: listRef.current,
-              start: "top 95%",
-              once: true,
-            },
-          }
-        );
+        scrollReveal(listRef.current.children, {
+          y: 10,
+          opacity: 0.65,
+          duration: 0.5,
+          stagger: 0.04,
+          trigger: listRef.current,
+        });
       }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+    },
+    {
+      onReducedMotion: () => {
+        if (headlineRef.current) gsap.set(headlineRef.current.children, { opacity: 1, y: 0 });
+        if (subtextRef.current) gsap.set(subtextRef.current, { opacity: 1, y: 0 });
+        if (listRef.current) gsap.set(listRef.current.children, { opacity: 1, y: 0 });
+      },
+    }
+  );
 
   const toggleItem = (index) => {
     setOpenIndex((prev) => (prev === index ? -1 : index));

@@ -1,41 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import TransitionLink from "./TransitionLink";
 import Magnetic from "../ui/Magnetic";
-import { gsap } from "../../../lib/gsap";
+import { scrollReveal, useGsapReveal } from "../../../lib/gsap";
 import styles from "./Footer.module.css";
 
 export default function Footer({ onGetDemo }) {
   const currentYear = 2026;
   const footerRef = useRef(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || !footerRef.current) return;
-    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (isReduced) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        footerRef.current,
-        { opacity: 0.7, y: 8 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.45,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 96%",
-            once: true,
-          },
-        }
-      );
-    }, footerRef);
-
-    return () => ctx.revert();
-  }, []);
+  useGsapReveal(footerRef, () => {
+    scrollReveal(footerRef.current, { y: 8, opacity: 0.7, duration: 0.45, start: "top 96%" });
+  });
 
   return (
     <footer

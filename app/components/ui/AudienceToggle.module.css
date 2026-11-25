@@ -1,0 +1,172 @@
+/* ==========================================================================
+   Wusooly POS - Shared AudienceToggle Segmented Control
+   Variants preserve 1:1 visual geometry across Hero, Solutions & Pricing
+   ========================================================================== */
+
+.heroSelector {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(5, 20, 12, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(134, 239, 172, 0.16);
+  border-radius: 9999px;
+  padding: 4px;
+  margin-bottom: clamp(14px, 2.2vh, 22px);
+  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.3);
+}
+
+.heroSegment {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.heroSegment:focus-visible {
+  outline: 2px solid #b4f046;
+  outline-offset: 2px;
+}
+
+.heroActive {
+  color: #07150e;
+  font-weight: 600;
+}
+
+.heroPill {
+  position: absolute;
+  inset: 0;
+  background: #b4f046;
+  border-radius: 9999px;
+  box-shadow: 0 3px 12px -2px rgba(180, 240, 70, 0.35);
+  z-index: -1;
+}
+
+.heroInactive {
+  color: rgba(215, 238, 225, 0.78);
+}
+
+.heroInactive:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .heroSegment {
+    min-height: 38px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .heroSegment {
+    font-size: 0.96rem;
+    padding: 8px 22px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .heroSegment {
+    font-size: 1.02rem;
+    padding: 9px 24px;
+  }
+}
+
+/* ── Light Surface Variant (Solutions & Pricing) ── */
+.pricingWrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: clamp(18px, 2.8vh, 26px);
+}
+
+.lightSelector {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(12, 41, 30, 0.06);
+  border: 1px solid rgba(12, 41, 30, 0.08);
+  border-radius: 9999px;
+  padding: 4px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  max-width: 100%;
+}
+
+.solutionsMargin {
+  margin-bottom: clamp(18px, 2.8vh, 26px);
+}
+
+.lightSegment {
+  position: relative;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.pricingSegment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightActive {
+  color: #071a0e;
+  font-weight: 700;
+}
+
+.lightPill {
+  position: absolute;
+  inset: 0;
+  background: #a3e635;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(163, 230, 53, 0.35);
+  z-index: -1;
+}
+
+.lightInactive {
+  color: #3b5043;
+}
+
+.lightInactive:hover {
+  color: #0c291e;
+}
+
+@media (max-width: 767px) {
+  .pricingWrap,
+  .solutionsMargin {
+    margin-bottom: 20px;
+  }
+
+  .lightSegment {
+    padding: 7px 14px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .lightSegment {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+}

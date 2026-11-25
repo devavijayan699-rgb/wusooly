@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion } from "motion/react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import FeaturesGrid from "../components/sections/FeaturesGrid";
 import FAQSection from "../components/sections/FAQSection";
 import DownloadSection from "../components/sections/DownloadSection";
 import OutroCTA from "../components/sections/OutroCTA";
-import { gsap } from "../../lib/gsap";
+import AudienceToggle from "../components/ui/AudienceToggle";
+import { gsap, useGsapReveal, prefersReducedMotion } from "../../lib/gsap";
 import styles from "./solutions.module.css";
 
 export default function SolutionsPage() {
@@ -17,52 +17,26 @@ export default function SolutionsPage() {
   const cardRef = useRef(null);
   const audienceRef = useRef(null);
 
-  useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash;
-      if (hash === "#solutions-cafe" || hash === "#cafe") {
-        setSelectedAudience("cafe");
-      } else if (hash === "#solutions-retail" || hash === "#retail") {
-        setSelectedAudience("retail");
-      }
-    };
-    handleHash();
-    window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !containerRef.current) return;
-    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (isReduced) {
-      if (audienceRef.current) gsap.set(audienceRef.current, { opacity: 1, y: 0 });
-      if (cardRef.current) gsap.set(cardRef.current, { opacity: 1, y: 0 });
-      return;
-    }
-
-    const ctx = gsap.context(() => {
+  useGsapReveal(
+    containerRef,
+    () => {
       gsap.fromTo(
         [audienceRef.current, cardRef.current],
         { opacity: 0.7, y: 10 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "expo.out",
-        }
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "expo.out" }
       );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+    },
+    {
+      onReducedMotion: () => {
+        if (audienceRef.current) gsap.set(audienceRef.current, { opacity: 1, y: 0 });
+        if (cardRef.current) gsap.set(cardRef.current, { opacity: 1, y: 0 });
+      },
+    }
+  );
 
   // Audience switch cross-fade
   useEffect(() => {
-    if (!cardRef.current) return;
-    const isReduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (isReduced) return;
+    if (!cardRef.current || prefersReducedMotion()) return;
 
     gsap.fromTo(
       cardRef.current,
@@ -85,60 +59,14 @@ export default function SolutionsPage() {
       {/* ── Main Content Area: Solutions Essentials Card ── */}
       <div className={styles.mainContent}>
         <section className={styles.cardSection} aria-label="Solutions Overview">
-          {/* Audience Selector Segmented Control */}
-          <div
+          <AudienceToggle
             ref={audienceRef}
-            className={styles.audienceSelector}
-            role="tablist"
-            aria-label="Select store category"
-          >
-            <button
-              type="button"
-              role="tab"
-              aria-selected={selectedAudience === "retail"}
-              className={`${styles.audienceSegment} ${
-                selectedAudience === "retail" ? styles.segmentActive : styles.segmentInactive
-              }`}
-              onClick={() => {
-                setSelectedAudience("retail");
-                if (typeof window !== "undefined") {
-                  window.history.replaceState(null, "", "#retail");
-                }
-              }}
-            >
-              {selectedAudience === "retail" && (
-                <motion.span
-                  layoutId="activeSolutionsAudienceTab"
-                  className={styles.segmentPill}
-                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                />
-              )}
-              Shops &amp; Supermarkets
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={selectedAudience === "cafe"}
-              className={`${styles.audienceSegment} ${
-                selectedAudience === "cafe" ? styles.segmentActive : styles.segmentInactive
-              }`}
-              onClick={() => {
-                setSelectedAudience("cafe");
-                if (typeof window !== "undefined") {
-                  window.history.replaceState(null, "", "#cafe");
-                }
-              }}
-            >
-              {selectedAudience === "cafe" && (
-                <motion.span
-                  layoutId="activeSolutionsAudienceTab"
-                  className={styles.segmentPill}
-                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                />
-              )}
-              Cafés &amp; Restaurants
-            </button>
-          </div>
+            variant="solutions"
+            value={selectedAudience}
+            onChange={setSelectedAudience}
+            layoutId="activeSolutionsAudienceTab"
+            syncHash
+          />
 
           <div className={styles.solutionsCard} ref={cardRef}>
             <h1 className={styles.cardTitle}>

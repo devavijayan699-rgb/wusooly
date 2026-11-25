@@ -9,6 +9,28 @@ import Magnetic from "../ui/Magnetic";
 import { gsap, ScrollTrigger } from "../../../lib/gsap";
 import styles from "./Navbar.module.css";
 
+const SOLUTIONS_ITEMS = [
+  {
+    href: "/solutions#retail",
+    title: "Shops & Supermarkets",
+    desc: "High-speed barcode checkout & inventory",
+    Icon: ShoppingBag,
+  },
+  {
+    href: "/solutions#cafe",
+    title: "Cafés & Restaurants",
+    desc: "Kitchen printing, table & shift billing",
+    Icon: Coffee,
+  },
+];
+
+const NAV_LINKS = [
+  { href: "/pricing", label: "Pricing", mobileLabel: "Pricing", matchPath: true },
+  { href: "/#download", label: "Download", mobileLabel: "Download App", matchPath: false },
+  { href: "/about", label: "About", mobileLabel: "About", matchPath: true },
+  { href: "/contact", label: "Contact", mobileLabel: "Contact", matchPath: true },
+];
+
 export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
   const [solutionsOpen, setSolutionsOpen] = useState(initialOpen);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -157,67 +179,41 @@ export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
                 className={`${styles.dropdownMenu} ${isSolidNavbar ? styles.dropdownSolid : ""}`}
                 role="menu"
               >
-                <TransitionLink
-                  href="/solutions#retail"
-                  className={styles.dropdownItem}
-                  role="menuitem"
-                  onClick={handleLinkClick}
-                >
-                  <div className={styles.dropdownItemContent}>
-                    <div className={styles.dropdownIconBox}>
-                      <ShoppingBag size={18} strokeWidth={2} aria-hidden="true" />
+                {SOLUTIONS_ITEMS.map(({ href, title, desc, Icon }) => (
+                  <TransitionLink
+                    key={href}
+                    href={href}
+                    className={styles.dropdownItem}
+                    role="menuitem"
+                    onClick={handleLinkClick}
+                  >
+                    <div className={styles.dropdownItemContent}>
+                      <div className={styles.dropdownIconBox}>
+                        <Icon size={18} strokeWidth={2} aria-hidden="true" />
+                      </div>
+                      <div className={styles.dropdownItemText}>
+                        <span className={styles.dropdownItemTitle}>{title}</span>
+                        <span className={styles.dropdownItemDesc}>{desc}</span>
+                      </div>
                     </div>
-                    <div className={styles.dropdownItemText}>
-                      <span className={styles.dropdownItemTitle}>Shops &amp; Supermarkets</span>
-                      <span className={styles.dropdownItemDesc}>High-speed barcode checkout &amp; inventory</span>
-                    </div>
-                  </div>
-                </TransitionLink>
-
-                <TransitionLink
-                  href="/solutions#cafe"
-                  className={styles.dropdownItem}
-                  role="menuitem"
-                  onClick={handleLinkClick}
-                >
-                  <div className={styles.dropdownItemContent}>
-                    <div className={styles.dropdownIconBox}>
-                      <Coffee size={18} strokeWidth={2} aria-hidden="true" />
-                    </div>
-                    <div className={styles.dropdownItemText}>
-                      <span className={styles.dropdownItemTitle}>Cafés &amp; Restaurants</span>
-                      <span className={styles.dropdownItemDesc}>Kitchen printing, table &amp; shift billing</span>
-                    </div>
-                  </div>
-                </TransitionLink>
+                  </TransitionLink>
+                ))}
               </div>
             )}
           </div>
 
-          <TransitionLink
-            href="/pricing"
-            className={`${styles.navItem} ${pathname === "/pricing" ? styles.dropdownTriggerActive : ""}`}
-            onClick={handleLinkClick}
-          >
-            Pricing
-          </TransitionLink>
-          <TransitionLink href="/#download" className={styles.navItem} onClick={handleLinkClick}>
-            Download
-          </TransitionLink>
-          <TransitionLink
-            href="/about"
-            className={`${styles.navItem} ${pathname === "/about" ? styles.dropdownTriggerActive : ""}`}
-            onClick={handleLinkClick}
-          >
-            About
-          </TransitionLink>
-          <TransitionLink
-            href="/contact"
-            className={`${styles.navItem} ${pathname === "/contact" ? styles.dropdownTriggerActive : ""}`}
-            onClick={handleLinkClick}
-          >
-            Contact
-          </TransitionLink>
+          {NAV_LINKS.map(({ href, label, matchPath }) => (
+            <TransitionLink
+              key={href}
+              href={href}
+              className={`${styles.navItem} ${
+                matchPath && pathname === href ? styles.dropdownTriggerActive : ""
+              }`}
+              onClick={handleLinkClick}
+            >
+              {label}
+            </TransitionLink>
+          ))}
         </div>
 
         {/* Right: Get a Demo Button & Mobile Menu Toggle */}
@@ -257,25 +253,23 @@ export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
       {mobileMenuOpen && (
         <div className={`${styles.mobileMenu} ${isSolidNavbar ? styles.mobileMenuSolid : ""}`} role="dialog" aria-modal="true">
           <div className={styles.mobileLinks}>
-            <a href="/solutions#retail" className={styles.mobileItem} onClick={handleLinkClick}>
-              Shops & Supermarkets
-            </a>
-            <a href="/solutions#cafe" className={styles.mobileItem} onClick={handleLinkClick}>
-              Cafés & Restaurants
-            </a>
+            {SOLUTIONS_ITEMS.map(({ href, title }) => (
+              <a key={href} href={href} className={styles.mobileItem} onClick={handleLinkClick}>
+                {title}
+              </a>
+            ))}
             <div className={styles.mobileDivider} />
-            <a href="/pricing" className={styles.mobileItem} onClick={handleLinkClick}>
-              Pricing
-            </a>
-            <TransitionLink href="/#download" className={styles.mobileItem} onClick={handleLinkClick}>
-              Download App
-            </TransitionLink>
-            <a href="/about" className={styles.mobileItem} onClick={handleLinkClick}>
-              About
-            </a>
-            <a href="/contact" className={styles.mobileItem} onClick={handleLinkClick}>
-              Contact
-            </a>
+            {NAV_LINKS.map(({ href, mobileLabel }) =>
+              href.startsWith("/#") ? (
+                <TransitionLink key={href} href={href} className={styles.mobileItem} onClick={handleLinkClick}>
+                  {mobileLabel}
+                </TransitionLink>
+              ) : (
+                <a key={href} href={href} className={styles.mobileItem} onClick={handleLinkClick}>
+                  {mobileLabel}
+                </a>
+              )
+            )}
             <div className={styles.mobileActionContainer}>
               <a
                 href="/contact"

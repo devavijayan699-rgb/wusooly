@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { Users, Zap, ShieldCheck, BarChart3, Sparkles, Clock, ArrowRight } from "lucide-react";
 import TransitionLink from "../components/layout/TransitionLink";
@@ -8,130 +8,70 @@ import Magnetic from "../components/ui/Magnetic";
 import Navbar from "../components/layout/Navbar";
 import OutroCTA from "../components/sections/OutroCTA";
 import Footer from "../components/layout/Footer";
-import { gsap } from "../../lib/gsap";
+import { gsap, scrollReveal, useGsapReveal } from "../../lib/gsap";
 import styles from "./about.module.css";
+
+const GALLERY_PHOTOS = [
+  {
+    src: "/about/retailer-story.webp",
+    alt: "Retail grocer managing fresh produce checkout",
+  },
+  {
+    src: "/about/cafe-aerial.webp",
+    alt: "Café interior and table hospitality management",
+  },
+];
+
+const CORE_VALUES = [
+  {
+    title: "Customer First Approach",
+    desc: "We listen, learn and build features that solve real problems.",
+    Icon: Users,
+  },
+  {
+    title: "Simplicity by Design",
+    desc: "Clean, intuitive and easy to use for everyone on your team.",
+    Icon: Zap,
+  },
+  {
+    title: "Transparent Experience",
+    desc: "No hidden costs. Just honest pricing and clear communication.",
+    Icon: ShieldCheck,
+  },
+  {
+    title: "Constant Innovation",
+    desc: "We keep improving based on real feedback from shop owners.",
+    Icon: BarChart3,
+  },
+];
 
 export default function AboutPage() {
   const containerRef = useRef(null);
 
-  // ── GSAP ScrollTrigger Orchestration for About Page ──
-  useEffect(() => {
-    if (typeof window === "undefined" || !containerRef.current) return;
-    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (isReduced) {
-      gsap.set(containerRef.current.querySelectorAll(`.${styles.reveal}`), {
-        opacity: 1,
-        y: 0,
+  useGsapReveal(
+    containerRef,
+    () => {
+      gsap.fromTo(`.${styles.heroMain}`, { opacity: 0.7, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" });
+      gsap.fromTo(`.${styles.purposeCard}`, { opacity: 0.7, y: 10 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.08, ease: "expo.out" });
+      gsap.utils.toArray(`.${styles.photoFrame}`).forEach((frame, i) => {
+        scrollReveal(frame, { y: 0, scale: 1.02, opacity: 0.85, duration: 0.6, delay: i * 0.06 });
       });
-      return;
+      scrollReveal([`.${styles.storyCard}`, `.${styles.missionCard}`], {
+        y: 12, opacity: 0.65, duration: 0.55, stagger: 0.08, trigger: `.${styles.storySection}`,
+      });
+      scrollReveal(`.${styles.valueCard}`, {
+        y: 10, opacity: 0.65, duration: 0.5, stagger: 0.05, trigger: `.${styles.valuesGrid}`,
+      });
+      scrollReveal([`.${styles.splitCardLight}`, `.${styles.splitCardDark}`], {
+        y: 12, opacity: 0.65, duration: 0.55, stagger: 0.08, trigger: `.${styles.splitGrid}`,
+      });
+    },
+    {
+      onReducedMotion: () => {
+        gsap.set(containerRef.current.querySelectorAll(`.${styles.reveal}`), { opacity: 1, y: 0 });
+      },
     }
-
-    const ctx = gsap.context(() => {
-      // 1. Hero Headline & Subtext
-      gsap.fromTo(
-        `.${styles.heroMain}`,
-        { opacity: 0.7, y: 10 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "expo.out",
-        }
-      );
-
-      // 2. Hero Purpose Card
-      gsap.fromTo(
-        `.${styles.purposeCard}`,
-        { opacity: 0.7, y: 10 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          delay: 0.08,
-          ease: "expo.out",
-        }
-      );
-
-      // 3. Photo Strip: Ambient scale settling
-      const photoFrames = gsap.utils.toArray(`.${styles.photoFrame}`);
-      photoFrames.forEach((frame, i) => {
-        gsap.fromTo(
-          frame,
-          { scale: 1.02, opacity: 0.85 },
-          {
-            scale: 1.0,
-            opacity: 1,
-            duration: 0.6,
-            delay: i * 0.06,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: frame,
-              start: "top 95%",
-              once: true,
-            },
-          }
-        );
-      });
-
-      // 4. Story Card & Mission Card
-      gsap.fromTo(
-        [`.${styles.storyCard}`, `.${styles.missionCard}`],
-        { opacity: 0.65, y: 12 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.55,
-          stagger: 0.08,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: `.${styles.storySection}`,
-            start: "top 95%",
-            once: true,
-          },
-        }
-      );
-
-      // 5. Core Values Bento Grid
-      gsap.fromTo(
-        `.${styles.valueCard}`,
-        { opacity: 0.65, y: 10 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.05,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: `.${styles.valuesGrid}`,
-            start: "top 95%",
-            once: true,
-          },
-        }
-      );
-
-      // 6. Dual Split Cards
-      gsap.fromTo(
-        [`.${styles.splitCardLight}`, `.${styles.splitCardDark}`],
-        { opacity: 0.65, y: 12 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.55,
-          stagger: 0.08,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: `.${styles.splitGrid}`,
-            start: "top 95%",
-            once: true,
-          },
-        }
-      );
-
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+  );
 
   return (
     <main className={styles.page} ref={containerRef}>
@@ -172,29 +112,18 @@ export default function AboutPage() {
       {/* ── 02. Cinematic 2-Photo Gallery (Only 2 Images) ── */}
       <section className={`${styles.sectionWrap} ${styles.stripSection}`} aria-label="Editorial Gallery">
         <div className={`${styles.photoStrip} ${styles.reveal}`}>
-          {/* Photo 1: Retail & Supermarket Checkout */}
-          <div className={styles.photoFrame}>
-            <Image
-              src="/about/retailer-story.webp"
-              alt="Retail grocer managing fresh produce checkout"
-              fill
-              sizes="(max-width: 768px) 100vw, 560px"
-              className={styles.stripImg}
-              priority
-            />
-          </div>
-
-          {/* Photo 2: Ambient Café & Hospitality Dining */}
-          <div className={styles.photoFrame}>
-            <Image
-              src="/about/cafe-aerial.webp"
-              alt="Café interior and table hospitality management"
-              fill
-              sizes="(max-width: 768px) 100vw, 560px"
-              className={styles.stripImg}
-              priority
-            />
-          </div>
+          {GALLERY_PHOTOS.map(({ src, alt }) => (
+            <div key={src} className={styles.photoFrame}>
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 560px"
+                className={styles.stripImg}
+                priority
+              />
+            </div>
+          ))}
         </div>
       </section>
 
@@ -270,49 +199,15 @@ export default function AboutPage() {
         </div>
 
         <div className={styles.valuesGrid}>
-          {/* Card 1: Customer First Approach */}
-          <div className={`${styles.valueCard} ${styles.reveal}`}>
-            <div className={styles.valueIconBox}>
-              <Users size={20} strokeWidth={2.2} aria-hidden="true" />
+          {CORE_VALUES.map(({ title, desc, Icon }) => (
+            <div key={title} className={`${styles.valueCard} ${styles.reveal}`}>
+              <div className={styles.valueIconBox}>
+                <Icon size={20} strokeWidth={2.2} aria-hidden="true" />
+              </div>
+              <h3 className={styles.valueTitle}>{title}</h3>
+              <p className={styles.valueDesc}>{desc}</p>
             </div>
-            <h3 className={styles.valueTitle}>Customer First Approach</h3>
-            <p className={styles.valueDesc}>
-              We listen, learn and build features that solve real problems.
-            </p>
-          </div>
-
-          {/* Card 2: Simplicity by Design */}
-          <div className={`${styles.valueCard} ${styles.reveal}`}>
-            <div className={styles.valueIconBox}>
-              <Zap size={20} strokeWidth={2.2} aria-hidden="true" />
-            </div>
-            <h3 className={styles.valueTitle}>Simplicity by Design</h3>
-            <p className={styles.valueDesc}>
-              Clean, intuitive and easy to use for everyone on your team.
-            </p>
-          </div>
-
-          {/* Card 3: Transparent Experience */}
-          <div className={`${styles.valueCard} ${styles.reveal}`}>
-            <div className={styles.valueIconBox}>
-              <ShieldCheck size={20} strokeWidth={2.2} aria-hidden="true" />
-            </div>
-            <h3 className={styles.valueTitle}>Transparent Experience</h3>
-            <p className={styles.valueDesc}>
-              No hidden costs. Just honest pricing and clear communication.
-            </p>
-          </div>
-
-          {/* Card 4: Constant Innovation */}
-          <div className={`${styles.valueCard} ${styles.reveal}`}>
-            <div className={styles.valueIconBox}>
-              <BarChart3 size={20} strokeWidth={2.2} aria-hidden="true" />
-            </div>
-            <h3 className={styles.valueTitle}>Constant Innovation</h3>
-            <p className={styles.valueDesc}>
-              We keep improving based on real feedback from shop owners.
-            </p>
-          </div>
+          ))}
         </div>
       </section>
 

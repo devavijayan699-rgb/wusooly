@@ -110,67 +110,6 @@
   will-change: transform, opacity;
 }
 
-/* Audience Selector Segmented Control */
-.audienceSelector {
-  display: inline-flex;
-  align-items: center;
-  background: rgba(5, 20, 12, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(134, 239, 172, 0.16);
-  border-radius: 9999px;
-  padding: 4px;
-  margin-bottom: clamp(14px, 2.2vh, 22px);
-  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.3);
-}
-
-.audienceSegment {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  font-size: 0.88rem;
-  font-weight: 500;
-  padding: 8px 18px;
-  border-radius: 9999px;
-  cursor: pointer;
-  transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  outline: none;
-  white-space: nowrap;
-  z-index: 1;
-}
-
-.audienceSegment:focus-visible {
-  outline: 2px solid #b4f046;
-  outline-offset: 2px;
-}
-
-.segmentActive {
-  color: #07150e;
-  font-weight: 600;
-}
-
-.segmentPill {
-  position: absolute;
-  inset: 0;
-  background: #b4f046;
-  border-radius: 9999px;
-  box-shadow: 0 3px 12px -2px rgba(180, 240, 70, 0.35);
-  z-index: -1;
-}
-
-.segmentInactive {
-  color: rgba(215, 238, 225, 0.78);
-}
-
-.segmentInactive:hover {
-  color: #ffffff;
-}
-
 /* Headline Typography */
 .headline {
   color: #ffffff;
@@ -281,12 +220,6 @@
     flex: 0 0 auto;
   }
 
-  .audienceSegment {
-    min-height: 38px;
-    padding: 8px 16px;
-    font-size: 0.85rem;
-  }
-
   /* Headline: balanced wrapping, authoritative scale, proper spacing */
   .headline {
     font-size: clamp(2.15rem, 8vw, 2.65rem);
@@ -339,11 +272,6 @@
     font-size: clamp(0.95rem, 1vw, 1.08rem);
     max-width: 740px;
   }
-
-  .audienceSegment {
-    font-size: 0.96rem;
-    padding: 8px 22px;
-  }
 }
 
 @media (min-width: 1920px) {
@@ -354,11 +282,6 @@
   .description {
     font-size: clamp(1rem, 1.1vw, 1.15rem);
     max-width: 780px;
-  }
-
-  .audienceSegment {
-    font-size: 1.02rem;
-    padding: 9px 24px;
   }
 }
 

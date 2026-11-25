@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import FeaturesGrid from "./components/sections/FeaturesGrid";
@@ -10,6 +9,7 @@ import FAQSection from "./components/sections/FAQSection";
 import DownloadSection from "./components/sections/DownloadSection";
 import PricingSection from "./components/sections/PricingSection";
 import OutroCTA from "./components/sections/OutroCTA";
+import AudienceToggle from "./components/ui/AudienceToggle";
 import { gsap } from "../lib/gsap";
 import styles from "./page.module.css";
 
@@ -23,30 +23,6 @@ export default function Home() {
   const headlineRef = useRef(null);
   const descRef = useRef(null);
   const heroContentRef = useRef(null);
-
-  useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash;
-      if (hash === "#solutions-cafe" || hash === "#cafe") {
-        setSelectedAudience("cafe");
-      } else if (hash === "#solutions-retail" || hash === "#retail") {
-        setSelectedAudience("retail");
-      }
-
-      if (hash) {
-        const targetId = hash.slice(1);
-        const targetEl = document.getElementById(targetId);
-        if (targetEl) {
-          setTimeout(() => {
-            targetEl.scrollIntoView({ behavior: "smooth" });
-          }, 400);
-        }
-      }
-    };
-    handleHash();
-    window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
-  }, []);
 
   // ── Master Hero GSAP Timeline ──
   useEffect(() => {
@@ -295,60 +271,16 @@ export default function Home() {
 
         {/* Layer 3: Centred Hero Marketing Content */}
         <div className={styles.heroContent} ref={heroContentRef}>
-          {/* Audience Selector Segmented Control */}
-          <div
+          <AudienceToggle
             ref={audienceRef}
-            className={styles.audienceSelector}
-            role="tablist"
-            aria-label="Select your store category"
-          >
-            <button
-              type="button"
-              role="tab"
-              aria-selected={selectedAudience === "retail"}
-              aria-controls="hero-copy-panel"
-              className={`${styles.audienceSegment} ${selectedAudience === "retail" ? styles.segmentActive : styles.segmentInactive
-                }`}
-              onClick={() => {
-                setSelectedAudience("retail");
-                if (typeof window !== "undefined") {
-                  window.history.replaceState(null, "", "#retail");
-                }
-              }}
-            >
-              {selectedAudience === "retail" && (
-                <motion.span
-                  layoutId="activeHeroAudienceTab"
-                  className={styles.segmentPill}
-                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                />
-              )}
-              Shops & Supermarkets
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={selectedAudience === "cafe"}
-              aria-controls="hero-copy-panel"
-              className={`${styles.audienceSegment} ${selectedAudience === "cafe" ? styles.segmentActive : styles.segmentInactive
-                }`}
-              onClick={() => {
-                setSelectedAudience("cafe");
-                if (typeof window !== "undefined") {
-                  window.history.replaceState(null, "", "#cafe");
-                }
-              }}
-            >
-              {selectedAudience === "cafe" && (
-                <motion.span
-                  layoutId="activeHeroAudienceTab"
-                  className={styles.segmentPill}
-                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                />
-              )}
-              Cafés & Restaurants
-            </button>
-          </div>
+            variant="hero"
+            value={selectedAudience}
+            onChange={setSelectedAudience}
+            layoutId="activeHeroAudienceTab"
+            syncHash
+            scrollOnHash
+            ariaControls="hero-copy-panel"
+          />
 
           {/* Headline - Deliberate Two-Line Layout on Desktop */}
           <h1 className={styles.headline} id="hero-copy-panel" ref={headlineRef}>

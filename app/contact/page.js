@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Input, Select, Button } from "@ziqx/react-comps";
 import { ArrowUpRight, Check } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import OutroCTA from "../components/sections/OutroCTA";
 import Footer from "../components/layout/Footer";
 import Magnetic from "../components/ui/Magnetic";
-import { gsap } from "../../lib/gsap";
+import { gsap, useGsapReveal } from "../../lib/gsap";
 import styles from "./contact.module.css";
 
 const BUSINESS_OPTIONS = [
@@ -30,35 +30,24 @@ export default function ContactPage() {
   const infoCardRef = useRef(null);
   const formCardRef = useRef(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || !containerRef.current) return;
-    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (isReduced) {
-      if (infoCardRef.current) gsap.set(infoCardRef.current, { opacity: 1, y: 0 });
-      if (formCardRef.current) gsap.set(formCardRef.current, { opacity: 1, y: 0 });
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      // Two main cards entrance
+  useGsapReveal(
+    containerRef,
+    () => {
       if (infoCardRef.current && formCardRef.current) {
         gsap.fromTo(
           [infoCardRef.current, formCardRef.current],
           { opacity: 0.7, y: 10 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            stagger: 0.08,
-            ease: "expo.out",
-          }
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "expo.out" }
         );
       }
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+    },
+    {
+      onReducedMotion: () => {
+        if (infoCardRef.current) gsap.set(infoCardRef.current, { opacity: 1, y: 0 });
+        if (formCardRef.current) gsap.set(formCardRef.current, { opacity: 1, y: 0 });
+      },
+    }
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;

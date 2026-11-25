@@ -6,6 +6,37 @@ import TransitionLink from "../layout/TransitionLink";
 import { Clock, ArrowRight, Mail } from "lucide-react";
 import styles from "./LegalDocument.module.css";
 
+export function LegalSection({ number, title, children }) {
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>
+        <span className={styles.sectionNumber}>{number}.</span> {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+export function LegalList({ items }) {
+  return (
+    <ul className={styles.list}>
+      {items.map((item, idx) => (
+        <li key={idx} className={styles.listItem}>
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function LegalCallout({ children }) {
+  return (
+    <div className={styles.calloutCard}>
+      <p className={styles.calloutText}>{children}</p>
+    </div>
+  );
+}
+
 export default function LegalDocument({
   badgeIcon,
   badgeText,

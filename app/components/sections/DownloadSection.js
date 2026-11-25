@@ -1,11 +1,36 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Calendar, Cpu, ArrowDown, Clock, ArrowRight } from "lucide-react";
 import { WindowsIcon, AppleIcon } from "../ui/BrandIcons";
 import Magnetic from "../ui/Magnetic";
-import { gsap } from "../../../lib/gsap";
+import { gsap, scrollReveal, useGsapReveal } from "../../../lib/gsap";
 import styles from "./DownloadSection.module.css";
+
+const PLATFORMS = [
+  {
+    id: "windows",
+    name: "Windows",
+    compat: "For Windows 10 and 11",
+    version: "v1.7.4",
+    releaseDate: "Released 19-10-2026",
+    specs: "64-bit · 4 GB RAM · 500 MB storage",
+    ctaLabel: "Download for Windows",
+    ariaLabel: "Download Wusooly for Windows",
+    Icon: WindowsIcon,
+  },
+  {
+    id: "macos",
+    name: "macOS",
+    compat: "For Macs with Apple silicon or Intel processors",
+    version: "v1.7.4",
+    releaseDate: "Released 19-10-2026",
+    specs: "macOS 12+ · 4 GB RAM · 500 MB storage",
+    ctaLabel: "Download for macOS",
+    ariaLabel: "Download Wusooly for macOS",
+    Icon: AppleIcon,
+  },
+];
 
 export default function DownloadSection() {
   const sectionRef = useRef(null);
@@ -13,79 +38,29 @@ export default function DownloadSection() {
   const cardsRef = useRef(null);
   const ltsRef = useRef(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || !sectionRef.current) return;
-    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (isReduced) {
-      if (headerRef.current) gsap.set(headerRef.current, { opacity: 1, y: 0 });
-      if (cardsRef.current) gsap.set(cardsRef.current.children, { opacity: 1, y: 0 });
-      if (ltsRef.current) gsap.set(ltsRef.current, { opacity: 1, y: 0 });
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      // 1. Header ambient reveal
-      if (headerRef.current) {
-        gsap.fromTo(
-          headerRef.current,
-          { opacity: 0.65, y: 10 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: headerRef.current,
-              start: "top 95%",
-              once: true,
-            },
-          }
-        );
-      }
-
-      // 2. Dual Platform cards staggered upward rise
+  useGsapReveal(
+    sectionRef,
+    () => {
+      scrollReveal(headerRef.current, { y: 10, opacity: 0.65, duration: 0.5 });
       if (cardsRef.current) {
-        gsap.fromTo(
-          cardsRef.current.children,
-          { opacity: 0.65, y: 12 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.55,
-            stagger: 0.08,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: cardsRef.current,
-              start: "top 95%",
-              once: true,
-            },
-          }
-        );
+        scrollReveal(cardsRef.current.children, {
+          y: 12,
+          opacity: 0.65,
+          duration: 0.55,
+          stagger: 0.08,
+          trigger: cardsRef.current,
+        });
       }
-
-      // 3. LTS link reveal
-      if (ltsRef.current) {
-        gsap.fromTo(
-          ltsRef.current,
-          { opacity: 0.65, y: 8 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.45,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: ltsRef.current,
-              start: "top 95%",
-              once: true,
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+      scrollReveal(ltsRef.current, { y: 8, opacity: 0.65, duration: 0.45 });
+    },
+    {
+      onReducedMotion: () => {
+        if (headerRef.current) gsap.set(headerRef.current, { opacity: 1, y: 0 });
+        if (cardsRef.current) gsap.set(cardsRef.current.children, { opacity: 1, y: 0 });
+        if (ltsRef.current) gsap.set(ltsRef.current, { opacity: 1, y: 0 });
+      },
+    }
+  );
 
   const handleDownload = (platform) => {
     const alertMsg =
@@ -113,85 +88,46 @@ export default function DownloadSection() {
 
         {/* Dual Platform Cards Grid */}
         <div className={styles.cardsGrid} ref={cardsRef}>
-          {/* Windows Platform Card */}
-          <div className={styles.card}>
-            <div className={styles.cardTop}>
-              <div className={styles.iconSquircle} aria-hidden="true">
-                <WindowsIcon size={24} />
+          {PLATFORMS.map(({ id, name, compat, version, releaseDate, specs, ctaLabel, ariaLabel, Icon }) => (
+            <div key={id} className={styles.card}>
+              <div className={styles.cardTop}>
+                <div className={styles.iconSquircle} aria-hidden="true">
+                  <Icon size={24} />
+                </div>
+                <span className={styles.versionBadge}>{version}</span>
               </div>
-              <span className={styles.versionBadge}>v1.7.4</span>
-            </div>
 
-            <div className={styles.cardContent}>
-              <h3 className={styles.platformName}>Windows</h3>
-              <p className={styles.platformCompat}>For Windows 10 and 11</p>
+              <div className={styles.cardContent}>
+                <h3 className={styles.platformName}>{name}</h3>
+                <p className={styles.platformCompat}>{compat}</p>
 
-              <div className={styles.metaList}>
-                <div className={styles.metaItem}>
-                  <Calendar size={15} strokeWidth={2} aria-hidden="true" />
-                  <span>Released 19-10-2026</span>
-                </div>
-                <div className={styles.metaItem}>
-                  <Cpu size={15} strokeWidth={2} aria-hidden="true" />
-                  <span>64-bit · 4 GB RAM · 500 MB storage</span>
-                </div>
-              </div>
-            </div>
-
-            <Magnetic style={{ width: "100%" }}>
-              <button
-                type="button"
-                className={styles.downloadBtn}
-                onClick={() => handleDownload("windows")}
-                aria-label="Download Wusooly for Windows"
-              >
-                <span>Download for Windows</span>
-                <div className={styles.arrowBubble} aria-hidden="true">
-                  <ArrowDown size={16} strokeWidth={2.5} />
-                </div>
-              </button>
-            </Magnetic>
-          </div>
-
-          {/* macOS Platform Card */}
-          <div className={styles.card}>
-            <div className={styles.cardTop}>
-              <div className={styles.iconSquircle} aria-hidden="true">
-                <AppleIcon size={24} />
-              </div>
-              <span className={styles.versionBadge}>v1.7.4</span>
-            </div>
-
-            <div className={styles.cardContent}>
-              <h3 className={styles.platformName}>macOS</h3>
-              <p className={styles.platformCompat}>For Macs with Apple silicon or Intel processors</p>
-
-              <div className={styles.metaList}>
-                <div className={styles.metaItem}>
-                  <Calendar size={15} strokeWidth={2} aria-hidden="true" />
-                  <span>Released 19-10-2026</span>
-                </div>
-                <div className={styles.metaItem}>
-                  <Cpu size={15} strokeWidth={2} aria-hidden="true" />
-                  <span>macOS 12+ · 4 GB RAM · 500 MB storage</span>
+                <div className={styles.metaList}>
+                  <div className={styles.metaItem}>
+                    <Calendar size={15} strokeWidth={2} aria-hidden="true" />
+                    <span>{releaseDate}</span>
+                  </div>
+                  <div className={styles.metaItem}>
+                    <Cpu size={15} strokeWidth={2} aria-hidden="true" />
+                    <span>{specs}</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <Magnetic style={{ width: "100%" }}>
-              <button
-                type="button"
-                className={styles.downloadBtn}
-                onClick={() => handleDownload("macos")}
-                aria-label="Download Wusooly for macOS"
-              >
-                <span>Download for macOS</span>
-                <div className={styles.arrowBubble} aria-hidden="true">
-                  <ArrowDown size={16} strokeWidth={2.5} />
-                </div>
-              </button>
-            </Magnetic>
-          </div>
+              <Magnetic style={{ width: "100%" }}>
+                <button
+                  type="button"
+                  className={styles.downloadBtn}
+                  onClick={() => handleDownload(id)}
+                  aria-label={ariaLabel}
+                >
+                  <span>{ctaLabel}</span>
+                  <div className={styles.arrowBubble} aria-hidden="true">
+                    <ArrowDown size={16} strokeWidth={2.5} />
+                  </div>
+                </button>
+              </Magnetic>
+            </div>
+          ))}
         </div>
 
         {/* Secondary Legacy / LTS Link */}

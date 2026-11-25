@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion } from "motion/react";
 import { Check, ArrowRight } from "lucide-react";
 import { WhatsAppIcon } from "../ui/BrandIcons";
 import Magnetic from "../ui/Magnetic";
-import { gsap } from "../../../lib/gsap";
+import AudienceToggle from "../ui/AudienceToggle";
+import { gsap, scrollReveal, useGsapReveal } from "../../../lib/gsap";
 import styles from "./PricingSection.module.css";
 
 const PRICING_DATA = {
@@ -170,38 +170,22 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
     }
   }, [audience, selectedOption]);
 
-  // Ambient GSAP reveal
-  useEffect(() => {
-    if (typeof window === "undefined" || !sectionRef.current) return;
-    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (isReduced) {
-      if (headerRef.current) gsap.set(headerRef.current, { opacity: 1, y: 0 });
-      return;
+  useGsapReveal(
+    sectionRef,
+    () => {
+      scrollReveal(headerRef.current, {
+        y: 12,
+        opacity: 0.7,
+        duration: 0.5,
+        start: "top 92%",
+      });
+    },
+    {
+      onReducedMotion: () => {
+        if (headerRef.current) gsap.set(headerRef.current, { opacity: 1, y: 0 });
+      },
     }
-
-    const ctx = gsap.context(() => {
-      if (headerRef.current) {
-        gsap.fromTo(
-          headerRef.current,
-          { opacity: 0.7, y: 12 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: headerRef.current,
-              start: "top 92%",
-              once: true,
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  );
 
   const currentData = PRICING_DATA[audience];
   const activeOption =
@@ -222,44 +206,12 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
       <div className={styles.contentContainer}>
         {/* ── Section Header ── */}
         <header className={styles.headerBlock} ref={headerRef}>
-          {/* ── Audience Segmented Control (Matched to Solutions Page Position & Style) ── */}
-          <div className={styles.audienceToggleWrap} role="tablist" aria-label="Select store category">
-            <div className={styles.audienceSelector}>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={audience === "retail"}
-                className={`${styles.audienceSegment} ${audience === "retail" ? styles.segmentActive : styles.segmentInactive}`}
-                onClick={() => setAudience("retail")}
-              >
-                {audience === "retail" && (
-                  <motion.span
-                    layoutId="activePricingAudienceTab"
-                    className={styles.segmentPill}
-                    transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                  />
-                )}
-                Shops &amp; Supermarkets
-              </button>
-
-              <button
-                type="button"
-                role="tab"
-                aria-selected={audience === "cafe"}
-                className={`${styles.audienceSegment} ${audience === "cafe" ? styles.segmentActive : styles.segmentInactive}`}
-                onClick={() => setAudience("cafe")}
-              >
-                {audience === "cafe" && (
-                  <motion.span
-                    layoutId="activePricingAudienceTab"
-                    className={styles.segmentPill}
-                    transition={{ type: "spring", stiffness: 420, damping: 30 }}
-                  />
-                )}
-                Cafés &amp; Restaurants
-              </button>
-            </div>
-          </div>
+          <AudienceToggle
+            variant="pricing"
+            value={audience}
+            onChange={setAudience}
+            layoutId="activePricingAudienceTab"
+          />
 
           <h2 className={styles.headline}>Plans that grow your business.</h2>
           <p className={styles.subtext}>
