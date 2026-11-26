@@ -108,7 +108,7 @@
 
 .w-hero-card:hover,
 .w-visual-card:hover {
-  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(180, 240, 70, 0.22);
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.45);
 }
 
 /* ── Row 1 Hero Card (Forest Green) ── */
@@ -128,24 +128,39 @@
 }
 
 .w-hero-media {
+  position: relative;
   flex: 0 0 51%;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.w-hero-media-frame {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .w-hero-img {
   width: 100%;
-  aspect-ratio: 3 / 2;
-  height: auto;
+  height: 100%;
   border-radius: 14px;
   display: block;
   object-fit: cover;
 }
 
 .w-hero-content {
+  position: relative;
   flex: 1;
+  min-width: 0;
+}
+
+.w-hero-content-inner {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -203,7 +218,7 @@
 .w-text-card {
   flex: 0 0 33.2%;
   background: var(--w-card-bg);
-  border: 1px solid var(--w-border);
+  box-shadow: 0 2px 14px rgba(12, 41, 30, 0.025);
   padding: clamp(26px, 3vw, 36px);
   display: flex;
   flex-direction: column;
@@ -241,7 +256,6 @@
   align-items: center;
   gap: 6px;
   background: #f4f4f1;
-  border: 1px solid #e5e5e0;
   border-radius: 9999px;
   padding: 7px 14px;
   font-size: 0.78rem;
@@ -380,7 +394,7 @@
 .w-kot-card {
   flex: 0 0 38%;
   background: #f1f1e9;
-  border: 1px solid #e5e5dc;
+  box-shadow: 0 2px 14px rgba(12, 41, 30, 0.025);
   padding: 32px 32px 0 32px;
   display: flex;
   flex-direction: column;
@@ -488,7 +502,7 @@
 /* ── Feature Strip (3-Column Minimal Strip) ── */
 .w-strip-card {
   background: var(--w-card-bg);
-  border: 1px solid var(--w-border);
+  box-shadow: 0 2px 14px rgba(12, 41, 30, 0.025);
   padding: clamp(28px, 3.5vw, 40px);
 }
 
@@ -559,7 +573,7 @@
 /* ── Outro CTA Strip ── */
 .w-outro {
   background: #ffffff;
-  border: 1px solid var(--w-border);
+  box-shadow: 0 2px 14px rgba(12, 41, 30, 0.025);
   border-radius: var(--w-radius);
   padding: clamp(22px, 3vw, 30px) clamp(24px, 4vw, 42px);
   display: flex;

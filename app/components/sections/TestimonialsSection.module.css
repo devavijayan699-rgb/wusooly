@@ -61,13 +61,12 @@
 .card {
   margin: 0;
   background-color: #ffffff;
-  border: 1px solid rgba(12, 41, 30, 0.08);
   border-radius: 20px;
   padding: clamp(24px, 2.8vw, 32px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.025);
+  box-shadow: 0 4px 20px rgba(12, 41, 30, 0.03);
   box-sizing: border-box;
 }
 
@@ -87,7 +86,6 @@
   display: inline-flex;
   align-items: center;
   background-color: var(--surface-sage-tint, #edf1e8);
-  border: 1px solid rgba(12, 41, 30, 0.06);
   border-radius: 9999px;
   padding: 5px 12px;
   font-size: 0.72rem;
@@ -117,7 +115,7 @@
   align-items: center;
   gap: 12px;
   padding-top: 18px;
-  border-top: 1px solid rgba(12, 41, 30, 0.08);
+  border-top: 1px solid rgba(12, 41, 30, 0.06);
 }
 
 .avatar {
@@ -125,7 +123,6 @@
   height: 42px;
   border-radius: 9999px;
   background-color: var(--surface-sage-tint, #edf1e8);
-  border: 1px solid rgba(12, 41, 30, 0.08);
   color: var(--brand-obsidian, #0c291e);
   display: flex;
   align-items: center;

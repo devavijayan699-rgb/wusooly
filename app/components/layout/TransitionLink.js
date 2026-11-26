@@ -50,8 +50,13 @@ export default function TransitionLink({
             } else {
               targetEl.scrollIntoView({ behavior: "smooth" });
             }
-            window.history.pushState(null, "", `#${hash}`);
+          } else if (lenis) {
+            lenis.scrollTo(0, { duration: 0.9 });
+          } else {
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
+          window.history.pushState(null, "", `#${hash}`);
+          window.dispatchEvent(new Event("hashchange"));
         }
       }
     }

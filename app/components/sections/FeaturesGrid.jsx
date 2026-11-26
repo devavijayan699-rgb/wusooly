@@ -1,9 +1,16 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { UtensilsCrossed, ShoppingBag, Globe, BarChart3, Tag, Cloud } from "lucide-react";
-import { gsap, ScrollTrigger, prefersReducedMotion, scrollReveal, useGsapReveal } from "../../../lib/gsap";
+import { gsap, ScrollTrigger, prefersReducedMotion, scrollReveal } from "../../../lib/gsap";
+import {
+  useAudienceTransition,
+  headerTextVariants,
+  heroImageVariants,
+  heroCopyVariants,
+  lowerDeckVariants,
+} from "../../../lib/audienceMotion";
 import { GooglePayIcon, ApplePayIcon, MastercardIcon } from "../ui/BrandIcons";
 import { AUDIENCE_BENTO } from "../../data/featuresData";
 import styles from "./FeaturesGrid.module.css";
@@ -52,27 +59,51 @@ function FeatureChips({ kind }) {
   );
 }
 
-function HeroFeatureCard({ item, onDemoClick }) {
+function HeroFeatureCard({ item, audienceKey, direction, onDemoClick }) {
   return (
     <div className={`${styles["w-card"]} ${styles["w-hero-card"]}`}>
       <div className={styles["w-hero-media"]}>
-        <img
-          src={item.image}
-          alt={item.alt}
-          className={styles["w-hero-img"]}
-          referrerPolicy="no-referrer"
-        />
+        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+          <motion.div
+            key={audienceKey}
+            custom={direction}
+            variants={heroImageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={styles["w-hero-media-frame"]}
+          >
+            <img
+              src={item.image}
+              alt={item.alt}
+              className={styles["w-hero-img"]}
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
       <div className={styles["w-hero-content"]}>
-        <h3 className={styles["w-hero-title"]}>{item.title}</h3>
-        {item.body && <p className={styles["w-hero-body"]}>{item.body}</p>}
-        <button
-          type="button"
-          className={styles["w-lime-pill-btn"]}
-          onClick={onDemoClick}
-        >
-          {item.ctaLabel}
-        </button>
+        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+          <motion.div
+            key={audienceKey}
+            custom={direction}
+            variants={heroCopyVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={styles["w-hero-content-inner"]}
+          >
+            <h3 className={styles["w-hero-title"]}>{item.title}</h3>
+            {item.body && <p className={styles["w-hero-body"]}>{item.body}</p>}
+            <button
+              type="button"
+              className={styles["w-lime-pill-btn"]}
+              onClick={onDemoClick}
+            >
+              {item.ctaLabel}
+            </button>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -239,7 +270,10 @@ export default function FeaturesGrid({
   onGetDemo: externalGetDemo,
 }) {
   const sectionRef = useRef(null);
+  const { direction, hasSwitched } = useAudienceTransition(audience);
   const config = AUDIENCE_BENTO[audience] || AUDIENCE_BENTO.cafe;
+  const heroRow = config.rows.find((row) => row.type === "hero");
+  const restRows = config.rows.filter((row) => row.type !== "hero");
 
   const handleOpenDemo = () => {
     if (externalGetDemo) {
@@ -249,83 +283,121 @@ export default function FeaturesGrid({
     window.location.href = "/contact";
   };
 
-  useGsapReveal(
-    sectionRef,
-    () => {
-      const cards = gsap.utils.toArray(`.${styles["w-card"]}`, sectionRef.current);
-      cards.forEach((card) => {
-        scrollReveal(card, { y: 12, duration: 0.55, start: "top 96%" });
-      });
-
-      const isFinePointer = window.matchMedia("(pointer: fine)").matches;
-      if (isFinePointer) {
-        const visualCards = gsap.utils.toArray(
-          `.${styles["w-visual-card"]}`,
-          sectionRef.current
-        );
-        visualCards.forEach((card) => {
-          const img = card.querySelector(`.${styles["w-visual-img"]}`);
-          if (img) {
-            gsap.fromTo(
-              img,
-              { yPercent: -6 },
-              {
-                yPercent: 6,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: card,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                },
-              }
-            );
-          }
-        });
-      }
-    },
-    { deps: [audience] }
-  );
-
   useEffect(() => {
-    if (typeof window === "undefined" || prefersReducedMotion()) return;
-    const timer = setTimeout(() => {
+    if (typeof window === "undefined" || !sectionRef.current || prefersReducedMotion()) {
+      return undefined;
+    }
+
+    let ctx;
+    const revealCleanups = [];
+    const setupScrollAnimations = () => {
+      if (!sectionRef.current) return;
+      ctx = gsap.context(() => {
+        // Reveal cards cleanly on initial mount only; tab switches use directional Framer motion
+        if (!hasSwitched) {
+          const cards = gsap.utils.toArray(`.${styles["w-card"]}`, sectionRef.current);
+          cards.forEach((card) => {
+            const cleanup = scrollReveal(card, { y: 12, duration: 0.55 });
+            if (cleanup) revealCleanups.push(cleanup);
+          });
+        }
+
+        const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+        if (isFinePointer) {
+          const visualCards = gsap.utils.toArray(
+            `.${styles["w-visual-card"]}`,
+            sectionRef.current
+          );
+          visualCards.forEach((card) => {
+            const img = card.querySelector(`.${styles["w-visual-img"]}`);
+            if (img) {
+              gsap.fromTo(
+                img,
+                { yPercent: -6 },
+                {
+                  yPercent: 6,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                  },
+                }
+              );
+            }
+          });
+        }
+      }, sectionRef);
       ScrollTrigger.refresh();
-    }, 250);
-    return () => clearTimeout(timer);
-  }, [audience]);
+    };
+
+    const delay = hasSwitched ? 220 : 0;
+    const timer = setTimeout(setupScrollAnimations, delay);
+
+    return () => {
+      clearTimeout(timer);
+      revealCleanups.forEach((fn) => fn());
+      ctx?.revert();
+    };
+  }, [audience, hasSwitched]);
 
   return (
-    <section
-      className={styles["wusooly-editorial-root"]}
-      ref={sectionRef}
-      id={config.sectionId}
-      aria-label="Wusooly editorial POS features"
-    >
-      <div className={styles["w-container"]}>
-        {!hideIntro && (
-          <header className={styles["w-header-block"]}>
-            <h2 className={styles["w-intro-headline"]}>{config.headline}</h2>
-            <p className={styles["w-intro-subtext"]}>{config.subtext}</p>
-          </header>
-        )}
-
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={audience}
-            initial={{ opacity: 0.65, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0.65, y: -8 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={styles["w-grid"]}>
-              {config.rows.map((row, idx) =>
-                renderCardItem(row, idx, config.outroTitle, handleOpenDemo)
-              )}
+    <MotionConfig reducedMotion="user">
+      <section
+        className={styles["wusooly-editorial-root"]}
+        ref={sectionRef}
+        id={config.sectionId}
+        aria-label="Wusooly editorial POS features"
+      >
+        <div className={styles["w-container"]}>
+          {!hideIntro && (
+            <div style={{ position: "relative" }}>
+              <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+                <motion.header
+                  key={audience}
+                  custom={direction}
+                  variants={headerTextVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className={styles["w-header-block"]}
+                >
+                  <h2 className={styles["w-intro-headline"]}>{config.headline}</h2>
+                  <p className={styles["w-intro-subtext"]}>{config.subtext}</p>
+                </motion.header>
+              </AnimatePresence>
             </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </section>
+          )}
+
+          <div className={styles["w-grid"]}>
+            {heroRow && (
+              <HeroFeatureCard
+                item={heroRow}
+                audienceKey={audience}
+                direction={direction}
+                onDemoClick={handleOpenDemo}
+              />
+            )}
+
+            <AnimatePresence mode="wait" custom={direction} initial={false}>
+              <motion.div
+                key={audience}
+                custom={direction}
+                variants={lowerDeckVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className={styles["w-grid"]}
+              >
+                {restRows.map((row, idx) =>
+                  renderCardItem(row, idx, config.outroTitle, handleOpenDemo)
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </section>
+    </MotionConfig>
   );
 }

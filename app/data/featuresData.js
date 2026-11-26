@@ -121,14 +121,14 @@ export const AUDIENCE_BENTO = {
     headline: "Every order. One simple system.",
     subtext:
       "From table service to takeaway and online ordering, manage billing, kitchen tickets, and business analytics through one unified POS.",
-    outroTitle: "Ready to see Wusooly in your café?",
+    outroTitle: "Ready to see Wusooly in your cafe?",
     rows: [
       {
         type: "hero",
         image: FEATURES_ASSETS.cafeLifetimeBilling,
-        alt: "Modern café POS terminal displaying Wusooly POS billing interface",
+        alt: "Modern cafe POS terminal displaying Wusooly POS billing interface",
         title: "FAST BILLING. MULTIPLE PAYMENT METHODS. ZERO\u00A0FRICTION.",
-        body: "Accept cash, cards, UPI, wallets, and split payments from one screen—online or offline. Whether it's a single coffee or a full-table dinner, checkout stays fast and accurate.",
+        body: "Accept cash, cards, UPI, wallets, and split payments from one screen, online or offline. Whether it's a single coffee or a full-table dinner, checkout stays fast and accurate.",
         ctaLabel: "Get a Demo",
       },
       {
@@ -170,7 +170,7 @@ export const AUDIENCE_BENTO = {
             image: FEATURES_ASSETS.cafeLifetimeTables,
             alt: "Table ordering and reservations floor plan tablet in restaurant",
             objectPosition: "82% 45%",
-            title: "TABLE ORDERING & RESERVATIONS MADE EFFORTLESS",
+            title: "SIMPLE TABLE ORDERING & RESERVATIONS",
             body: "Visual floor plans, real-time table status, and reservation management to seat guests faster and maximise covers without the chaos.",
           },
         ],
@@ -191,7 +191,7 @@ export const AUDIENCE_BENTO = {
             type: "visual",
             flexClass: "flex-61",
             image: FEATURES_ASSETS.cafeLifetimeReports,
-            alt: "Café owner reviewing shift, sales, P&L, and best-seller margin reports",
+            alt: "Cafe owner reviewing shift, sales, P&L, and best-seller margin reports",
             objectPosition: "center 18%",
             title: "SHIFT, SALES, P&L & BEST-SELLER MARGIN REPORTS.",
           },
@@ -208,17 +208,17 @@ export const AUDIENCE_BENTO = {
           {
             icon: "BarChart3",
             title: "Expense Ledger & Tracking",
-            body: "Categorise every café expense (ingredients, utilities, rent, wages) and see exactly where money goes each month.",
+            body: "Categorise every cafe expense (ingredients, utilities, rent, wages) and see exactly where money goes each month.",
           },
           {
             icon: "Tag",
             title: "Promo Codes & Gift Cards",
-            body: "Create promo codes, happy-hour discounts, and preloadable gift cards. Auto-apply at checkout for a seamless guest experience.",
+            body: "Create promo codes, happy-hour discounts, and preloadable gift cards. Auto-apply at checkout for a smooth guest experience.",
           },
           {
             icon: "Cloud",
             title: "Cloud Backup (1st Year Free)",
-            body: "Automatic cloud backup and live multi-device sync across web and mobile—included free for your entire first year.",
+            body: "Automatic cloud backup and live multi-device sync across web and mobile, included free for your entire first year.",
           },
         ],
       },
@@ -229,7 +229,7 @@ export const AUDIENCE_BENTO = {
         alt: "Guest scanning table QR digital menu while live cloud dashboard updates",
         objectPosition: "center 35%",
         title: "QR DIGITAL MENU & LIVE CLOUD DASHBOARD.",
-        body: "Scan-at-table QR menus, direct online ordering, and live app & web performance reports—all in one clear dashboard.",
+        body: "Scan-at-table QR menus, direct online ordering, and live app & web performance reports in one clear dashboard.",
       },
       {
         type: "outro",

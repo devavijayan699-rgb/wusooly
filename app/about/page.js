@@ -18,7 +18,7 @@ const GALLERY_PHOTOS = [
   },
   {
     src: "/about/cafe-aerial.webp",
-    alt: "Café interior and table hospitality management",
+    alt: "Cafe interior and table hospitality management",
   },
 ];
 
@@ -135,7 +135,7 @@ export default function AboutPage() {
               Empowering business through simplicity.
             </h2>
             <p className={styles.storyBody}>
-              We believe powerful technology should be simple and reliable. At Wusooly, we build tools that help businesses streamline daily operations, save hours of manual work, and focus entirely on their customers.
+              We believe powerful technology should be simple and reliable. At Wusooly, we build tools that help businesses simplify daily operations, save hours of manual work, and focus entirely on their customers.
             </p>
             <Magnetic>
               <TransitionLink href="/contact" className={styles.cardBtn}>

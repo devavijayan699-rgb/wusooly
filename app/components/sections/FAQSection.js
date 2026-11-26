@@ -13,7 +13,7 @@ const FAQ_ITEMS = [
     id: "what-is-wusooly",
     question: "What is Wusooly?",
     answer:
-      "Wusooly is a modern cloud POS and business management platform designed for supermarkets, retail shops, cafés, and restaurants. It connects fast touch-screen billing, live inventory tracking, VAT compliance, customer ledgers, and reporting into one unified system.",
+      "Wusooly is a modern cloud POS and business management platform designed for supermarkets, retail shops, cafes, and restaurants. It connects fast touch-screen billing, live inventory tracking, VAT compliance, customer ledgers, and reporting into one unified system.",
   },
   {
     id: "business-types",
@@ -25,7 +25,7 @@ const FAQ_ITEMS = [
     id: "barcode-billing",
     question: "Does Wusooly support barcode billing?",
     answer:
-      "Yes. Wusooly features seamless plug-and-play support for wireless, Bluetooth, and USB barcode scanners, multi-unit packaging barcodes, scale-embedded weight barcodes, and custom barcode label printing.",
+      "Yes. Wusooly features plug-and-play support for wireless, Bluetooth, and USB barcode scanners, multi-unit packaging barcodes, scale-embedded weight barcodes, and custom barcode label printing.",
   },
   {
     id: "stock-updates",

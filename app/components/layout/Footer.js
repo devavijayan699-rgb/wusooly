@@ -12,7 +12,7 @@ export default function Footer({ onGetDemo }) {
   const footerRef = useRef(null);
 
   useGsapReveal(footerRef, () => {
-    scrollReveal(footerRef.current, { y: 8, opacity: 0.7, duration: 0.45, start: "top 96%" });
+    scrollReveal(footerRef.current, { y: 8, opacity: 1, duration: 0.45 });
   });
 
   return (
@@ -35,7 +35,7 @@ export default function Footer({ onGetDemo }) {
               />
             </TransitionLink>
             <p className={styles.brandDesc}>
-              POS and business-management software for shops, supermarkets, cafés
+              POS and business-management software for shops, supermarkets, cafes
               and restaurants.
             </p>
           </div>
@@ -51,7 +51,7 @@ export default function Footer({ onGetDemo }) {
               </li>
               <li>
                 <TransitionLink href="/solutions#cafe" className={styles.link}>
-                  Cafés &amp; Restaurants
+                  Cafes &amp; Restaurants
                 </TransitionLink>
               </li>
               <li>
@@ -139,7 +139,14 @@ export default function Footer({ onGetDemo }) {
 
           <div className={styles.productOf}>
             <span className={styles.productOfLabel}>A product of</span>
-            <span className={styles.productOfBrand}>ZIQX CC LLP</span>
+            <a
+              href="https://ziqx.cc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.productOfBrand}
+            >
+              ZIQX CC LLP
+            </a>
           </div>
         </div>
       </div>

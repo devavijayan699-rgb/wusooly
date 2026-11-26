@@ -2,11 +2,12 @@
 
 import { forwardRef, useEffect } from "react";
 import { motion } from "motion/react";
+import { AUDIENCE_PILL_SPRING } from "../../../lib/audienceMotion";
 import styles from "./AudienceToggle.module.css";
 
 const AUDIENCES = [
   { id: "retail", label: "Shops & Supermarkets" },
-  { id: "cafe", label: "Cafés & Restaurants" },
+  { id: "cafe", label: "Cafes & Restaurants" },
 ];
 
 const AudienceToggle = forwardRef(function AudienceToggle(
@@ -65,13 +66,15 @@ const AudienceToggle = forwardRef(function AudienceToggle(
           }`;
 
       return (
-        <button
+        <motion.button
           key={item.id}
           type="button"
           role="tab"
           aria-selected={isActive}
           aria-controls={ariaControls}
           className={segmentClass}
+          whileTap={{ scale: 0.985 }}
+          transition={{ duration: 0.12 }}
           onClick={() => {
             onChange(item.id);
             if (syncHash && typeof window !== "undefined") {
@@ -83,11 +86,11 @@ const AudienceToggle = forwardRef(function AudienceToggle(
             <motion.span
               layoutId={layoutId}
               className={isHero ? styles.heroPill : styles.lightPill}
-              transition={{ type: "spring", stiffness: 420, damping: 30 }}
+              transition={AUDIENCE_PILL_SPRING}
             />
           )}
           {item.label}
-        </button>
+        </motion.button>
       );
     });
 

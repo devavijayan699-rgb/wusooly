@@ -61,7 +61,7 @@ export default function PrivacyPage() {
       badgeIcon={<Shield size={14} strokeWidth={2.4} aria-hidden="true" />}
       badgeText="Legal & Transparency"
       title="Privacy Policy"
-      lead="You trust Wusooly with your data, and we tell you exactly what we do with it. No surprises."
+      lead="We collect only what we need to run Wusooly, and we tell you exactly what we do with it. No surprises."
       lastUpdated="November 16, 2026"
       otherPolicyPrompt="Looking for our terms?"
       otherPolicyLabel="Terms of Service"

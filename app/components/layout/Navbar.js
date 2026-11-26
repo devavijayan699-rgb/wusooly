@@ -18,7 +18,7 @@ const SOLUTIONS_ITEMS = [
   },
   {
     href: "/solutions#cafe",
-    title: "Cafés & Restaurants",
+    title: "Cafes & Restaurants",
     desc: "Kitchen printing, table & shift billing",
     Icon: Coffee,
   },
@@ -34,9 +34,12 @@ const NAV_LINKS = [
 export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
   const [solutionsOpen, setSolutionsOpen] = useState(initialOpen);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileNavState, setMobileNavState] = useState("top"); // "top" | "floating-hidden" | "floating-visible"
   const dropdownRef = useRef(null);
   const navRef = useRef(null);
   const timeoutRef = useRef(null);
+  const mobileMenuOpenRef = useRef(mobileMenuOpen);
+  mobileMenuOpenRef.current = mobileMenuOpen;
   const pathname = usePathname();
   const isSolidNavbar =
     variant === "contact" ||
@@ -44,6 +47,12 @@ export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
     variant === "about" ||
     variant === "pricing" ||
     (Boolean(pathname) && pathname !== "/");
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setSolutionsOpen(false);
+    setMobileNavState("top");
+  }, [pathname]);
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -88,37 +97,117 @@ export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
     };
   }, []);
 
-  // Smart Nav Show/Hide on Scroll Direction (Desktop only)
+  // Smart Nav Show/Hide on Scroll Direction (Desktop + Mobile Scroll-Up Pill)
   useEffect(() => {
     if (typeof window === "undefined" || !navRef.current) return;
     const isFinePointer = window.matchMedia("(pointer: fine)").matches;
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!isFinePointer || isReduced) return;
+    const mobileMq = window.matchMedia("(max-width: 768px)");
 
-    const showAnim = gsap
-      .from(navRef.current, {
-        yPercent: -120,
-        paused: true,
-        duration: 0.35,
-        ease: "power2.out",
-      })
-      .progress(1);
+    let st;
+    let showAnim;
+    if (isFinePointer && !isReduced && !mobileMq.matches) {
+      showAnim = gsap
+        .from(navRef.current, {
+          yPercent: -120,
+          paused: true,
+          duration: 0.35,
+          ease: "power2.out",
+        })
+        .progress(1);
 
-    const st = ScrollTrigger.create({
-      start: "top top",
-      end: 99999,
-      onUpdate: (self) => {
-        if (self.direction === -1) {
-          showAnim.play();
-        } else if (self.scroll() > 140) {
-          showAnim.reverse();
+      st = ScrollTrigger.create({
+        start: "top top",
+        end: 99999,
+        onUpdate: (self) => {
+          if (self.direction === -1) {
+            showAnim.play();
+          } else if (self.scroll() > 140) {
+            showAnim.reverse();
+          }
+        },
+      });
+    }
+
+    // Mobile touch scroll-up reveal controller with cumulative direction hysteresis
+    let lastY = window.scrollY;
+    let accumDelta = 0;
+    let rafId = null;
+
+    const updateMobileDock = () => {
+      rafId = null;
+      if (!mobileMq.matches) {
+        setMobileNavState("top");
+        lastY = window.scrollY;
+        accumDelta = 0;
+        return;
+      }
+
+      const y = Math.max(0, window.scrollY);
+      const step = y - lastY;
+      lastY = y;
+
+      if (y <= 24) {
+        accumDelta = 0;
+        setMobileNavState("top");
+        return;
+      }
+
+      if (mobileMenuOpenRef.current) {
+        accumDelta = 0;
+        setMobileNavState((prev) => (prev === "top" && y <= 110 ? "top" : "floating-visible"));
+        return;
+      }
+
+      if ((step > 0 && accumDelta < 0) || (step < 0 && accumDelta > 0)) {
+        accumDelta = step;
+      } else {
+        accumDelta += step;
+      }
+
+      const doc = document.documentElement;
+      const nearBottom = y + window.innerHeight >= doc.scrollHeight - 24;
+
+      setMobileNavState((prev) => {
+        if (y <= 110) {
+          return prev === "floating-visible" ? "floating-visible" : "top";
         }
-      },
-    });
+        if (accumDelta <= -10 && !nearBottom) {
+          accumDelta = 0;
+          return "floating-visible";
+        }
+        if (accumDelta >= 12 || prev === "top") {
+          accumDelta = 0;
+          return "floating-hidden";
+        }
+        return prev;
+      });
+    };
+
+    const onScroll = () => {
+      if (rafId === null) {
+        rafId = window.requestAnimationFrame(updateMobileDock);
+      }
+    };
+
+    const onMediaChange = () => {
+      if (!mobileMq.matches) {
+        setMobileNavState("top");
+      } else {
+        lastY = window.scrollY;
+        updateMobileDock();
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    mobileMq.addEventListener("change", onMediaChange);
 
     return () => {
-      st.kill();
-      showAnim.kill();
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+      mobileMq.removeEventListener("change", onMediaChange);
+      st?.kill();
+      showAnim?.kill();
     };
   }, []);
 
@@ -127,14 +216,41 @@ export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
     setMobileMenuOpen(false);
   };
 
+  const handleLogoClick = (e) => {
+    handleLinkClick();
+    if (
+      e.defaultPrevented ||
+      e.button !== 0 ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.altKey ||
+      e.shiftKey
+    ) {
+      return;
+    }
+    e.preventDefault();
+    window.scrollTo(0, 0);
+    window.location.assign("/");
+  };
+
+  const dockClass = [
+    styles.navDock,
+    mobileNavState !== "top" ? styles.navDockFloating : "",
+    mobileNavState === "floating-hidden" ? styles.navDockHidden : "",
+    mobileNavState === "floating-visible" ? styles.navDockVisible : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <header className={styles.navbarWrapper} ref={navRef}>
-      <nav
-        className={`${styles.navbar} ${isSolidNavbar ? styles.navbarSolid : ""}`}
-        aria-label="Main Navigation"
-      >
+      <div className={dockClass}>
+        <nav
+          className={`${styles.navbar} ${isSolidNavbar ? styles.navbarSolid : ""}`}
+          aria-label="Main Navigation"
+        >
         {/* Left: Brand Logo */}
-        <TransitionLink href="/" className={styles.brandLogo} aria-label="Wusooly POS Home" onClick={handleLinkClick}>
+        <a href="/" className={styles.brandLogo} aria-label="Wusooly POS Home" onClick={handleLogoClick}>
           <Image
             src="/brand/wusooly-logo-light.png"
             alt="Wusooly POS"
@@ -143,7 +259,7 @@ export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
             priority
             className={styles.brandLogoImg}
           />
-        </TransitionLink>
+        </a>
 
         {/* Center: Desktop Navigation Links */}
         <div className={styles.navLinks}>
@@ -288,6 +404,7 @@ export default function Navbar({ onGetDemo, variant, initialOpen = false }) {
           </div>
         </div>
       )}
+      </div>
     </header>
   );
 }

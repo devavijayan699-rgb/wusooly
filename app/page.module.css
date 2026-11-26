@@ -23,7 +23,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Layer 1: Dedicated Background Artwork */
@@ -92,7 +92,7 @@
 .navbarContainer {
   position: relative;
   width: 100%;
-  z-index: 50;
+  z-index: 120;
   padding-top: 24px;
 }
 
@@ -191,7 +191,7 @@
     flex-direction: column;
     justify-content: flex-start;
     padding-bottom: 0px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .bgArtworkLayer {
@@ -296,6 +296,7 @@
 /* Lower Content Canvas & Full-Bleed Footer */
 .lowerCanvas {
   position: relative;
+  z-index: 2;
   width: 100%;
   background-color: #f5f5f3;
   padding-bottom: clamp(36px, 5vh, 56px);

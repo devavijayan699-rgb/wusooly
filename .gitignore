@@ -42,7 +42,3 @@ next-env.d.ts
 
 # scratch and local test scripts
 /scratch/
-
-# firebase
-.firebase/
-firebase-debug.log*

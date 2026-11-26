@@ -16,7 +16,6 @@
 .footerContainer {
   width: 100%;
   background-color: #0c291e;
-  border: 1px solid rgba(134, 239, 172, 0.16);
   border-radius: 26px;
   box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.35);
   padding: clamp(38px, 5vh, 52px) clamp(28px, 4vw, 52px) clamp(24px, 3.5vh, 32px);
@@ -125,7 +124,7 @@
 .bottomBar {
   margin-top: clamp(26px, 3.8vh, 34px);
   padding-top: 18px;
-  border-top: 1px solid rgba(134, 239, 172, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -159,6 +158,18 @@
   font-weight: var(--font-bold);
   color: rgba(255, 255, 255, 0.92);
   letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.productOfBrand:hover {
+  color: #b4f046;
+}
+
+.productOfBrand:focus-visible {
+  outline: 2px solid #b4f046;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* ── Responsive Breakpoints ── */

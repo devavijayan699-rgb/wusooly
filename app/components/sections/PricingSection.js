@@ -1,11 +1,17 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { Check, ArrowRight } from "lucide-react";
 import { WhatsAppIcon } from "../ui/BrandIcons";
 import Magnetic from "../ui/Magnetic";
 import AudienceToggle from "../ui/AudienceToggle";
 import { gsap, scrollReveal, useGsapReveal } from "../../../lib/gsap";
+import {
+  useAudienceTransition,
+  heroCopyVariants,
+  lowerDeckVariants,
+} from "../../../lib/audienceMotion";
 import styles from "./PricingSection.module.css";
 
 const PRICING_DATA = {
@@ -69,7 +75,7 @@ const PRICING_DATA = {
       "Priced per terminal. Additional outlets, installation, product data import, barcode setup and staff training are quoted separately. Taxes and payment fees are shown in your final quote.",
   },
   cafe: {
-    categoryLabel: "Cafés & Restaurants",
+    categoryLabel: "Cafes & Restaurants",
     title: "Lifetime license",
     lead: "Pay once per terminal and own your POS. Every feature on the right is included in all options below.",
     inclusions: [
@@ -188,201 +194,240 @@ export default function PricingSection({ onGetDemo, id = "pricing", initialAudie
   );
 
   const currentData = PRICING_DATA[audience];
+  const { direction } = useAudienceTransition(audience);
   const activeOption =
     currentData.options.find((opt) => opt.id === selectedOption) || currentData.options[0];
 
   const whatsappMessage = `Hi Wusooly Team, I'd like to get a quote for Wusooly POS (${currentData.categoryLabel} - ${activeOption.name}).`;
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
 
-
-
   return (
-    <section
-      className={`${styles.pricingWrap} ${isHero ? styles.pricingWrapHero : ""}`}
-      id={id}
-      ref={sectionRef}
-      aria-label="Wusooly POS Pricing & License Configurator"
-    >
-      <div className={styles.contentContainer}>
-        {/* ── Section Header ── */}
-        <header className={styles.headerBlock} ref={headerRef}>
-          <AudienceToggle
-            variant="pricing"
-            value={audience}
-            onChange={setAudience}
-            layoutId="activePricingAudienceTab"
-          />
+    <MotionConfig reducedMotion="user">
+      <section
+        className={`${styles.pricingWrap} ${isHero ? styles.pricingWrapHero : ""}`}
+        id={id}
+        ref={sectionRef}
+        aria-label="Wusooly POS Pricing & License Configurator"
+      >
+        <div className={styles.contentContainer}>
+          {/* ── Section Header ── */}
+          <header className={styles.headerBlock} ref={headerRef}>
+            <AudienceToggle
+              variant="pricing"
+              value={audience}
+              onChange={setAudience}
+              layoutId="activePricingAudienceTab"
+            />
 
-          <h2 className={styles.headline}>Plans that grow your business.</h2>
-          <p className={styles.subtext}>
-            Simple, transparent lifetime licensing tailored for retail stores, restaurants, and cafés.
-          </p>
-        </header>
+            <h2 className={styles.headline}>Plans that grow your business.</h2>
+            <p className={styles.subtext}>
+              Simple, transparent lifetime licensing tailored for retail stores, restaurants, and cafes.
+            </p>
+          </header>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 1: LIFETIME INCLUSIONS MASTER BENTO CARD
-            ══════════════════════════════════════════════════════════ */}
-        <div className={styles.inclusionsCard}>
-          <div className={styles.inclusionsLeft}>
-            <span className={styles.categoryPill}>{currentData.categoryLabel}</span>
-            <h3 className={styles.lifetimeTitle}>{currentData.title}</h3>
-            <p className={styles.lifetimeLead}>{currentData.lead}</p>
-          </div>
+          {/* ══════════════════════════════════════════════════════════
+              SECTION 1: LIFETIME INCLUSIONS MASTER BENTO CARD
+              ══════════════════════════════════════════════════════════ */}
+          <div className={styles.inclusionsCard}>
+            <div className={styles.inclusionsLeft} style={{ position: "relative" }}>
+              <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+                <motion.div
+                  key={audience}
+                  custom={direction}
+                  variants={heroCopyVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14, width: "100%" }}
+                >
+                  <span className={styles.categoryPill}>{currentData.categoryLabel}</span>
+                  <h3 className={styles.lifetimeTitle}>{currentData.title}</h3>
+                  <p className={styles.lifetimeLead}>{currentData.lead}</p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-          <div className={styles.inclusionsRight}>
-            <div className={styles.featuresGrid}>
-              {currentData.inclusions.map((item, idx) => (
-                <div key={idx} className={styles.featureItem}>
-                  <span className={styles.checkBadge} aria-hidden="true">
-                    <Check size={11} strokeWidth={2.6} />
-                  </span>
-                  <span>{item}</span>
-                </div>
-              ))}
+            <div className={styles.inclusionsRight}>
+              <AnimatePresence mode="wait" custom={direction} initial={false}>
+                <motion.div
+                  key={audience}
+                  custom={direction}
+                  variants={lowerDeckVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className={styles.featuresGrid}
+                >
+                  {currentData.inclusions.map((item, idx) => (
+                    <div key={idx} className={styles.featureItem}>
+                      <span className={styles.checkBadge} aria-hidden="true">
+                        <Check size={11} strokeWidth={2.6} />
+                      </span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
-        </div>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 2: CHOOSE YOUR OPTION (INTERACTIVE CARDS)
-            ══════════════════════════════════════════════════════════ */}
-        <div className={styles.chooseSection}>
-          <h3 className={styles.subSectionTitle}>Choose your option</h3>
+          {/* ══════════════════════════════════════════════════════════
+              SECTION 2: CHOOSE YOUR OPTION (INTERACTIVE CARDS)
+              ══════════════════════════════════════════════════════════ */}
+          <div className={styles.chooseSection}>
+            <h3 className={styles.subSectionTitle}>Choose your option</h3>
 
-          <div
-            className={styles.optionCardsGrid}
-            style={{ "--option-cols": currentData.options.length }}
-            role="radiogroup"
-            aria-label="Pricing Options"
-          >
-            {currentData.options.map((opt) => {
-              const isSelected = selectedOption === opt.id;
-              return (
-                <div
-                  key={opt.id}
-                  role="radio"
-                  tabIndex={0}
-                  aria-checked={isSelected}
-                  className={`${styles.optionCard} ${isSelected ? styles.optionCardActive : ""}`}
-                  onClick={() => setSelectedOption(opt.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setSelectedOption(opt.id);
-                    }
-                  }}
-                >
-                  <div className={styles.optionHeader}>
+            <AnimatePresence mode="wait" custom={direction} initial={false}>
+              <motion.div
+                key={audience}
+                custom={direction}
+                variants={lowerDeckVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className={styles.optionCardsGrid}
+                style={{ "--option-cols": currentData.options.length }}
+                role="radiogroup"
+                aria-label="Pricing Options"
+              >
+                {currentData.options.map((opt) => {
+                  const isSelected = selectedOption === opt.id;
+                  return (
                     <div
-                      className={`${styles.radioIndicator} ${isSelected ? styles.radioSelected : ""}`}
+                      key={opt.id}
+                      role="radio"
+                      tabIndex={0}
+                      aria-checked={isSelected}
+                      className={`${styles.optionCard} ${isSelected ? styles.optionCardActive : ""}`}
+                      onClick={() => setSelectedOption(opt.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSelectedOption(opt.id);
+                        }
+                      }}
                     >
-                      {isSelected && <span className={styles.radioDot} />}
-                    </div>
-                    <h4 className={styles.optionName}>{opt.name}</h4>
-                  </div>
-
-                  <p className={styles.optionBody}>{opt.description}</p>
-
-                  <span className={styles.optionTag}>{opt.tag}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 3: ACTION CTA BAR (WHATSAPP DEEP LINK + DEMO)
-            ══════════════════════════════════════════════════════════ */}
-        <div className={styles.ctaBar}>
-          <Magnetic>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.quoteBtn}
-              aria-label={`Get a quote on WhatsApp for ${currentData.categoryLabel} ${activeOption.name}`}
-            >
-              <WhatsAppIcon className={styles.whatsappIcon} size={18} />
-              <span>Get a quote on WhatsApp</span>
-              <ArrowRight size={17} strokeWidth={2.5} className={styles.btnArrow} aria-hidden="true" />
-            </a>
-          </Magnetic>
-
-
-        </div>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 4: COMPARE OPTIONS FEATURE MATRIX TABLE
-            ══════════════════════════════════════════════════════════ */}
-        <div className={styles.compareSection}>
-          <h3 className={styles.subSectionTitle}>Compare options</h3>
-
-          <div className={styles.tableWrap}>
-            <table className={styles.compareTable}>
-              <thead>
-                <tr className={styles.tableHeadRow}>
-                  <th className={styles.thFeature} scope="col">
-                    Feature
-                  </th>
-                  {currentData.options.map((opt) => {
-                    const isColActive = selectedOption === opt.id;
-                    return (
-                      <th
-                        key={opt.id}
-                        scope="col"
-                        className={`${styles.thCol} ${isColActive ? styles.thColActive : ""}`}
-                        onClick={() => setSelectedOption(opt.id)}
-                        title={`Select ${opt.name}`}
-                      >
-                        {opt.name}
-                      </th>
-                    );
-                  })}
-                </tr>
-              </thead>
-              <tbody>
-                {currentData.matrix.map((row, idx) => (
-                  <tr key={idx} className={styles.tableRow}>
-                    <td className={styles.tdFeature}>{row.feature}</td>
-                    {currentData.options.map((opt) => {
-                      const isColActive = selectedOption === opt.id;
-                      const isIncluded = row.availability[opt.id] ?? false;
-
-                      return (
-                        <td
-                          key={opt.id}
-                          className={`${styles.tdVal} ${isColActive ? styles.tdValActive : ""}`}
+                      <div className={styles.optionHeader}>
+                        <div
+                          className={`${styles.radioIndicator} ${isSelected ? styles.radioSelected : ""}`}
                         >
-                          {isIncluded ? (
-                            <span
-                              className={styles.checkIncluded}
-                              aria-label={`${row.feature} included in ${opt.name}`}
-                            >
-                              <Check size={13} strokeWidth={2.6} />
-                            </span>
-                          ) : (
-                            <span
-                              className={styles.dashExcluded}
-                              aria-label={`${row.feature} not included in ${opt.name}`}
-                            >
-                              —
-                            </span>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                          {isSelected && <span className={styles.radioDot} />}
+                        </div>
+                        <h4 className={styles.optionName}>{opt.name}</h4>
+                      </div>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 5: TRANSPARENT FOOTNOTE STRIP
-            ══════════════════════════════════════════════════════════ */}
-        <p className={styles.pricingFootnote}>{currentData.footnote}</p>
-      </div>
-    </section>
+                      <p className={styles.optionBody}>{opt.description}</p>
+
+                      <span className={styles.optionTag}>{opt.tag}</span>
+                    </div>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* ══════════════════════════════════════════════════════════
+              SECTION 3: ACTION CTA BAR (WHATSAPP DEEP LINK + DEMO)
+              ══════════════════════════════════════════════════════════ */}
+          <div className={styles.ctaBar}>
+            <Magnetic>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.quoteBtn}
+                aria-label={`Get a quote on WhatsApp for ${currentData.categoryLabel} ${activeOption.name}`}
+              >
+                <WhatsAppIcon className={styles.whatsappIcon} size={18} />
+                <span>Get a quote on WhatsApp</span>
+                <ArrowRight size={17} strokeWidth={2.5} className={styles.btnArrow} aria-hidden="true" />
+              </a>
+            </Magnetic>
+          </div>
+
+          {/* ══════════════════════════════════════════════════════════
+              SECTION 4: COMPARE OPTIONS FEATURE MATRIX TABLE
+              ══════════════════════════════════════════════════════════ */}
+          <div className={styles.compareSection}>
+            <h3 className={styles.subSectionTitle}>Compare options</h3>
+
+            <div className={styles.tableWrap}>
+              <AnimatePresence mode="wait" custom={direction} initial={false}>
+                <motion.table
+                  key={audience}
+                  custom={direction}
+                  variants={lowerDeckVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className={styles.compareTable}
+                >
+                  <thead>
+                    <tr className={styles.tableHeadRow}>
+                      <th className={styles.thFeature} scope="col">
+                        Feature
+                      </th>
+                      {currentData.options.map((opt) => {
+                        const isColActive = selectedOption === opt.id;
+                        return (
+                          <th
+                            key={opt.id}
+                            scope="col"
+                            className={`${styles.thCol} ${isColActive ? styles.thColActive : ""}`}
+                            onClick={() => setSelectedOption(opt.id)}
+                            title={`Select ${opt.name}`}
+                          >
+                            {opt.name}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentData.matrix.map((row, idx) => (
+                      <tr key={idx} className={styles.tableRow}>
+                        <td className={styles.tdFeature}>{row.feature}</td>
+                        {currentData.options.map((opt) => {
+                          const isColActive = selectedOption === opt.id;
+                          const isIncluded = row.availability[opt.id] ?? false;
+
+                          return (
+                            <td
+                              key={opt.id}
+                              className={`${styles.tdVal} ${isColActive ? styles.tdValActive : ""}`}
+                            >
+                              {isIncluded ? (
+                                <span
+                                  className={styles.checkIncluded}
+                                  aria-label={`${row.feature} included in ${opt.name}`}
+                                >
+                                  <Check size={13} strokeWidth={2.6} />
+                                </span>
+                              ) : (
+                                <span
+                                  className={styles.dashExcluded}
+                                  aria-label={`${row.feature} not included in ${opt.name}`}
+                                >
+                                  —
+                                </span>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </motion.table>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* ══════════════════════════════════════════════════════════
+              SECTION 5: TRANSPARENT FOOTNOTE STRIP
+              ══════════════════════════════════════════════════════════ */}
+          <p className={styles.pricingFootnote}>{currentData.footnote}</p>
+        </div>
+      </section>
+    </MotionConfig>
   );
 }

@@ -89,7 +89,6 @@
   align-items: center;
   gap: 7px;
   background: #ffffff;
-  border: 1px solid rgba(12, 41, 30, 0.09);
   border-radius: 9999px;
   padding: 8px 15px;
   font-size: 0.82rem;
@@ -304,13 +303,12 @@
 
 .stepCard {
   background: #ffffff;
-  border: 1px solid rgba(12, 41, 30, 0.08);
   border-radius: 22px;
   padding: clamp(24px, 2.8vw, 30px);
   display: flex;
   flex-direction: column;
   gap: 14px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.025);
+  box-shadow: 0 4px 20px rgba(12, 41, 30, 0.03);
 }
 
 .stepCardTop {
@@ -324,7 +322,6 @@
   height: 34px;
   border-radius: 50%;
   background: #edf1e8;
-  border: 1px solid rgba(12, 41, 30, 0.08);
   color: #0c291e;
   display: flex;
   align-items: center;
@@ -362,7 +359,6 @@
 
 .notesContainer {
   background: #edf1e8;
-  border: 1px solid rgba(12, 41, 30, 0.08);
   border-radius: 28px;
   padding: clamp(30px, 4.2vw, 48px);
 }
@@ -393,7 +389,6 @@
   height: 40px;
   border-radius: 12px;
   background: #ffffff;
-  border: 1px solid rgba(12, 41, 30, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -522,13 +517,12 @@
 
 .crumbPill {
   background: #ffffff;
-  border: 1px solid rgba(12, 41, 30, 0.12);
   border-radius: 8px;
   padding: 4px 10px;
   font-size: 0.8rem;
   font-weight: 700;
   color: #0c291e;
-  box-shadow: 0 1px 2px rgba(12, 41, 30, 0.03);
+  box-shadow: 0 1px 3px rgba(12, 41, 30, 0.05);
 }
 
 .crumbArrow {
@@ -538,7 +532,6 @@
 
 .troubleshootBox {
   background: #edf1e8;
-  border: 1px solid rgba(12, 41, 30, 0.09);
   border-radius: 16px;
   padding: 16px 20px;
   font-size: 0.88rem;

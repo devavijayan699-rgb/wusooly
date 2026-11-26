@@ -60,7 +60,7 @@ export default function Home() {
         }
       }
       if (navbarRef.current) {
-        gsap.set(navbarRef.current, { opacity: 0, y: -8 });
+        gsap.set(navbarRef.current, isDesktop ? { opacity: 0, y: -8 } : { opacity: 0 });
       }
       if (audienceRef.current) {
         gsap.set(audienceRef.current, { opacity: 0, y: 8 });
@@ -92,7 +92,7 @@ export default function Home() {
           navbarRef.current,
           {
             opacity: 1,
-            y: 0,
+            ...(isDesktop ? { y: 0, clearProps: "transform" } : {}),
             duration: 0.5,
             ease: "expo.out",
           },
@@ -243,7 +243,7 @@ export default function Home() {
           >
             <Image
               src="/hero/cafe-desktop.webp"
-              alt="Wusooly Café POS studio setup with monitor, receipt printer, barcode scanner and terminal"
+              alt="Wusooly Cafe POS studio setup with monitor, receipt printer, barcode scanner and terminal"
               fill
               priority
               unoptimized
@@ -252,7 +252,7 @@ export default function Home() {
             />
             <Image
               src="/hero/cafe-mobile.webp"
-              alt="Wusooly Café POS studio setup mobile view"
+              alt="Wusooly Cafe POS studio setup mobile view"
               fill
               priority
               unoptimized
@@ -312,7 +312,7 @@ export default function Home() {
               <>
                 Handle billing, stock, purchases, expenses, and performance reports with
                 <br className={styles.descLineBreak} />
-                {" "}Wusooly POS—built for everyday retail operations.
+                {" "}Wusooly POS, built for everyday retail operations.
               </>
             ) : (
               <>

@@ -11,6 +11,11 @@
   padding: 0 16px;
 }
 
+.navDock {
+  position: relative;
+  width: 100%;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -20,7 +25,7 @@
   background: rgba(9, 29, 18, 0.65);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(134, 239, 172, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 9999px;
   box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.35);
   transition: all 0.25s ease;
@@ -29,10 +34,10 @@
 /* Dedicated Non-Hero Solid Obsidian Forest Navbar Variant */
 .navbarSolid {
   background: #0c291e !important;
-  backdrop-filter: blur(22px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.18) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Brand Logo */
@@ -134,7 +139,7 @@
   background: rgba(9, 29, 18, 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(134, 239, 172, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-top: none;
   border-radius: 0 0 24px 24px;
   box-shadow: 
@@ -176,27 +181,26 @@
    Non-Hero Solid Dropdown Notch (Deep Obsidian Forest)
    ========================================================================== */
 .dropdownSolid {
-  top: calc(100% + 7px) !important;
+  top: calc(100% + 3px) !important;
   left: -20px !important;
   width: 380px !important;
-  padding: 8px 8px 10px !important;
+  padding: 13px 8px 10px !important;
   background: #0c291e !important;
-  backdrop-filter: blur(22px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-top: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
   border-radius: 0 0 24px 24px !important;
-  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.18) !important;
+  box-shadow: 0 18px 36px -12px rgba(12, 41, 30, 0.22) !important;
   z-index: 125 !important;
 }
 
 .dropdownSolid::before {
   content: "" !important;
   position: absolute !important;
-  top: 4px !important;
+  top: 0 !important;
   left: -20px !important;
   width: 20px !important;
-  height: 22px !important;
+  height: 26px !important;
   background: radial-gradient(circle at 0% 100%, transparent 20px, #0c291e 20.5px) !important;
   pointer-events: none !important;
 }
@@ -204,10 +208,10 @@
 .dropdownSolid::after {
   content: "" !important;
   position: absolute !important;
-  top: 4px !important;
+  top: 0 !important;
   right: -20px !important;
   width: 20px !important;
-  height: 22px !important;
+  height: 26px !important;
   background: radial-gradient(circle at 100% 100%, transparent 20px, #0c291e 20.5px) !important;
   pointer-events: none !important;
 }
@@ -230,18 +234,16 @@
   border-radius: 14px;
   text-decoration: none;
   color: #ffffff;
-  border: 1px solid transparent;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
 }
 
 .dropdownItem:not(:last-child) {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .dropdownItem:hover {
   background: rgba(180, 240, 70, 0.12);
-  border-color: rgba(180, 240, 70, 0.20);
 }
 
 .dropdownItem:focus-visible {
@@ -260,7 +262,6 @@
   height: 38px;
   border-radius: 11px;
   background: rgba(163, 230, 53, 0.12);
-  border: 1px solid rgba(163, 230, 53, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -272,7 +273,6 @@
 .dropdownItem:hover .dropdownIconBox {
   background: #a3e635;
   color: #071a0e;
-  border-color: #a3e635;
   transform: scale(1.05);
 }
 
@@ -407,6 +407,10 @@
 
 .mobileMenuSolid {
   background: #0c291e !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 16px 36px -12px rgba(12, 41, 30, 0.24) !important;
 }
 
 @keyframes mobileSlide {
@@ -482,7 +486,58 @@
 
 @media (max-width: 768px) {
   .navbarWrapper {
+    height: 56px;
     padding: 0 12px;
+  }
+
+  .navDock {
+    transition:
+      transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.22s ease;
+    will-change: transform, opacity;
+  }
+
+  .navDockFloating {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top, 12px));
+    left: 0;
+    right: 0;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 12px;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+
+  .navDockHidden {
+    transform: translate3d(0, -140%, 0);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .navDockVisible {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navDockFloating .navbar {
+    background: rgba(12, 41, 30, 0.94);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 14px 36px -8px rgba(7, 21, 14, 0.32);
+  }
+
+  .navDockFloating .navbar.navbarSolid {
+    background: #0c291e !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .navDockFloating .mobileMenu {
+    left: 12px;
+    right: 12px;
   }
 
   .navbar {
@@ -500,6 +555,12 @@
 
   .hamburgerBtn {
     display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navDock {
+    transition: none;
   }
 }
 

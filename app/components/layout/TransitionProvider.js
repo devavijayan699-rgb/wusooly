@@ -20,13 +20,16 @@ export default function TransitionProvider({ children }) {
       scrollTo?.(0, { immediate: true });
     }
 
-    // Refresh ScrollTriggers for new page DOM
+    // Refresh ScrollTriggers for new page DOM and resolve hash target (or top for tab hashes)
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
       if (targetHash) {
         const el = document.getElementById(targetHash);
         if (el) {
           el.scrollIntoView({ behavior: "smooth" });
+        } else {
+          window.scrollTo(0, 0);
+          scrollTo?.(0, { immediate: true });
         }
       }
     }, 100);
@@ -37,17 +40,14 @@ export default function TransitionProvider({ children }) {
   // Handle browser back/forward buttons (popstate)
   useEffect(() => {
     const handlePopState = () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
       setTimeout(() => {
-        window.scrollTo(0, 0);
-        scrollTo?.(0, { immediate: true });
         ScrollTrigger.refresh();
-      }, 50);
+      }, 80);
     };
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [scrollTo]);
+  }, []);
 
   return <>{children}</>;
 }

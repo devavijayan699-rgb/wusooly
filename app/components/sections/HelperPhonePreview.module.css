@@ -1,73 +1,285 @@
-.deviceWrap {
+/* ==========================================================================
+   Wusooly Helper — Nothing Phone (4a) Pro Hardware Studio Mockup
+   Real Physical Dimensions: 163.66 mm x 76.62 mm (20:9 Display / ~1:2.136 Body)
+   Concentric Radii: Aluminum Rim (36px) -> Symmetrical Bezel (34px) -> OLED (29.5px)
+   ========================================================================== */
+
+.deviceStage {
+  position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  padding: clamp(14px, 2.2vw, 26px) 14px clamp(24px, 3.2vw, 34px);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  box-sizing: border-box;
 }
 
-.deviceFrame {
+/* Minimal directional contact shadow (light from top-right -> shadow bottom-left) */
+.floorShadow {
+  position: absolute;
+  bottom: clamp(12px, 1.8vw, 20px);
+  left: 47.5%;
+  transform: translateX(-50%);
+  width: min(220px, 60%);
+  height: 14px;
+  background: radial-gradient(ellipse at center,
+      rgba(7, 21, 14, 0.14) 0%,
+      rgba(7, 21, 14, 0.04) 52%,
+      rgba(7, 21, 14, 0) 78%);
+  filter: blur(6px);
+  z-index: 0;
+}
+
+.phoneRig {
   position: relative;
   width: 100%;
-  max-width: 318px;
-  background: #0c291e;
-  border-radius: 38px;
-  padding: 12px;
-  border: 1px solid rgba(12, 41, 30, 0.28);
-  box-shadow:
-    0 28px 64px -16px rgba(12, 41, 30, 0.28),
-    0 4px 16px rgba(0, 0, 0, 0.08),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  max-width: 290px;
+  z-index: 1;
 }
 
-.speakerBar {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  pointer-events: none;
-}
-
-.cameraDot {
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #07150e;
-  border: 1.5px solid rgba(255, 255, 255, 0.16);
-}
-
-.screen {
-  background: #f5f5f3;
-  border-radius: 28px;
-  padding: 10px 14px 14px;
+/* Brushed Black Aluminum Unibody Frame — Nothing Phone (4a) Pro (76.62 x 163.66 mm) */
+.chassisOuter {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 76.62 / 163.66;
   display: flex;
   flex-direction: column;
-  gap: 11px;
-  font-family: var(--font-sans, "Manrope", sans-serif);
-  color: #0c291e;
+  border-radius: 36px;
+  padding: 2px;
+  /* Directional top-right lighting (225deg: top-right -> bottom-left) */
+  background: linear-gradient(225deg,
+      #4a5650 0%,
+      #212b26 22%,
+      #0f1613 58%,
+      #090e0c 100%);
+  /* Minimal top-right key-light directional shadow (falls clean to bottom-left) */
+  box-shadow:
+    inset -0.5px 0.5px 0 rgba(255, 255, 255, 0.18),
+    -2px 3px 6px rgba(7, 21, 14, 0.07),
+    -12px 16px 32px -8px rgba(7, 21, 14, 0.13),
+    -24px 32px 52px -18px rgba(7, 21, 14, 0.07);
+  box-sizing: border-box;
 }
 
+/* Machined Antenna Break Seams */
+.antennaBand {
+  position: absolute;
+  background: rgba(11, 17, 14, 0.85);
+  z-index: 2;
+}
+
+.antennaTopLeft {
+  top: 42px;
+  left: -0.5px;
+  width: 2.5px;
+  height: 2px;
+}
+
+.antennaTopRight {
+  top: 42px;
+  right: -0.5px;
+  width: 2.5px;
+  height: 2px;
+}
+
+.antennaBottomLeft {
+  bottom: 44px;
+  left: -0.5px;
+  width: 2.5px;
+  height: 2px;
+}
+
+.antennaBottomRight {
+  bottom: 44px;
+  right: -0.5px;
+  width: 2.5px;
+  height: 2px;
+}
+
+/* Nothing Phone (4a) Pro Left-Edge Essential Key */
+.essentialKey {
+  position: absolute;
+  top: 224px;
+  left: -2.5px;
+  width: 2.5px;
+  height: 30px;
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(180deg,
+      #35403a 0%,
+      #1d2621 50%,
+      #0e1512 100%);
+  box-shadow:
+    inset 1px 0 0 rgba(255, 255, 255, 0.12),
+    -1.5px 2px 3px rgba(7, 21, 14, 0.22);
+}
+
+/* Extruded Metallic Hardware Buttons (Right Side Edge: Volume + Power) */
+.volumeKey {
+  position: absolute;
+  top: 136px;
+  right: -2.5px;
+  width: 2.5px;
+  height: 56px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg,
+      #54625b 0%,
+      #2b3630 45%,
+      #151d19 100%);
+  box-shadow:
+    inset -1px 0.5px 0 rgba(255, 255, 255, 0.24),
+    -1px 2px 2px rgba(7, 21, 14, 0.14);
+}
+
+.powerKey {
+  position: absolute;
+  top: 210px;
+  right: -2.5px;
+  width: 2.5px;
+  height: 34px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg,
+      #5b6962 0%,
+      #2c3831 50%,
+      #141c18 100%);
+  box-shadow:
+    inset -1px 0.5px 0 rgba(255, 255, 255, 0.24),
+    -1px 2px 2px rgba(7, 21, 14, 0.14);
+}
+
+/* Symmetrical Uniform OLED Display Bezel */
+.oledBezel {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #050807;
+  border-radius: 34px;
+  padding: 4.5px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 2px 6px rgba(0, 0, 0, 0.92);
+}
+
+/* Top Earpiece Speaker Micro-Slit */
+.speakerSlit {
+  position: absolute;
+  top: 1.5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 1.5px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #111714 0%, #1d2621 50%, #111714 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.95),
+    0 0.5px 0 rgba(255, 255, 255, 0.09);
+  z-index: 12;
+}
+
+/* Lit 6.83" 20:9 AMOLED Display Glass */
+.screen {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #f5f5f3;
+  border-radius: 29.5px;
+  padding: 12px 13px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  font-family: var(--font-sans, "Manrope", sans-serif);
+  color: #0c291e;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(7, 21, 14, 0.1);
+}
+
+/* Native Android Status Bar + Sapphire Camera Lens */
 .statusBar {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
   color: #0c291e;
-  padding: 0 4px 2px;
+  padding: 1px 6px 3px;
+  min-height: 18px;
+}
+
+.time {
+  letter-spacing: -0.01em;
+}
+
+.cameraLens {
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10.5px;
+  height: 10.5px;
+  border-radius: 50%;
+  background: #070a09;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 0.8px rgba(0, 0, 0, 0.25),
+    inset 0 0 2px rgba(0, 0, 0, 0.9);
+  z-index: 5;
+}
+
+.cameraGlass {
+  position: relative;
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 36%,
+      #3d669e 0%,
+      #11223b 48%,
+      #030509 100%);
+  display: block;
+}
+
+.cameraGlint {
+  position: absolute;
+  top: 1.5px;
+  left: 1.8px;
+  width: 1.8px;
+  height: 1.8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .statusIcons {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4.5px;
 }
 
+.batteryCluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5px;
+}
+
+.batteryPct {
+  font-size: 0.57rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* App Header */
 .appHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2px 2px 4px;
+  padding: 2px 2px 3px;
 }
 
 .appBrand {
@@ -77,33 +289,33 @@
 }
 
 .brandLogo {
-  height: 15px;
+  height: 14.5px;
   width: auto;
   object-fit: contain;
   display: block;
 }
 
 .helperTag {
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #0c291e;
   background: #edf1e8;
-  border: 1px solid rgba(12, 41, 30, 0.08);
   padding: 2px 7px;
   border-radius: 9999px;
 }
 
-/* ── Status Card Inside App Screen ── */
+/* Status Card Inside App Screen */
 .statusCard {
   background: #ffffff;
-  border: 1px solid rgba(12, 41, 30, 0.08);
-  border-radius: 18px;
-  padding: 14px;
+  border-radius: 17px;
+  padding: 13px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 4px 14px rgba(12, 41, 30, 0.04);
+  gap: 7px;
+  box-shadow:
+    0 1px 2px rgba(12, 41, 30, 0.04),
+    0 6px 16px -4px rgba(12, 41, 30, 0.06);
 }
 
 .statusPill {
@@ -111,7 +323,7 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: #0c291e;
@@ -124,19 +336,12 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-}
-
-.liveDotActive {
   background: #65a30d;
-  box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.38);
-}
-
-.liveDotPaused {
-  background: #9ca3af;
+  box-shadow: 0 0 0 2.5px rgba(163, 230, 53, 0.36);
 }
 
 .statusTitle {
-  font-size: 0.88rem;
+  font-size: 0.87rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: #0c291e;
@@ -145,7 +350,7 @@
 
 .statusSub {
   font-size: 0.69rem;
-  line-height: 1.4;
+  line-height: 1.42;
   color: #4a5c52;
   margin: 0;
 }
@@ -153,16 +358,16 @@
 .statusRows {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 8px 0 4px;
-  border-top: 1px solid rgba(12, 41, 30, 0.07);
+  gap: 7px;
+  padding: 10px 0 5px;
+  border-top: 1px solid rgba(12, 41, 30, 0.06);
 }
 
 .statusRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.67rem;
+  font-size: 0.66rem;
 }
 
 .rowLabel {
@@ -189,23 +394,24 @@
 .managePill {
   background: #0c291e;
   color: #a3e635;
-  font-size: 0.69rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-align: center;
-  padding: 7px 12px;
+  padding: 8px 12px;
   border-radius: 9999px;
-  margin-top: 2px;
+  margin-top: 4px;
+  box-shadow: 0 2px 6px rgba(12, 41, 30, 0.14);
 }
 
-/* ── Setting Toggle Groups ── */
+/* Setting Groups */
 .groupBlock {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 }
 
 .groupHeading {
-  font-size: 0.58rem;
+  font-size: 0.56rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   color: #53645b;
@@ -214,12 +420,14 @@
 
 .settingCard {
   background: #ffffff;
-  border: 1px solid rgba(12, 41, 30, 0.08);
   border-radius: 14px;
-  padding: 9px 11px;
+  padding: 11px 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 9px;
+  box-shadow:
+    0 1px 2px rgba(12, 41, 30, 0.03),
+    0 4px 12px -4px rgba(12, 41, 30, 0.05);
 }
 
 .settingRow {
@@ -236,34 +444,34 @@
 }
 
 .settingTitle {
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   font-weight: 700;
   color: #0c291e;
 }
 
 .settingDesc {
-  font-size: 0.61rem;
+  font-size: 0.6rem;
   color: #53645b;
   line-height: 1.3;
 }
 
 .settingDivider {
   height: 1px;
-  background: rgba(12, 41, 30, 0.07);
+  background: rgba(12, 41, 30, 0.06);
 }
 
-/* ── Switches ── */
+/* Static Recessed Android Switches (Non-Interactive) */
 .switch {
   position: relative;
+  display: inline-block;
   width: 34px;
   height: 20px;
   border-radius: 9999px;
-  background: #d1d5db;
-  border: none;
+  background: #0c291e;
   padding: 2px;
-  cursor: pointer;
   flex-shrink: 0;
-  transition: background-color 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.36);
+  box-sizing: border-box;
 }
 
 .switchSm {
@@ -271,40 +479,50 @@
   height: 17px;
 }
 
-.switchOn {
-  background: #0c291e;
-}
-
 .switchThumb {
   display: block;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #ffffff;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+  background: #a3e635;
+  transform: translateX(14px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.32);
 }
 
 .switchSm .switchThumb {
   width: 13px;
   height: 13px;
-}
-
-.switchOn .switchThumb {
-  transform: translateX(14px);
-  background: #a3e635;
-}
-
-.switchSm.switchOn .switchThumb {
   transform: translateX(13px);
 }
 
-.screenFooter {
+/* Android Gesture Pill */
+.gestureBarWrap {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 5px;
-  font-size: 0.61rem;
-  font-weight: 600;
-  color: #53645b;
-  padding-top: 2px;
+  margin-top: auto;
+  padding: 4px 0 1px;
+}
+
+.gestureBar {
+  width: 88px;
+  height: 3.5px;
+  border-radius: 999px;
+  background: rgba(12, 41, 30, 0.22);
+}
+
+@media (max-width: 400px) {
+  .screen {
+    padding: 8px 10px 6px;
+    gap: 8px;
+  }
+
+  .statusCard {
+    padding: 10px 11px;
+    gap: 5.5px;
+  }
+
+  .settingCard {
+    padding: 8px 10px;
+    gap: 6px;
+  }
 }

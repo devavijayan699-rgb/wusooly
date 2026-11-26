@@ -12,7 +12,7 @@ import styles from "./contact.module.css";
 
 const BUSINESS_OPTIONS = [
   { value: "Shops & Supermarkets", label: "Shops & Supermarkets" },
-  { value: "Cafés & Restaurants", label: "Cafés & Restaurants" },
+  { value: "Cafes & Restaurants", label: "Cafes & Restaurants" },
 ];
 
 export default function ContactPage() {

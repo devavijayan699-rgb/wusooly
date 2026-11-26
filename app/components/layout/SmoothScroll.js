@@ -76,8 +76,24 @@ function LenisGsapSync({ onLenisReady }) {
     const timer = setTimeout(scrollToInitialHash, 250);
     window.addEventListener("hashchange", scrollToInitialHash);
 
+    // Keep Lenis bounds and ScrollTrigger positions accurate when tabs or FAQs resize the page
+    let resizeTimer;
+    let ro;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          lenis.resize();
+          ScrollTrigger.refresh();
+        }, 160);
+      });
+      ro.observe(document.body);
+    }
+
     return () => {
       clearTimeout(timer);
+      clearTimeout(resizeTimer);
+      ro?.disconnect();
       window.removeEventListener("hashchange", scrollToInitialHash);
       document.removeEventListener("click", handleAnchorClick);
       lenis.off("scroll", handleScroll);

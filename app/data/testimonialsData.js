@@ -1,7 +1,7 @@
 export const TESTIMONIALS_HEADER = {
   headline: "The Regional Standard",
   subtext:
-    "Trusted by multi-branch supermarkets, hospitality groups, and independent operators across the region.",
+    "Trusted by supermarkets, retail shops, restaurants, and cafes across the region.",
 };
 
 export const TESTIMONIALS = [

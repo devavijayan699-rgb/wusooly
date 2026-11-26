@@ -103,12 +103,12 @@
 
 .accordionItem {
   position: relative;
-  border-bottom: 1px solid rgba(12, 41, 30, 0.1);
+  border-bottom: 1px solid rgba(12, 41, 30, 0.07);
   transition: border-color 0.2s ease;
 }
 
 .accordionItem:first-child {
-  border-top: 1px solid rgba(12, 41, 30, 0.1);
+  border-top: 1px solid rgba(12, 41, 30, 0.07);
 }
 
 .questionBtn {
@@ -150,30 +150,26 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1.5px solid rgba(12, 41, 30, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #0c291e;
   flex-shrink: 0;
-  background-color: transparent;
+  background-color: rgba(12, 41, 30, 0.06);
   box-shadow: none;
   transition:
     transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.2s ease,
-    border-color 0.2s ease,
     color 0.2s ease;
 }
 
 .questionBtn:hover .toggleCircle {
-  background-color: #edf1e8;
-  border-color: #0c291e;
+  background-color: #e2ead9;
   transform: scale(1.06);
 }
 
 .circleOpen {
   background-color: #a3e635;
-  border-color: #a3e635;
   color: #07150e;
   box-shadow: none;
 }

@@ -1,173 +1,150 @@
-"use client";
-
-import { useState } from "react";
-import { Wifi, BatteryFull, CheckCircle2, PhoneCall, Bell, ShieldCheck } from "lucide-react";
+import { Signal, Wifi, BatteryFull, CheckCircle2, PhoneCall, Bell } from "lucide-react";
 import styles from "./HelperPhonePreview.module.css";
 
-export default function HelperPhonePreview() {
-  const [masterEnabled, setMasterEnabled] = useState(true);
-  const [forwardCalls, setForwardCalls] = useState(true);
-  const [includeContacts, setIncludeContacts] = useState(true);
-  const [whatsappEnabled, setWhatsappEnabled] = useState(true);
-
+function StaticSwitch({ small = false }) {
   return (
-    <div className={styles.deviceWrap}>
-      <div className={styles.deviceFrame} aria-label="Wusooly Helper Android app preview">
-        {/* Punch-hole camera */}
-        <div className={styles.speakerBar} aria-hidden="true">
-          <span className={styles.cameraDot} />
-        </div>
+    <span
+      aria-hidden="true"
+      className={`${styles.switch} ${small ? styles.switchSm : ""}`}
+    >
+      <span className={styles.switchThumb} />
+    </span>
+  );
+}
 
-        <div className={styles.screen}>
-          {/* Status bar */}
-          <div className={styles.statusBar} aria-hidden="true">
-            <span className={styles.time}>9:41</span>
-            <div className={styles.statusIcons}>
-              <Wifi size={11} strokeWidth={2.4} />
-              <BatteryFull size={13} strokeWidth={2.2} />
-            </div>
-          </div>
+export default function HelperPhonePreview() {
+  return (
+    <div className={styles.deviceStage} aria-label="Wusooly Helper Android app mockup">
+      <div className={styles.floorShadow} aria-hidden="true" />
 
-          {/* App header */}
-          <div className={styles.appHeader}>
-            <div className={styles.appBrand}>
-              <img
-                src="/brand/wusooly-logo-dark.png"
-                alt="Wusooly"
-                className={styles.brandLogo}
-              />
-              <span className={styles.helperTag}>Helper</span>
-            </div>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={masterEnabled}
-              aria-label="Toggle Wusooly Helper service"
-              className={`${styles.switch} ${masterEnabled ? styles.switchOn : ""}`}
-              onClick={() => setMasterEnabled((v) => !v)}
-            >
-              <span className={styles.switchThumb} />
-            </button>
-          </div>
+      <div className={styles.phoneRig} aria-hidden="true">
+        <div className={styles.chassisOuter}>
+          {/* Antenna split seams & Nothing Phone (4a) Pro hardware keys */}
+          <span className={`${styles.antennaBand} ${styles.antennaTopLeft}`} />
+          <span className={`${styles.antennaBand} ${styles.antennaTopRight}`} />
+          <span className={`${styles.antennaBand} ${styles.antennaBottomLeft}`} />
+          <span className={`${styles.antennaBand} ${styles.antennaBottomRight}`} />
+          <span className={styles.essentialKey} />
+          <span className={styles.volumeKey} />
+          <span className={styles.powerKey} />
 
-          {/* Connection status card */}
-          <div className={styles.statusCard}>
-            <div className={styles.statusPill}>
-              <span
-                className={`${styles.liveDot} ${masterEnabled ? styles.liveDotActive : styles.liveDotPaused}`}
-              />
-              <span>{masterEnabled ? "Live Bridge" : "Paused"}</span>
-            </div>
+          <div className={styles.oledBezel}>
+            {/* Micro speaker slit embedded along top bezel edge */}
+            <div className={styles.speakerSlit} />
 
-            <div className={styles.statusTitle}>
-              {masterEnabled ? "Your POS is connected" : "Connection paused"}
-            </div>
-            <p className={styles.statusSub}>
-              {masterEnabled
-                ? "Shop phone alerts stream directly to Main Counter."
-                : "Enable service to resume forwarding to the POS."}
-            </p>
-
-            <div className={styles.statusRows}>
-              <div className={styles.statusRow}>
-                <span className={styles.rowLabel}>
-                  <CheckCircle2 size={12} strokeWidth={2.2} />
-                  Paired POS
+            <div className={styles.screen}>
+              {/* Native Android Status Bar + Optical Punch-Hole Camera */}
+              <div className={styles.statusBar}>
+                <span className={styles.time}>10:42</span>
+                <span className={styles.cameraLens}>
+                  <span className={styles.cameraGlass}>
+                    <span className={styles.cameraGlint} />
+                  </span>
                 </span>
-                <span className={styles.rowValue}>Counter #1</span>
+                <div className={styles.statusIcons}>
+                  <Signal size={10} strokeWidth={2.4} />
+                  <Wifi size={10} strokeWidth={2.4} />
+                  <span className={styles.batteryCluster}>
+                    <span className={styles.batteryPct}>94%</span>
+                    <BatteryFull size={12.5} strokeWidth={2.2} />
+                  </span>
+                </div>
               </div>
-              <div className={styles.statusRow}>
-                <span className={styles.rowLabel}>
-                  <PhoneCall size={12} strokeWidth={2.2} />
-                  Caller ID access
-                </span>
-                <span className={styles.rowValueOk}>Allowed</span>
+
+              {/* App Header */}
+              <div className={styles.appHeader}>
+                <div className={styles.appBrand}>
+                  <img
+                    src="/brand/wusooly-logo-dark.png"
+                    alt=""
+                    className={styles.brandLogo}
+                  />
+                  <span className={styles.helperTag}>Helper</span>
+                </div>
+                <StaticSwitch />
               </div>
-              <div className={styles.statusRow}>
-                <span className={styles.rowLabel}>
-                  <Bell size={12} strokeWidth={2.2} />
-                  Notification service
-                </span>
-                <span className={styles.rowValueOk}>Enabled</span>
+
+              {/* Connection Status Card */}
+              <div className={styles.statusCard}>
+                <div className={styles.statusPill}>
+                  <span className={styles.liveDot} />
+                  <span>Live Bridge</span>
+                </div>
+
+                <div className={styles.statusTitle}>Your POS is connected</div>
+                <p className={styles.statusSub}>
+                  Shop phone alerts stream directly to Main Counter.
+                </p>
+
+                <div className={styles.statusRows}>
+                  <div className={styles.statusRow}>
+                    <span className={styles.rowLabel}>
+                      <CheckCircle2 size={11.5} strokeWidth={2.2} />
+                      Paired POS
+                    </span>
+                    <span className={styles.rowValue}>Counter #1</span>
+                  </div>
+                  <div className={styles.statusRow}>
+                    <span className={styles.rowLabel}>
+                      <PhoneCall size={11.5} strokeWidth={2.2} />
+                      Caller ID access
+                    </span>
+                    <span className={styles.rowValueOk}>Allowed</span>
+                  </div>
+                  <div className={styles.statusRow}>
+                    <span className={styles.rowLabel}>
+                      <Bell size={11.5} strokeWidth={2.2} />
+                      Notification service
+                    </span>
+                    <span className={styles.rowValueOk}>Enabled</span>
+                  </div>
+                </div>
+
+                <div className={styles.managePill}>Manage connection</div>
+              </div>
+
+              {/* Static Feature Groups */}
+              <div className={styles.groupBlock}>
+                <div className={styles.groupHeading}>CALLS</div>
+                <div className={styles.settingCard}>
+                  <div className={styles.settingRow}>
+                    <div className={styles.settingInfo}>
+                      <span className={styles.settingTitle}>Forward incoming calls</span>
+                      <span className={styles.settingDesc}>Show caller popup on POS screen</span>
+                    </div>
+                    <StaticSwitch small />
+                  </div>
+
+                  <div className={styles.settingDivider} />
+
+                  <div className={styles.settingRow}>
+                    <div className={styles.settingInfo}>
+                      <span className={styles.settingTitle}>Include saved contacts</span>
+                      <span className={styles.settingDesc}>Match stored shop contact names</span>
+                    </div>
+                    <StaticSwitch small />
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.groupBlock}>
+                <div className={styles.groupHeading}>WHATSAPP</div>
+                <div className={styles.settingCard}>
+                  <div className={styles.settingRow}>
+                    <div className={styles.settingInfo}>
+                      <span className={styles.settingTitle}>WhatsApp Business</span>
+                      <span className={styles.settingDesc}>Relay incoming order alerts</span>
+                    </div>
+                    <StaticSwitch small />
+                  </div>
+                </div>
+              </div>
+
+              {/* Android System Navigation Gesture Bar */}
+              <div className={styles.gestureBarWrap}>
+                <span className={styles.gestureBar} />
               </div>
             </div>
-
-            <div className={styles.managePill}>Manage connection</div>
-          </div>
-
-          {/* Interactive toggle groups */}
-          <div className={styles.groupBlock}>
-            <div className={styles.groupHeading}>CALLS</div>
-            <div className={styles.settingCard}>
-              <div className={styles.settingRow}>
-                <div className={styles.settingInfo}>
-                  <span className={styles.settingTitle}>Forward incoming calls</span>
-                  <span className={styles.settingDesc}>Show caller popup on POS screen</span>
-                </div>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={forwardCalls && masterEnabled}
-                  aria-label="Toggle forward incoming calls"
-                  className={`${styles.switch} ${styles.switchSm} ${
-                    forwardCalls && masterEnabled ? styles.switchOn : ""
-                  }`}
-                  onClick={() => setForwardCalls((v) => !v)}
-                >
-                  <span className={styles.switchThumb} />
-                </button>
-              </div>
-
-              <div className={styles.settingDivider} />
-
-              <div className={styles.settingRow}>
-                <div className={styles.settingInfo}>
-                  <span className={styles.settingTitle}>Include saved contacts</span>
-                  <span className={styles.settingDesc}>Match stored shop contact names</span>
-                </div>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={includeContacts && masterEnabled}
-                  aria-label="Toggle include saved contacts"
-                  className={`${styles.switch} ${styles.switchSm} ${
-                    includeContacts && masterEnabled ? styles.switchOn : ""
-                  }`}
-                  onClick={() => setIncludeContacts((v) => !v)}
-                >
-                  <span className={styles.switchThumb} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.groupBlock}>
-            <div className={styles.groupHeading}>WHATSAPP</div>
-            <div className={styles.settingCard}>
-              <div className={styles.settingRow}>
-                <div className={styles.settingInfo}>
-                  <span className={styles.settingTitle}>WhatsApp Business</span>
-                  <span className={styles.settingDesc}>Relay incoming order alerts</span>
-                </div>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={whatsappEnabled && masterEnabled}
-                  aria-label="Toggle WhatsApp Business alerts"
-                  className={`${styles.switch} ${styles.switchSm} ${
-                    whatsappEnabled && masterEnabled ? styles.switchOn : ""
-                  }`}
-                  onClick={() => setWhatsappEnabled((v) => !v)}
-                >
-                  <span className={styles.switchThumb} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.screenFooter}>
-            <ShieldCheck size={11} strokeWidth={2.2} />
-            <span>Encrypted LAN bridge</span>
           </div>
         </div>
       </div>
